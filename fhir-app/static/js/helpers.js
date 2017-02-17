@@ -107,6 +107,7 @@ function get_patient_name(patient)
   		{
   			console.log('got error in stent msg');
 			console.log(response.errorMessage);
+			$("#stent-risk").text(response.errorMessage)
   		}
   	})
   }
