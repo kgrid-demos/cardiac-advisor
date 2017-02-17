@@ -16,6 +16,8 @@ $(document).ready(function()
 				patientInfo = pt;
 				console.log(patientInfo);
 
+				$("#patient-age").text(calculateAge(pt.birthDate))
+
 				get_ischemic_data(pt);
 				get_stent_data();
 				$(".visual-field").slideDown("slow");
