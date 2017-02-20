@@ -1,0 +1,142 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Larry in Sandbox",
+		"_postman_id": "970845de-c067-7682-05bc-0566c0ec45c3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Remove Larry from Sandbox",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Patient/kgrid-01",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic Z3FtZW5nOlNoOTQyNg==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Larry to Sandbox using PUT",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Patient/kgrid-01",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Z3FtZW5nOlNoOTQyNg==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"kgrid-01\",\n  \"meta\": {\n    \"versionId\": \"201931\",\n    \"lastUpdated\": \"2016-03-09T15:35:50.565+00:00\"\n  },\n  \"identifier\": [\n    {\n      \"use\": \"usual\",\n      \"type\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/v2/0203\",\n            \"code\": \"MR\",\n            \"display\": \"Medical record number\"\n          }\n        ],\n        \"text\": \"Medical record number\"\n      },\n      \"system\": \"http://hospital.smarthealthit.org\",\n      \"value\": \"kgrid-01\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"family\": [\n        \"Lib\"\n      ],\n      \"given\": [\n        \"Larry\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1962-03-10\",\n  \"address\": [\n    {\n      \"use\": \"home\",\n      \"line\": [\n        \"601 Main St.\"\n      ],\n      \"city\": \"Ann Arbor\",\n      \"state\": \"MI\",\n      \"postalCode\": \"48103\",\n      \"country\": \"USA\"\n    }\n  ]\n}"
+				},
+				"description": "Create New Patient of Larry using PUT. The endpoint needs to match id in pateint resource."
+			},
+			"response": []
+		},
+		{
+			"name": "GET Larry's Patient Resource",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Patient/kgrid-01",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Retrieve Patient List from SAMRT Sandbox"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Larry's Observation",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Observation?patient=kgrid-01",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Retrieve Patient's Observation List from SAMRT Sandbox"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Larry's Observation kgrid-lab01",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Observation/kgrid-lab01",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Z3FtZW5nOlNoOTQyNg==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"resourceType\": \"Observation\",\r\n        \"id\": \"kgrid-lab01\",\r\n        \"meta\": {\r\n          \"versionId\": \"57685\",\r\n          \"lastUpdated\": \"2016-03-09T15:31:56.129+00:00\"\r\n        },\r\n        \"text\": {\r\n          \"status\": \"generated\",\r\n          \"div\": \"<div>2016-11-30: Platelet # Bld = 222 10*3/uL</div>\"\r\n        },\r\n        \"status\": \"final\",\r\n        \"category\": {\r\n          \"coding\": [\r\n            {\r\n              \"system\": \"http://hl7.org/fhir/observation-category\",\r\n              \"code\": \"laboratory\",\r\n              \"display\": \"Laboratory\"\r\n            }\r\n          ],\r\n          \"text\": \"Laboratory\"\r\n        },\r\n        \"code\": {\r\n          \"coding\": [\r\n            {\r\n              \"system\": \"http://loinc.org\",\r\n              \"code\": \"26515-7\",\r\n              \"display\": \"Platelet # Bld\"\r\n            }\r\n          ],\r\n          \"text\": \"Platelet # Bld\"\r\n        },\r\n        \"subject\": {\r\n          \"reference\": \"Patient/kgrid-01\"\r\n        },\r\n        \"effectiveDateTime\": \"2016-11-30\",\r\n        \"valueQuantity\": {\r\n          \"value\": 222,\r\n          \"unit\": \"10*3/uL\",\r\n          \"system\": \"http://unitsofmeasure.org\"\r\n        },\r\n        \"referenceRange\": [\r\n          {\r\n            \"low\": {\r\n              \"value\": 150,\r\n              \"unit\": \"10*3/uL\",\r\n              \"system\": \"http://unitsofmeasure.org\",\r\n              \"code\": \"10*3/uL\"\r\n            },\r\n            \"high\": {\r\n              \"value\": 450,\r\n              \"unit\": \"10*3/uL\",\r\n              \"system\": \"http://unitsofmeasure.org\",\r\n              \"code\": \"10*3/uL\"\r\n            },\r\n            \"meaning\": {\r\n              \"coding\": [\r\n                {\r\n                  \"system\": \"http://hl7.org/fhir/referencerange-meaning\",\r\n                  \"code\": \"normal\",\r\n                  \"display\": \"Normal Range\"\r\n                }\r\n              ],\r\n              \"text\": \"Normal Range\"\r\n            }\r\n          }\r\n        ]\r\n      }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Larry's address",
+			"request": {
+				"url": "https://fhir-open-api-dstu2.smarthealthit.org/Patient/kgrid-01",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic Z3FtZW5nOlNoOTQyNg==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"kgrid-01\",\n  \"meta\": {\n    \"versionId\": \"201931\",\n    \"lastUpdated\": \"2016-03-09T15:35:50.565+00:00\"\n  },\n  \"identifier\": [\n    {\n      \"use\": \"usual\",\n      \"type\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/v2/0203\",\n            \"code\": \"MR\",\n            \"display\": \"Medical record number\"\n          }\n        ],\n        \"text\": \"Medical record number\"\n      },\n      \"system\": \"http://hospital.smarthealthit.org\",\n      \"value\": \"kgrid-01\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"family\": [\n        \"Lib\"\n      ],\n      \"given\": [\n        \"Larry\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1962-03-10\",\n  \"address\": [\n    {\n      \"use\": \"home\",\n      \"line\": [\n        \"100 1st St.\"\n      ],\n      \"city\": \"Ann Arbor\",\n      \"state\": \"MI\",\n      \"postalCode\": \"48105\",\n      \"country\": \"USA\"\n    }\n  ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
