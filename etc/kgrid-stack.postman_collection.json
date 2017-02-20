@@ -1,0 +1,191 @@
+{
+	"variables": [],
+	"info": {
+		"name": "kgrid-stack",
+		"_postman_id": "0ecfca50-757f-fa45-4a28-41dcb6f420b0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://kgrid-stack.herokuapp.com/shelf",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/shelf",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Hello World\",\n\"owner\": \"\",\n\"description\": \"Test object, echos name\",\n\"contributors\": \"\",\n\"keywords\": \"echo\",\n\"published\": true\n},\n\"inputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/#\\\"\\n         xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputMessage\\\">\\n        <ot:noofparams>1</ot:noofparams>\\n        <ot:params>\\n            <rdf:Seq>\\n                <rdf:li>name</rdf:li>\\n            </rdf:Seq>\\n        </ot:params>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputs/\\\">\\n        <ot:datatype>STRING</ot:datatype>\\n    </rdf:Description>\\n</rdf:RDF>\\n\",\n\"outputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/\\\"\\n  xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n  <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/outputMessage\\\">\\n    <ot:returntype>STRING</ot:returntype>\\n  </rdf:Description>\\n</rdf:RDF>\\n\",\n\"payload\": {\n\"content\": \"def execute(inputs):\\n    name = inputs[\\\"name\\\"]\\n    return \\\"Hello, \\\" + name\\n\\n#print echo({\\\"inputs\\\":\\\"hello world\\\"})\\n\",\n\"functionName\": \"execute\",\n\"engineType\": \"Python\"\n}\n}"
+				},
+				"description": "kgrid-stack shelf"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/hello/world",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/hello/world",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Hello World\",\n\"owner\": \"\",\n\"description\": \"Test object, echos name\",\n\"contributors\": \"\",\n\"keywords\": \"echo\",\n\"published\": true\n},\n\"inputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/#\\\"\\n         xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputMessage\\\">\\n        <ot:noofparams>1</ot:noofparams>\\n        <ot:params>\\n            <rdf:Seq>\\n                <rdf:li>name</rdf:li>\\n            </rdf:Seq>\\n        </ot:params>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputs/\\\">\\n        <ot:datatype>STRING</ot:datatype>\\n    </rdf:Description>\\n</rdf:RDF>\\n\",\n\"outputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/\\\"\\n  xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n  <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/outputMessage\\\">\\n    <ot:returntype>STRING</ot:returntype>\\n  </rdf:Description>\\n</rdf:RDF>\\n\",\n\"payload\": {\n\"content\": \"def execute(inputs):\\n    name = inputs[\\\"name\\\"]\\n    return \\\"Hello, \\\" + name\\n\\n#print echo({\\\"inputs\\\":\\\"hello world\\\"})\\n\",\n\"functionName\": \"execute\",\n\"engineType\": \"Python\"\n}\n}"
+				},
+				"description": "kgrid-stack PUT hello world"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/hello/world/result",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/hello/world/result",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Kristen\" \n}"
+				},
+				"description": "kgrid-stack POST hello world"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk40s01p75",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk40s01p75",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Icon Array\",\n\"owner\": \"\",\n\"description\": \"JavaScript object to generate visual representation of risk scores. To use, create a div with an id=<any id name>, then create a dictionary with the proper values to pass into the draw_array function. Run the function, and the object will draw the visual where you put your div in the html code. NOTE: this knowledge object uses D3.JS, so to use it you have to include a script source to D3\",\n\"contributors\": \"\",\n\"keywords\": \"Icon, Visual\",\n\"published\": true,\n\"lastModified\": 1486530000000,\n\"createdOn\": 1485147600000,\n\"objectType\": null,\n\"citations\": [],\n\"license\": {\n\"licenseName\": \"\",\n\"licenseLink\": \"null\"\n}\n},\n\"inputMessage\": null,\n\"outputMessage\": null,\n\"payload\": {\n\"content\": \"//divID , count, gridWidth = 10, gridHeight = 10, personFill = \\\"steelblue\\\", backgroundFill = \\\"#FFFFFF\\\", key=true\\nfunction draw_array(instr)\\n{\\n\\t//for drawing svg icon path\\n\\tvar path = \\\"M0,0v40h22V0H0z M11,0.732c1.755,0,3.177,1.423,3.177,3.177c0,1.755-1.422,3.177-3.177,3.177\\\" +\\n\\t\\\"c-1.754,0-3.177-1.422-3.177-3.177C7.823,2.155,9.246,0.732,11,0.732z M18.359,11.884v9.851c0,0.763-0.617,1.381-1.381,1.381\\\" +\\n\\t\\\"c-0.763,0-1.381-0.618-1.381-1.381v-8.967h-0.535v0.124v10.224v14.307c0,1.02-0.826,1.848-1.848,1.848\\\" +\\n\\t\\\"c-1.02,0-1.846-0.828-1.846-1.848V23.114h-0.697v14.307H10.63c0,1.021-0.827,1.847-1.847,1.847c-1.021,0-1.847-0.826-1.847-1.847\\\" +\\n\\t\\\"c0-0.134,0.016-0.264,0.043-0.39V23.114H6.937V12.767H6.401v8.967c0,0.763-0.618,1.381-1.381,1.381s-1.38-0.619-1.38-1.383v-9.85\\\" +\\n\\t\\\"v-0.407c0-2.032,1.647-3.679,3.68-3.68h7.362c2.03,0,3.68,1.647,3.68,3.68v0.408H18.359z\\\";\\n\\n\\tvar personHeight = 39;\\n\\tvar personWidth = 19;\\n\\n\\t//-----FUNCTIONS-----\\n\\tvar initialize_svg = function(divID, width, height, maskDecimal)\\n\\t{\\n\\t\\tvar svgContainer = d3.selectAll(\\\"#\\\" + divID).append(\\\"svg\\\")\\n\\t\\t\\t\\t\\t\\t\\t\\t.attr(\\\"fill\\\", instr.backgroundFill)\\n\\t                       \\t \\t.attr(\\\"width\\\", width)\\n\\t                         \\t.attr(\\\"height\\\", height);\\n\\n\\t\\treturn svgContainer;\\n\\t}\\n\\n\\tvar draw_person = function(svgContainer, fill, path, x, y)\\n\\t{\\n\\t\\tsvgContainer.append(\\\"rect\\\")\\n\\t\\t\\t\\t\\t\\t.attr(\\\"height\\\", personHeight)\\n\\t\\t\\t\\t\\t\\t.attr(\\\"width\\\", personWidth)\\n\\t\\t\\t\\t\\t\\t.attr(\\\"fill\\\", fill)\\n\\t\\t\\t.attr(\\\"transform\\\", \\\"translate(\\\" + x + \\\", \\\" + y + \\\")\\\");\\n\\n\\t\\tsvgContainer.append(\\\"path\\\")\\n\\t\\t\\t.attr(\\\"fill\\\", instr.backgroundFill)\\n\\t\\t\\t.attr(\\\"d\\\", path)\\n\\t\\t\\t.attr(\\\"transform\\\", \\\"translate(\\\" + x + \\\", \\\" + y + \\\")\\\");\\n\\t}\\n\\n    var draw_partial_person = function(svgContainer, fill, path, x, y, portion)\\n    {\\n    \\t\\n    \\tsvgContainer.append(\\\"rect\\\")\\n    \\t\\t\\t\\t\\t.attr(\\\"height\\\", personHeight)\\n    \\t\\t\\t\\t\\t.attr(\\\"width\\\", personWidth)\\n    \\t\\t\\t\\t\\t.attr(\\\"fill\\\", fill)\\n    \\t\\t\\t\\t\\t.attr(\\\"transform\\\", \\\"translate(\\\" + x + \\\", \\\" + y + \\\")\\\");\\n\\n\\t\\tsvgContainer.append(\\\"rect\\\")\\n\\t\\t\\t\\t\\t\\t.attr(\\\"height\\\", personHeight * (1 - portion))\\n\\t\\t\\t\\t\\t\\t.attr(\\\"width\\\", personWidth)\\n\\t\\t\\t\\t\\t\\t.attr(\\\"fill\\\", \\\"#cccccc\\\")\\n\\t\\t\\t\\t\\t\\t.attr(\\\"transform\\\", \\\"translate(\\\" + x + \\\", \\\" + y + \\\")\\\");\\n\\n\\n\\t\\tsvgContainer.append(\\\"path\\\")\\n\\t\\t\\t.attr(\\\"fill\\\", instr.backgroundFill)\\n\\t\\t\\t.attr(\\\"d\\\", path)\\n\\t\\t\\t.attr(\\\"transform\\\", \\\"translate(\\\" + x + \\\", \\\" + y + \\\")\\\");\\n    }\\n\\n\\t//-----BEGIN-----\\n\\n\\n\\tvar height = 45 * instr.gridHeight + 29\\t;\\n\\tvar width = 44 * instr.gridWidth;\\n\\n\\tvar decimal = instr.count - Math.floor(instr.count);\\n\\tif(decimal && decimal < 0.1)\\n\\t{\\n\\t\\tdecimal = 0.1\\n\\t}\\n\\n\\tvar partial = (decimal != 0) ? true : false;\\n\\t//Make an SVG Container\\n\\tvar svgContainer = initialize_svg(instr.divID, width, height, decimal);\\n\\t     \\n\\tvar xDist = 25;\\n\\tvar yCoord = 0;\\n\\tvar yDist = 45\\n\\tvar xCoordMultiplier = 0;\\n\\n\\tvar numGrey = (instr.gridWidth * instr.gridHeight) - Math.ceil(instr.count);\\n\\tconsole.log(numGrey);\\n\\n\\nvar fillColor = function(j, partial = false)\\n{\\n\\tif(j <= numGrey)\\n\\t\\treturn \\\"#cccccc\\\";\\n\\telse\\n\\t\\treturn instr.personFill;\\n}\\n\\n\\nvar c = 1;\\n\\n\\tfor(var i = 0; i < instr.gridHeight; ++i)\\n\\t{\\n\\t\\tfor(var j = 0; j < instr.gridWidth; ++j, xCoordMultiplier++, c++)\\n\\t\\t{\\n\\t\\t\\tif(c > numGrey && partial)\\n\\t\\t\\t{\\n\\t\\t\\t\\tdraw_partial_person(svgContainer, fillColor(c), path, xCoordMultiplier*xDist, yCoord, decimal);\\n\\t\\t\\t\\tpartial = false;\\n\\t\\t\\t}\\n\\t\\t\\telse\\n\\t\\t\\t\\tdraw_person(svgContainer, fillColor(c), path, xCoordMultiplier*xDist, yCoord);\\n\\t\\t}\\n\\t\\txCoordMultiplier = 0;\\n\\t\\tyCoord += yDist;\\n\\t}\\nif(instr.key == true)\\n{\\n\\t\\tyCoord += 25;\\n\\n\\t\\tvar txt = \\\"Number of people affected: \\\" + instr.count;\\n\\n\\t\\tdraw_person(svgContainer, fillColor(0), path, instr.gridWidth * xDist + 30, (instr.gridHeight/2 * personHeight) - 44);\\n\\t\\n\\t\\tsvgContainer.append(\\\"text\\\")\\n\\t\\t\\t\\t\\t.attr(\\\"x\\\", instr.gridWidth * xDist + 32)\\t\\n\\t\\t\\t\\t\\t.attr(\\\"y\\\", instr.gridHeight/2 * personHeight + 20)\\n\\t\\t\\t\\t\\t.attr(\\\"fill\\\", \\\"black\\\")\\n\\t\\t\\t\\t\\t.text(\\\"Not affected\\\");\\n\\n\\t\\tdraw_person(svgContainer, fillColor(numGrey + 1), path, instr.gridHeight * xDist + 30, instr.gridHeight/2 * personHeight + 44)\\n\\n\\t\\tsvgContainer.append(\\\"text\\\")\\n\\t\\t\\t\\t\\t.attr(\\\"x\\\", instr.gridWidth * xDist + 32)\\t\\n\\t\\t\\t\\t\\t.attr(\\\"y\\\", instr.gridHeight/2 * personHeight + 110)\\n\\t\\t\\t\\t\\t.attr(\\\"fill\\\", \\\"black\\\")\\n\\t\\t\\t\\t\\t.text(\\\"Affected\\\");\\n\\t}\\n}\",\n\"functionName\": \"\",\n\"engineType\": \"Python\"\n},\n\"logData\": \"99999-fk40s01p75 wasGeneratedBy http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/99999-fk40s01p75/Log/CreateActivity \\n 99999-fk40s01p75 isA http://www.w3.org/ns/prov#Entity \\n 99999-fk40s01p75 wasAttributedTo Andrew Cullen \\n 99999-fk40s01p75/Log/CreateActivity isA http://www.w3.org/ns/prov#Activity \\n 99999-fk40s01p75/Log/CreateActivity startedAtTime Mon Jan 23 14:53:33 EST 2017 \\n 99999-fk40s01p75/Log/CreateActivity Used http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/99999-fk40s01p75 \\n 99999-fk40s01p75/Log/CreateActivity wasAssociatedWith Andrew Cullen \\n 99999-fk40s01p75/Log/CreateActivity endedAtTime Mon Jan 23 14:53:33 EST 2017 \\n \",\n\"uri\": \"ark:/99999/fk40s01p75\"\n}"
+				},
+				"description": "kgrid-stack PUT ark:/99999/fk40s01p75 Icon Array"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk45m6gq9t",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk45m6gq9t",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Stent Thrombosis Risk Calculator\",\n\"owner\": \"KGRID\",\n\"description\": \"This object is derived from the DAPT study that aimed to identify the risk of benefit vs. harm for patients that continue thienopyridine treatment beyond one year after percutaneous coronary intervention (PCI). This object's input is a dictionary containing risk values for 12 different risk factors. It will then calculate the estimated risk of MI/stent thrombosis in the 12-30 month period post PCI using the following formula: RISK = 1 - S(18)^exp(sum of [coefficient * risk factor values] - sum\",\n\"contributors\": \"Andrew Cullen\",\n\"keywords\": \"\",\n\"published\": true,\n\"lastModified\": 1478840400000,\n\"createdOn\": 1478581200000,\n\"objectType\": null,\n\"citations\": [\n{\n\"citation_id\": \"64/f7/cc/16/64f7cc16-0d82-42f0-8d04-7f23081fa18c\",\n\"citation_title\": \"Development and Validation of a Prediction Rule for Benefit and Harm of Dual Antiplatelet Therapy Beyond 1 Year After Percutaneous Coronary \",\n\"citation_at\": \"https://www.ncbi.nlm.nih.gov/pubmed/27022822\"\n}\n],\n\"license\": {\n\"licenseName\": \"\",\n\"licenseLink\": \"null\"\n}\n},\n\"inputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/#\\\"\\n         xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputMessage\\\">\\n        <ot:noofparams>12</ot:noofparams>\\n        <ot:params>\\n            <rdf:Seq>\\n                <rdf:li>DAPT</rdf:li>\\n                <rdf:li>infar</rdf:li>\\n                <rdf:li>priorPCI</rdf:li>\\n                <rdf:li>CHF</rdf:li>\\n                <rdf:li>veinGraft</rdf:li>\\n                <rdf:li>stentDiameter</rdf:li>\\n                <rdf:li>pac</rdf:li>\\n                <rdf:li>cigSmoker</rdf:li>\\n                <rdf:li>diabetes</rdf:li>\\n                <rdf:li>periphDisease</rdf:li>\\n                <rdf:li>hypertension</rdf:li>\\n                <rdf:li>renal</rdf:li>\\n            </rdf:Seq>\\n        </ot:params>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/DAPT/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/infar/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/priorPCI/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/CHF/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/veinGraft/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/stentDiameter/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/pac/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/cigSmoker/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n      <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/diabetes/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/periphDisease/\\\">\\n\\t    <ot:datatype>INT</ot:datatype>\\n\\t    <ot:min>0</ot:min>\\n\\t    <ot:max>1</ot:max>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/hypertension/\\\">\\n\\t    <ot:datatype>INT</ot:datatype>\\n\\t    <ot:min>0</ot:min>\\n\\t    <ot:max>1</ot:max>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/renal/\\\">\\n\\t    <ot:datatype>INT</ot:datatype>\\n\\t    <ot:min>0</ot:min>\\n\\t    <ot:max>1</ot:max>\\n    </rdf:Description>\\n</rdf:RDF>\\n\",\n\"outputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/\\\"\\n  xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n  <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/outputMessage\\\">\\n    <ot:returntype>FLOAT</ot:returntype>\\n  </rdf:Description>\\n</rdf:RDF>\",\n\"payload\": {\n\"content\": \"from math import exp\\nimport math\\n\\ndef getIschemicRisk(riskValues):\\n\\n\\tDAPTkey = 'DAPT'\\n\\tinfarKey = 'infar'\\n\\tpriorPCIkey = 'priorPCI'\\n\\tCHFhistKey = 'CHF'\\n\\tveinGraftKey = 'veinGraft'\\n\\tstentDiameterKey = 'stentDiameter'\\n\\tpacKey = 'pac'\\n\\tcigKey = 'cigSmoker'\\n\\tdiabetesKey = 'diabetes'\\n\\tperiphKey = 'periphDisease'\\n\\thypertensionKey = 'hypertension'\\n\\trenalKey = 'renal'\\n\\n\\tkeys = [DAPTkey, infarKey, priorPCIkey, CHFhistKey, veinGraftKey, stentDiameterKey, \\n\\t\\t\\tpacKey, cigKey, diabetesKey, periphKey, hypertensionKey, renalKey]\\n\\n\\t#Cox regression coefficients\\n\\tregressions = {DAPTkey: -0.653, infarKey: 0.499, priorPCIkey: 0.58, CHFhistKey: 0.633, veinGraftKey: 0.562, \\n\\t\\t\\t\\t\\tstentDiameterKey: 0.475, pacKey: 0.454, cigKey: 0.333, diabetesKey: 0.320, periphKey: 0.401,\\n\\t\\t\\t\\t\\t hypertensionKey: 0.315, renalKey: 0.435}\\n\\n\\t#Kaplan-Meier base rate of freedom\\n\\tS18 = 0.9691 \\n\\t#this sum is estimated from the DAPT study\\n\\tmeanCoefficientSum = 0.79\\n\\n\\tindividualCoefficientSum = 0\\n\\t\\n\\t#summation\\n\\tfor key in keys:\\n\\t\\t#print 'riskvalues[{}]: {}'.format(i, riskValues[i])\\n\\t\\t#print 'doing {} + {}'.format(individualCoefficientSum, riskValues[i] * regressions[i])\\n\\t\\tindividualCoefficientSum = individualCoefficientSum + (riskValues[key] * regressions[key])\\n\\n\\t#print 'indivco: {}'.format(individualCoefficientSum)\\n\\n\\n\\n\\texponent = exp(individualCoefficientSum - meanCoefficientSum)\\n\\t#print 'exponent: {}'.format(exponent)\\n\\n\\treturn 1 - pow(S18, exponent)\\n\\n\\ndef test_function():\\n\\n\\tDAPTkey = 'DAPT'\\n\\tinfarKey = 'infar'\\n\\tpriorPCIkey = 'priorPCI'\\n\\tCHFhistKey = 'CHF'\\n\\tveinGraftKey = 'veinGraft'\\n\\tstentDiameterKey = 'stentDiameter'\\n\\tpacKey = 'pac'\\n\\tcigKey = 'cigSmoker'\\n\\tdiabetesKey = 'diabetes'\\n\\tperiphKey = 'periphDisease'\\n\\thypertensionKey = 'hypertension'\\n\\trenalKey = 'renal'\\n\\n\\ttest_inputs = [\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'infar': 0, 'priorPCI': 0, 'CHF': 0, 'veinGraft': 0, 'stentDiameter': 1, 'pac': 1, 'cigSmoker': 1,\\n\\t\\t\\t\\t\\t\\t'diabetes': 0, 'periphDisease': 0, 'hypertension': 1, 'renal': 0},\\n\\n\\t\\t\\t\\t\\t\\t{'DAPT': 0, 'infar': 0, 'priorPCI': 0, 'CHF': 0, 'veinGraft': 0, 'stentDiameter': 0, 'pac': 0, 'cigSmoker': 0,\\n\\t\\t\\t\\t\\t\\t'diabetes': 0, 'periphDisease': 0, 'hypertension': 0, 'renal': 0},\\n\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'infar': 1, 'priorPCI': 1, 'CHF': 1, 'veinGraft': 1, 'stentDiameter': 1, 'pac': 1, 'cigSmoker': 1,\\n\\t\\t\\t\\t\\t\\t'diabetes': 1, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'infar': 1, 'priorPCI': 1, 'CHF': 1, 'veinGraft': 1, 'stentDiameter': 1, 'pac': 0, 'cigSmoker': 0,\\n\\t\\t\\t\\t\\t\\t'diabetes': 0, 'periphDisease': 0, 'hypertension': 0, 'renal': 0},\\n\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'infar': 0, 'priorPCI': 0, 'CHF': 0, 'veinGraft': 0, 'stentDiameter': 0, 'pac': 0, 'cigSmoker': 0,\\n\\t\\t\\t\\t\\t\\t'diabetes': 0, 'periphDisease': 0, 'hypertension': 0, 'renal': 0}\\n\\t\\t\\t\\t   ]\\n\\n\\tcorrectOutputs =\\t[0.035251864828, 0.01414406, 0.66982, 0.1094, 0.00739]\\n\\tcorrectOutputIndex = 0\\n\\n\\tfor test_in in test_inputs:\\n\\t\\tresult = getIschemicRisk(test_in)\\n\\t\\tprint 'result: {}'.format(result)\\n\\t\\tprint 'correct: {}'.format(correctOutputs[correctOutputIndex])\\n\\t\\tassert (result > (correctOutputs[correctOutputIndex]- 0.001) and result < (correctOutputs[correctOutputIndex] + 0.001))\\n\\t\\tcorrectOutputIndex += 1\\n\\n\",\n\"functionName\": \"getIschemicRisk\",\n\"engineType\": \"Python\"\n},\n\"logData\": \"99999-fk45m6gq9t wasGeneratedBy http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/99999-fk45m6gq9t/Log/CreateActivity \\n 99999-fk45m6gq9t isA http://www.w3.org/ns/prov#Entity \\n 99999-fk45m6gq9t wasAttributedTo Andrew Cullen \\n 99999-fk45m6gq9t/Log/CreateActivity isA http://www.w3.org/ns/prov#Activity \\n 99999-fk45m6gq9t/Log/CreateActivity startedAtTime Tue Nov 08 17:23:09 EST 2016 \\n 99999-fk45m6gq9t/Log/CreateActivity Used http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/99999-fk45m6gq9t \\n 99999-fk45m6gq9t/Log/CreateActivity wasAssociatedWith Andrew Cullen \\n 99999-fk45m6gq9t/Log/CreateActivity endedAtTime Tue Nov 08 17:23:09 EST 2016 \\n \",\n\"uri\": \"ark:/99999/fk45m6gq9t\"\n}"
+				},
+				"description": "kgrid-stack PUT ark:/99999/fk45m6gq9t Stent Thrombosis Risk Calculator"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Ischemic Bleeding Risk post Percutaneous Coronary Intervention  Calculator\",\n\"owner\": \"KGRID\",\n\"description\": \"This object is derived from the DAPT study that aimed to identify the risk of benefit vs. harm for patients that continue thienopyridine treatment beyond one year after percutaneous coronary intervention (PCI). This object's input is a dictionary containing risk values for five different factors. It will then calculate the estimated risk of GUSTO moderate or severe bleeding in the 12 to 30 month period post PCI using the formula from the study\",\n\"contributors\": \"Andrew Cullen\",\n\"keywords\": \"GUSTO, bleeding, PCI\",\n\"published\": true,\n\"lastModified\": 1479358800000,\n\"createdOn\": 1477540800000,\n\"objectType\": null,\n\"citations\": [\n{\n\"citation_id\": \"41/8c/2f/33/418c2f33-ffe7-49bd-af02-4aefe33b404f\",\n\"citation_title\": \"Development and Validation of a Prediction Rule for Benefit and Harm of Dual Antiplatelet Therapy Beyond 1 Year After Percutaneous Coronary \",\n\"citation_at\": \"https://www.ncbi.nlm.nih.gov/pubmed/27022822\"\n}\n],\n\"license\": {\n\"licenseName\": \"MIT License\",\n\"licenseLink\": \"https://opensource.org/licenses/MIT\"\n}\n},\n\"inputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/#\\\"\\n         xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputMessage\\\">\\n        <ot:noofparams>5</ot:noofparams>\\n        <ot:params>\\n            <rdf:Seq>\\n                <rdf:li>DAPT</rdf:li>\\n                <rdf:li>age</rdf:li>\\n                <rdf:li>periphDisease</rdf:li>\\n                <rdf:li>hypertension</rdf:li>\\n                <rdf:li>renal</rdf:li>\\n            </rdf:Seq>\\n        </ot:params>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/DAPT/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/age/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>30</ot:min>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/periphDisease/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/hypertension/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/renal/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n</rdf:RDF>\\n\",\n\"outputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/\\\"\\n  xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n  <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/outputMessage\\\">\\n    <ot:returntype>FLOAT</ot:returntype>\\n  </rdf:Description>\\n</rdf:RDF>\",\n\"payload\": {\n\"content\": \"from math import exp\\nimport math\\n\\n\\ndef getBleedingRisk(riskValues):\\n\\n\\tDAPTkey = 'DAPT'\\n\\tageKey = 'age'\\n\\tperiphKey = 'periphDisease'\\n\\thypertensionKey = 'hypertension'\\n\\trenalKey = 'renal'\\n\\n\\t#pre-determined keys for riskValues dictionary that map to risk factor values\\n\\tkeys = [DAPTkey, ageKey, periphKey, hypertensionKey, renalKey]\\n\\n\\t#Cox regression coefficients\\n\\tregressions = {DAPTkey: 0.506, ageKey: 0.043, periphKey: 0.769, hypertensionKey: 0.374, renalKey: 0.509}\\n\\t#error handling\\n\\tif len(riskValues) != len(regressions):\\n\\t\\traise BaseException(\\\"list is too long\\\")\\n\\t#except lengthError:\\n\\t#\\tprint lengthError.message\\n\\t#\\treturn -1\\n\\n\\t#Kaplan-Meier base rate of freedom\\n\\tS18 = .9809\\n\\t#estimated from DAPT study\\n\\tmeanCoefficientSum = 3.23\\n\\n\\tindividualCoefficientSum = 0\\n\\n\\tfor key in keys:\\n\\t\\t#print \\\"doing {} + {}\\\".format(individualCoefficientSum, riskValues[key] * regressions[key])\\n\\t\\tindividualCoefficientSum = individualCoefficientSum + (riskValues[key] * regressions[key])\\n\\n\\t#print 'x: {}'.format(individualCoefficientSum - meanCoefficientSum)\\n\\texponent = exp(individualCoefficientSum - meanCoefficientSum)\\n\\t#print 'exponent %f' % exponent\\n\\n\\treturn 1 - pow(S18, exponent)\\n\\n\\ndef test_function():\\n\\n\\ttest_inputs =  [\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 60, 'periphDisease': 0, 'hypertension': 1, 'renal': 0},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 0, 'age': 0, 'periphDisease': 0, 'hypertension': 0, 'renal': 0},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 1, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 37, 'periphDisease': 0, 'hypertension': 0, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 3, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 68, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 80, 'periphDisease': 1, 'hypertension': 1, 'renal': 1}\\n\\n\\t\\t\\t\\t\\t]\\n\\n\\tcorrectOutputs = [.024, .00076, .00687, .01028, 0.00744, .11564, 0.18607]\\n\\n\\tcorrectOutputIndex = 0\\n\\n\\tfor test_in in test_inputs:\\n\\t\\tresult = getBleedingRisk(test_in)\\n\\t\\tprint 'result: {}'.format(result)\\n\\t\\tprint 'correct: {}'.format(correctOutputs[correctOutputIndex])\\n\\t\\tassert (result > (correctOutputs[correctOutputIndex]- 0.001) and result < (correctOutputs[correctOutputIndex] + 0.001))\\n\\t\\tcorrectOutputIndex += 1\\n\\ndef main():\\n\\ttest_function()\\n\\nif __name__ == \\\"__main__\\\":\\n\\tmain()\\n\",\n\"functionName\": \"getBleedingRisk\",\n\"engineType\": \"Python\"\n},\n\"logData\": \"67034-k47c7m wasGeneratedBy http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/67034-k47c7m/Log/CreateActivity \\n 67034-k47c7m isA http://www.w3.org/ns/prov#Entity \\n 67034-k47c7m wasAttributedTo Andrew Cullen \\n 67034-k47c7m/Log/CreateActivity isA http://www.w3.org/ns/prov#Activity \\n 67034-k47c7m/Log/CreateActivity startedAtTime Thu Oct 27 17:10:45 EDT 2016 \\n 67034-k47c7m/Log/CreateActivity Used http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/67034-k47c7m \\n 67034-k47c7m/Log/CreateActivity wasAssociatedWith Andrew Cullen \\n 67034-k47c7m/Log/CreateActivity endedAtTime Thu Oct 27 17:10:46 EDT 2016 \\n \",\n\"uri\": \"ark:/67034/k47c7m\"\n}"
+				},
+				"description": "kgrid-stack PUT ark:/67034/k47c7m Ischemic Bleeding Risk"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"metadata\": {\n\"title\": \"Ischemic Bleeding Risk post Percutaneous Coronary Intervention  Calculator\",\n\"owner\": \"KGRID\",\n\"description\": \"This object is derived from the DAPT study that aimed to identify the risk of benefit vs. harm for patients that continue thienopyridine treatment beyond one year after percutaneous coronary intervention (PCI). This object's input is a dictionary containing risk values for five different factors. It will then calculate the estimated risk of GUSTO moderate or severe bleeding in the 12 to 30 month period post PCI using the formula from the study\",\n\"contributors\": \"Andrew Cullen\",\n\"keywords\": \"GUSTO, bleeding, PCI\",\n\"published\": true,\n\"lastModified\": 1479358800000,\n\"createdOn\": 1477540800000,\n\"objectType\": null,\n\"citations\": [\n{\n\"citation_id\": \"41/8c/2f/33/418c2f33-ffe7-49bd-af02-4aefe33b404f\",\n\"citation_title\": \"Development and Validation of a Prediction Rule for Benefit and Harm of Dual Antiplatelet Therapy Beyond 1 Year After Percutaneous Coronary \",\n\"citation_at\": \"https://www.ncbi.nlm.nih.gov/pubmed/27022822\"\n}\n],\n\"license\": {\n\"licenseName\": \"MIT License\",\n\"licenseLink\": \"https://opensource.org/licenses/MIT\"\n}\n},\n\"inputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/#\\\"\\n         xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/inputMessage\\\">\\n        <ot:noofparams>5</ot:noofparams>\\n        <ot:params>\\n            <rdf:Seq>\\n                <rdf:li>DAPT</rdf:li>\\n                <rdf:li>age</rdf:li>\\n                <rdf:li>periphDisease</rdf:li>\\n                <rdf:li>hypertension</rdf:li>\\n                <rdf:li>renal</rdf:li>\\n            </rdf:Seq>\\n        </ot:params>\\n    </rdf:Description>\\n    <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/DAPT/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/age/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>30</ot:min>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/periphDisease/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/hypertension/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n       <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/renal/\\\">\\n        <ot:datatype>INT</ot:datatype>\\n        <ot:min>0</ot:min>\\n        <ot:max>1</ot:max>\\n    </rdf:Description>\\n</rdf:RDF>\\n\",\n\"outputMessage\": \"<rdf:RDF xmlns:ot=\\\"http://uofm.org/objectteller/\\\"\\n  xmlns:rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\">\\n  <rdf:Description rdf:about=\\\"http://uofm.org/objectteller/outputMessage\\\">\\n    <ot:returntype>FLOAT</ot:returntype>\\n  </rdf:Description>\\n</rdf:RDF>\",\n\"payload\": {\n\"content\": \"from math import exp\\nimport math\\n\\n\\ndef getBleedingRisk(riskValues):\\n\\n\\tDAPTkey = 'DAPT'\\n\\tageKey = 'age'\\n\\tperiphKey = 'periphDisease'\\n\\thypertensionKey = 'hypertension'\\n\\trenalKey = 'renal'\\n\\n\\t#pre-determined keys for riskValues dictionary that map to risk factor values\\n\\tkeys = [DAPTkey, ageKey, periphKey, hypertensionKey, renalKey]\\n\\n\\t#Cox regression coefficients\\n\\tregressions = {DAPTkey: 0.506, ageKey: 0.043, periphKey: 0.769, hypertensionKey: 0.374, renalKey: 0.509}\\n\\t#error handling\\n\\tif len(riskValues) != len(regressions):\\n\\t\\traise BaseException(\\\"list is too long\\\")\\n\\t#except lengthError:\\n\\t#\\tprint lengthError.message\\n\\t#\\treturn -1\\n\\n\\t#Kaplan-Meier base rate of freedom\\n\\tS18 = .9809\\n\\t#estimated from DAPT study\\n\\tmeanCoefficientSum = 3.23\\n\\n\\tindividualCoefficientSum = 0\\n\\n\\tfor key in keys:\\n\\t\\t#print \\\"doing {} + {}\\\".format(individualCoefficientSum, riskValues[key] * regressions[key])\\n\\t\\tindividualCoefficientSum = individualCoefficientSum + (riskValues[key] * regressions[key])\\n\\n\\t#print 'x: {}'.format(individualCoefficientSum - meanCoefficientSum)\\n\\texponent = exp(individualCoefficientSum - meanCoefficientSum)\\n\\t#print 'exponent %f' % exponent\\n\\n\\treturn 1 - pow(S18, exponent)\\n\\n\\ndef test_function():\\n\\n\\ttest_inputs =  [\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 60, 'periphDisease': 0, 'hypertension': 1, 'renal': 0},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 0, 'age': 0, 'periphDisease': 0, 'hypertension': 0, 'renal': 0},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 1, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 37, 'periphDisease': 0, 'hypertension': 0, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 3, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 68, 'periphDisease': 1, 'hypertension': 1, 'renal': 1},\\n\\t\\t\\t\\t\\t\\t{'DAPT': 1, 'age': 80, 'periphDisease': 1, 'hypertension': 1, 'renal': 1}\\n\\n\\t\\t\\t\\t\\t]\\n\\n\\tcorrectOutputs = [.024, .00076, .00687, .01028, 0.00744, .11564, 0.18607]\\n\\n\\tcorrectOutputIndex = 0\\n\\n\\tfor test_in in test_inputs:\\n\\t\\tresult = getBleedingRisk(test_in)\\n\\t\\tprint 'result: {}'.format(result)\\n\\t\\tprint 'correct: {}'.format(correctOutputs[correctOutputIndex])\\n\\t\\tassert (result > (correctOutputs[correctOutputIndex]- 0.001) and result < (correctOutputs[correctOutputIndex] + 0.001))\\n\\t\\tcorrectOutputIndex += 1\\n\\ndef main():\\n\\ttest_function()\\n\\nif __name__ == \\\"__main__\\\":\\n\\tmain()\\n\",\n\"functionName\": \"getBleedingRisk\",\n\"engineType\": \"Python\"\n},\n\"logData\": \"67034-k47c7m wasGeneratedBy http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/67034-k47c7m/Log/CreateActivity \\n 67034-k47c7m isA http://www.w3.org/ns/prov#Entity \\n 67034-k47c7m wasAttributedTo Andrew Cullen \\n 67034-k47c7m/Log/CreateActivity isA http://www.w3.org/ns/prov#Activity \\n 67034-k47c7m/Log/CreateActivity startedAtTime Thu Oct 27 17:10:45 EDT 2016 \\n 67034-k47c7m/Log/CreateActivity Used http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/fcrepo/rest/67034-k47c7m \\n 67034-k47c7m/Log/CreateActivity wasAssociatedWith Andrew Cullen \\n 67034-k47c7m/Log/CreateActivity endedAtTime Thu Oct 27 17:10:46 EDT 2016 \\n \",\n\"uri\": \"ark:/67034/k47c7m\"\n}"
+				},
+				"description": "kgrid-stack PUT ark:/67034/k47c7m Ischemic Bleeding Risk"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m/result",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/67034/k47c7m/result",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"DAPT\": 1, \"periphDisease\": 1, \"hypertension\": 0, \"renal\": 1, \"age\": 32}"
+				},
+				"description": "kgrid-stack POST ark:/67034/k47c7m"
+			},
+			"response": []
+		},
+		{
+			"name": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk45m6gq9t/result",
+			"request": {
+				"url": "https://kgrid-stack.herokuapp.com/knowledgeObject/ark:/99999/fk45m6gq9t/result",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"DAPT\": 1,\n\t\"infar\": 0, \n\t\"priorPCI\": 0, \n\t\"CHF\": 0, \n\t\"veinGraft\": 0, \n\t\"stentDiameter\": 1, \n\t\"pac\": 1, \n\t\"cigSmoker\": 1,\n\t\"diabetes\": 0, \n\t\"periphDisease\": 0, \n\t\"hypertension\": 1, \n\t\"renal\": 0\n}"
+				},
+				"description": "kgrid-stack POST ark:/99999/fk45m6gq9t Stent Thrombosis"
+			},
+			"response": []
+		}
+	]
+}
