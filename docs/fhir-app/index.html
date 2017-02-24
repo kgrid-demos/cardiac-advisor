@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<script src="https://rawgithub.com/smart-on-fhir/client-js/master/dist/fhir-client.js"> </script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="./static/css/ca_style.css">
+ 	<script src="./static/js/helpers.js"> </script>
+ 	<script src="./static/js/ca.js"> </script>	
+ 	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <script src="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/99999/fk40s01p75/payload/content"></script>
+
+ </head>
+
+<body>
+
+<div class="jumbotron container-fluid color-scheme text-center">
+	 <h1><font color = "white"> Welcome to the Cardiac Advisor </font> </h1>
+  <p>
+    <font color=#e6e6e6>The Cardiac Advisor is powered by the Object Teller digital library management system which is part of the Knowledge Grid platform from the University of Michigan Medical School </font></p>
+
+</p>
+
+</div>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h3 class="margin">Check it Out</h3>
+    <a class="myButton" role="button" id="start">Cardiac Advisor</a>
+</div>
+
+
+
+<div class="container" id="input_div">
+  <div class="row border-box">
+	  <div class="container box-header color-scheme">
+			<h3> input information </h3>
+			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="patient1"> Sample Input 1 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="patient1"> Sample Input 2 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="patient1"> Sample Input 3 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="patient1"> Sample Input 4
+
+	  </div>
+	  <br>
+	  <table class="table-striped">
+		  <thead>
+			  <tr>
+				  <th class="pad">Continuing DAPT?</th>
+				  <th class="pad">Peripheral Artery Disease?</th>
+				  <th clas="pad">Hypertension?</th>
+				  <th class="pad">Renal Insufficiency?</th>
+			  </tr>
+		  </thead>
+		 <tbody>
+			<tr>
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
+					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+			</tr>
+		 </tbody>
+		 <thead>
+		 	<tr>
+			 	<th class="pad">at presentation</th>
+			 	<th class="pad">Prior PCI</th>
+			 	<th class="pad">History of CHF or LVEF < 30%</th>
+			 	<th class="pad">Vein graft PCI</th>
+		 	</tr>
+		 </thead>
+
+		<tbody>
+			<tr>
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+			</tr>
+		 </tbody>
+
+		 <thead>
+		 	<tr>
+				<th class="pad">Stent Diameter &lt 30mm</th>
+			 	<th class="pad">Paclitaxel-eluting stent</th>
+			 	<th class="pad">Cigarette smoker</th>
+			 	<th class="pad">Diabetes</th>
+		 	</tr>
+		 </thead>
+
+		 	 <tbody>
+			<tr>
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+
+				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+			</tr>
+		 </tbody>
+	  </table>
+
+  </div>
+  <div class="row">
+    <button type="button" id="get_data" class="btn btn-primary btn-lg color-scheme" style="display: none;">Get Risk</button>
+  </div>
+
+
+</div>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 visual-field text-center" style="border: 1px solid #cc0000;">
+			<h3> This patient's age was retrieved from an electronic health record using SMART API</h3><br>
+			<h2> Retrieved age value: <span id="patient-age"> </span> </h2>
+		</div>
+
+		<div class="col-lg-4 col-lg-offset-2 visual-field text-center">
+			<div id="bleed-div">
+				<h3>Ischemic Bleeding Risk: <span class="risk-val" id="bleed-risk"> </span></h3>
+
+				<button id="bleed-vis" class="show_gage btn btn-primary btn-block" name="bleeding-icon">Display Visual</button>
+				<br><br>
+				<div id=svg-container>
+					<div id="bleeding-icon" style="display: none;"> </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 visual-field">
+			<div id="stent-div">
+				<h3>Stent Thrombosis Risk: <span class="risk-val" id="stent-risk"> </span> </h3>
+				<button id="stent-vis" class="show_gage btn btn-primary btn-block" name="stent-gage">Display Visual</button>
+				<br><br>
+				<div id="stent-gage" style="display: none;"> </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container-fluid container-car bg-2 text-center">
+  <h3 >Object Teller</h3>
+  <p>This Cardiac Advisor makes use of Knowledge Objects from the Object Teller Library</p>
+  <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/home" class="btn btn-default btn-lg" target="_blank">
+    <span class="glyphicon glyphicon-search"></span> Object Teller Library
+  </a>
+</div>
+
+<!-- Third Container (Grid) -->
+<div class="container-fluid container-car bg-3 text-center">
+  <h3 class="margin">Knowledge Objects used in this project</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/67034/k47c7m" class=knowledgeButton target="_blank">Bleeding Risk Calculator</a>
+    </div>
+    <div class="col-sm-4">
+      <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk45m6gq9t" class=knowledgeButton target="_blank">Stent Thrombosis Risk Calclator</a>
+    </div>
+    <div class="col-sm-4">
+     <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid text-center margin-bot" style="margin-bottom: 0px; background-color: steelblue; color: white;">
+			<p>This application asks you to input some information about a patient</p>
+
+			<p>Some information, like age and gender, does not need to be entered, as this application gathers data from
+				an electronc health record sandbox</p>
+
+			<p>To gather information from the EHR, this app uses SMART-on-FHIR API</p> <br>
+			<a class="myButton2" href="http://smarthealthit.org" target="_blank">
+				SMART
+			</a>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid container-car bg-4 text-center">
+  <p>Univeristy of Michigan Medical School 2016</p>
+</footer>
+
+</body>
+
+</html>
