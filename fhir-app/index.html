@@ -8,6 +8,8 @@
  	<script src="./static/js/helpers.js"> </script>
  	<script src="./static/js/ca.js"> </script>	
  	<script src="https://d3js.org/d3.v4.min.js"></script>
+ 	<script src="jsonpath.js"></script>
+
 
   <script src="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/99999/fk40s01p75/payload/content"></script>
 
@@ -64,7 +66,7 @@
 				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
 					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
 
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+				<td> <form class="info" id="renal-form"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
 			</tr>
 		 </tbody>

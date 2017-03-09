@@ -133,3 +133,21 @@ function get_ischemic_data(pt)
 	})
 
 }
+
+function value_in_resource(resourceObj, path)
+{
+	return jsonpath.query(resourceObj, path).length > 0
+}
+
+function populate_inputs(smart)
+{
+	var renalCode = 36225005
+	smart.api.search({type: "Condition"})
+	.done(function(condition)
+	{
+		if(value_in_resource(condition, "$..resource.code.coding[?(@.code==" + renalCode + ")].code"))
+		{
+			$("#renal-form").
+		}
+	}
+}
