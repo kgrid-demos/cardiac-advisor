@@ -6,7 +6,7 @@ $(document).ready(function()
 	  	alert('yo');
 		FHIR.oauth2.ready(function(smart)
 		{
-		   // alert("whoa")
+		    alert("whoa")
 			var patient = smart.patient.read()
 			$.when(patient).done(function(pt)
 			{

@@ -146,6 +146,7 @@ function resource_path_for(code)
 
 function populate_inputs(smart)
 {
+	alert("here")
 	var renalCode = "36225005"
 	var hypertensionCode = "38341003"
 	//TODO: check for different diabetes codes - there are different kinds	
