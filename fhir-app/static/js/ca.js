@@ -3,9 +3,7 @@
 $(document).ready(function()
 {
 	
-	$("#get_data").click(function()
-	{
-	  //alert('yo');
+	  	alert('yo');
 		FHIR.oauth2.ready(function(smart)
 		{
 		   // alert("whoa")
@@ -17,16 +15,15 @@ $(document).ready(function()
 				patientInfo = pt;
 				console.log(patientInfo);
 
+				populate_inputs(smart)
 				$("#patient-age").text(calculateAge(pt.birthDate))
 
 				get_ischemic_data(pt);
 				get_stent_data();
-				$(".visual-field").slideDown("slow");
 
 			})
 		})
 
-	})
 
 	$("input:radio[name='yes/no']").change(function()
 	{
@@ -134,10 +131,10 @@ $(document).ready(function()
 
 	})
 
-	 $("#start").click(function()
-  	 {
-  		$("#input_div").slideDown("slow");
-  	 })
+	 // $("#start").click(function()
+  // 	 {
+  // 		$("#input_div").slideDown("slow");
+  // 	 })
 	  
 })
 

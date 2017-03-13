@@ -8,7 +8,7 @@
  	<script src="./static/js/helpers.js"> </script>
  	<script src="./static/js/ca.js"> </script>	
  	<script src="https://d3js.org/d3.v4.min.js"></script>
- 	<script src="jsonpath.js"></script>
+ 	<script src="./static/js/jsonpath.js"></script>
 
 
   <script src="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/99999/fk40s01p75/payload/content"></script>
@@ -50,8 +50,8 @@
 			  <tr>
 				  <th class="pad">Continuing DAPT?</th>
 				  <th class="pad">Peripheral Artery Disease?</th>
-				  <th clas="pad">Hypertension?</th>
-				  <th class="pad">Renal Insufficiency?</th>
+				  <th class="hypertension-data">Hypertension?</th>
+				  <th class="pad renal-data">Renal Insufficiency?</th>
 			  </tr>
 		  </thead>
 		 <tbody>
@@ -63,10 +63,10 @@
 				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
 
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
+				<td> <form class="info hypertension-data"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
 					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info" id="renal-form"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+					
+				<td> <form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
 			</tr>
 		 </tbody>
@@ -101,7 +101,7 @@
 				<th class="pad">Stent Diameter &lt 30mm</th>
 			 	<th class="pad">Paclitaxel-eluting stent</th>
 			 	<th class="pad">Cigarette smoker</th>
-			 	<th class="pad">Diabetes</th>
+			 	<th class="pad diabetes-data">Diabetes</th>
 		 	</tr>
 		 </thead>
 
@@ -117,7 +117,7 @@
 				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
 
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+				<td> <form class="info diabetes-data"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
 			</tr>
 		 </tbody>
@@ -133,10 +133,11 @@
 
 
 
-<div class="container">
+<div class="container" id="visual-info">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 visual-field text-center" style="border: 1px solid #cc0000;">
-			<h3> This patient's age was retrieved from an electronic health record using SMART API</h3><br>
+			<h3> Table values outlined in green along with this 
+				patient's were retrieved from an electronic health record using SMART API</h3><br>
 			<h2> Retrieved age value: <span id="patient-age"> </span> </h2>
 		</div>
 

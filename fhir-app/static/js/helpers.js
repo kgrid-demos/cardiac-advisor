@@ -139,15 +139,35 @@ function value_in_resource(resourceObj, path)
 	return jsonpath.query(resourceObj, path).length > 0
 }
 
+function resource_path_for(code)
+{
+	return "$..resource.code.coding[?(@.code==" + code + ")].code"
+}
+
 function populate_inputs(smart)
 {
-	var renalCode = 36225005
+	var renalCode = "36225005"
+	var hypertensionCode = "38341003"
+	//TODO: check for different diabetes codes - there are different kinds	
+	var diabetesCode = "44054006"
+
 	smart.api.search({type: "Condition"})
 	.done(function(condition)
 	{
-		if(value_in_resource(condition, "$..resource.code.coding[?(@.code==" + renalCode + ")].code"))
+		if(value_in_resource(condition, resource_path_for(renalCode)))
 		{
-			$("#renal-form").
+			$("#renal-yes").prop("checked", true)
+			$(".renal-data").css("outline", "1px solid #5cbf2a")
 		}
-	}
+		if(value_in_resource(condition, resource_path_for(hypertensionCode)))
+		{
+			$("#hypertension-yes").prop("checked", true)
+			$(".hypertension-data").css("outline", "1px solid #5cbf2a")
+		}
+		if(value_in_resource(condition, resource_path_for(diabetesCode)))
+		{
+			$("#diabetes-yes").prop("checked", true)
+			$(".diabetes-data").css("outline", "1px solid #5cbf2a")
+		}
+	})
 }
