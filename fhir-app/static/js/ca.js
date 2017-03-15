@@ -27,7 +27,7 @@ $(document).ready(function()
 		$("#get_data").click(function()
 		{
 				alert("shi")
-				$("#visual-info").slideDown("slow")
+				$(".visual-field").slideDown("slow");
 
 		})
 
