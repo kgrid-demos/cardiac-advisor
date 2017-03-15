@@ -18,6 +18,10 @@ function calculateAge(birthday)
 		return age;
 	}
 
+function get_patient_name(patient)
+{
+}
+
 //input: patient FHIR resource
 //output: patient's name as a string
 function get_patient_name(patient)
@@ -107,6 +111,7 @@ function get_patient_name(patient)
   		{
   			console.log('got error in stent msg');
 			console.log(response.errorMessage);
+			$("#stent-vis").css("display", "none")
 			$("#stent-risk").text(response.errorMessage)
   		}
   	})

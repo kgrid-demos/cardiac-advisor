@@ -18,18 +18,20 @@ $(document).ready(function()
 				populate_inputs(smart)
 				$("#patient-age").text(calculateAge(pt.birthDate))
 
-				get_ischemic_data(pt);
-				get_stent_data();
+				$("#get_data").click(function()
+				{
+					alert("shi")
+					get_ischemic_data(pt);
+					get_stent_data();
+					$(".visual-field").slideDown("slow");
+
+				})
+			
 
 			})
 		})
 
-		$("#get_data").click(function()
-		{
-				alert("shi")
-				$(".visual-field").slideDown("slow");
 
-		})
 
 	$("input:radio[name='yes/no']").change(function()
 	{
