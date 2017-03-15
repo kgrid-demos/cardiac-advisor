@@ -3,10 +3,10 @@
 $(document).ready(function()
 {
 	
-	  	alert('yo');
+	  	//alert('yo');
 		FHIR.oauth2.ready(function(smart)
 		{
-		    alert("whoa")
+		    //alert("whoa")
 			var patient = smart.patient.read()
 			$.when(patient).done(function(pt)
 			{
@@ -14,7 +14,7 @@ $(document).ready(function()
 			   // alert('got yo patient')
 				patientInfo = pt;
 				console.log(patientInfo);
-
+				$("#patient-name").text(get_patient_name(pt))
 				populate_inputs(smart)
 				$("#patient-age").text(calculateAge(pt.birthDate))
 
@@ -24,6 +24,12 @@ $(document).ready(function()
 			})
 		})
 
+		$("#get_data").click(function()
+		{
+				alert("shi")
+				$("#visual-info").slideDown("slow")
+
+		})
 
 	$("input:radio[name='yes/no']").change(function()
 	{

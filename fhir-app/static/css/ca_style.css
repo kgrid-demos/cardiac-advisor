@@ -4,6 +4,11 @@
 		height: 100%;
 	}
 
+  .underline
+  {
+    border-bottom: 2px solid steelblue;
+  }
+
 	.blue-background
 	{
 		background-color: steelblue !important;

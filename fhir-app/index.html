@@ -27,9 +27,10 @@
 </div>
 
 <!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Check it Out</h3>
-    <a class="myButton" role="button" id="start">Cardiac Advisor</a>
+<div class="container">
+  <h3 class="margin"> <span class="underline">Enter information for <span id="patient-name"> </span> </span> </h3>
+  <h3> Areas outlined in green were pre-populated from the patient's electronic health record</h3>
+
 </div>
 
 
@@ -46,6 +47,12 @@
 	  </div>
 	  <br>
 	  <table class="table-striped">
+
+		  <thead>
+		  	<tr>
+		  		<th class="pad"> Age retrieved from EHR: <span id="patient-ag"></span> <br><br></th>
+		  	</tr>
+		  </thead>
 		  <thead>
 			  <tr>
 				  <th class="pad">Continuing DAPT?</th>
