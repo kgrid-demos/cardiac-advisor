@@ -1,4 +1,4 @@
-//$$$$
+//$$$
 
 $(document).ready(function()
 {
@@ -16,18 +16,16 @@ $(document).ready(function()
 				console.log(patientInfo);
 				$("#patient-name").text(get_patient_name(pt))
 				populate_inputs(smart)
-				$("#patient-age").text(calculateAge(pt.birthDate))
+				$("#patient-ag").text(calculateAge(pt.birthDate))
 
 				$("#get_data").click(function()
 				{
-					alert("shi")
+					//alert("shi")
 					get_ischemic_data(pt);
 					get_stent_data();
 					$(".visual-field").slideDown("slow");
 
 				})
-			
-
 			})
 		})
 
@@ -59,7 +57,7 @@ $(document).ready(function()
 	{
 		$(".no-btn").each(function(index)
 		{
-			if(index % 2)
+			if(index % 2 && !$(this).parent().is(":disabled"))
 			{
 				$(this).prop("checked", true);
 			}
