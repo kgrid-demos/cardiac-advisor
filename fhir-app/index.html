@@ -39,10 +39,10 @@
   <div class="row border-box">
 	  <div class="container box-header color-scheme">
 			<h3> input information </h3>
-			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="patient1"> Sample Input 1 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="patient1"> Sample Input 2 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="patient1"> Sample Input 3 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="patient1"> Sample Input 4
+			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="patient1"> Autofill Sample 1 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="patient1"> Autofill Sample 2 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="patient1"> Autofill Sample 3 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="patient1"> Autofill Sample 4
 
 	  </div>
 	  <br>
@@ -50,7 +50,7 @@
 
 		  <thead>
 		  	<tr>
-		  		<th class="pad"> <span class="underline"> Age retrieved from EHR: <span id="patient-ag"></span> </span><br><br></th>
+		  		<th class="pad"> <span class="underline"> Age value retrieved from EHR: <span id="patient-ag"></span> </span><br><br></th>
 		  	</tr>
 		  </thead>
 		  <thead>
@@ -70,7 +70,7 @@
 				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
 
-				<td> <form class="info hypertension-data"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
+				<td> <form class="info hypertension-data" id="hypertension-form"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
 					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
 					
 				<td> <form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
@@ -124,7 +124,7 @@
 				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
 
-				<td> <form class="info diabetes-data"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
+				<td> <form class="info diabetes-data" id="diabetes-form"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
 					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
 			</tr>
 		 </tbody>

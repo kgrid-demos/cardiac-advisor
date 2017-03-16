@@ -18,9 +18,10 @@ function calculateAge(birthday)
 		return age;
 	}
 
-function get_patient_name(patient)
-{
-}
+// function get_patient_name(patient)
+// {
+
+// }
 
 //input: patient FHIR resource
 //output: patient's name as a string
@@ -42,7 +43,7 @@ function get_patient_name(patient)
 	  alert($('input[name="yes/no"]:checked').val())
   }
   
-  //input: parameeters for knwledge object, takes an arbitrary number of parameters. 
+  //input: parameters for knwledge object, takes an arbitrary number of parameters. 
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
@@ -149,32 +150,8 @@ function resource_path_for(code)
 	return "$..resource.code.coding[?(@.code==" + code + ")].code"
 }
 
-function populate_inputs(smart)
+function populate_inputs(smart, callback)
 {
-	//alert("here")
-	var renalCode = "36225005"
-	var hypertensionCode = "38341003"
-	//TODO: check for different diabetes codes - there are different kinds	
-	var diabetesCode = "44054006"
-
 	smart.api.search({type: "Condition"})
-	.done(function(condition)
-	{
-		if(value_in_resource(condition, resource_path_for(renalCode)))
-		{
-			$("#renal-form").find("input").prop("disabled", true)
-			$("#renal-yes").prop("checked", true)
-			$(".renal-data").css("outline", "1px solid #5cbf2a")
-		}
-		if(value_in_resource(condition, resource_path_for(hypertensionCode)))
-		{
-			$("#hypertension-yes").prop("checked", true)
-			$(".hypertension-data").css("outline", "1px solid #5cbf2a")
-		}
-		if(value_in_resource(condition, resource_path_for(diabetesCode)))
-		{
-			$("#diabetes-yes").prop("checked", true)
-			$(".diabetes-data").css("outline", "1px solid #5cbf2a")
-		}
-	})
+	.done(callback)
 }
