@@ -155,3 +155,8 @@ function populate_inputs(smart, callback)
 	smart.api.search({type: "Condition"})
 	.done(callback)
 }
+
+function write_ischemic_risk_data(riskValue, patient)
+{
+
+}

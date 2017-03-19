@@ -2,6 +2,8 @@
 
 $(document).ready(function()
 {
+
+	//	console.log("rsc", rsc_obsv)
 	
 	  	//alert('yo');
 		FHIR.oauth2.ready(function(smart)
