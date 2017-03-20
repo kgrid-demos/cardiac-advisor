@@ -21,7 +21,7 @@ FHIR.oauth2.ready(function(smart)
 	$.when(patient).done(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
-	   // alert('got yo patient')
+	    //alert('got yo patient')
 		patientInfo = pt;
 		console.log(patientInfo);
 		$("#patient-name").text(get_patient_name(pt))
