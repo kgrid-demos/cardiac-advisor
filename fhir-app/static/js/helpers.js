@@ -91,7 +91,7 @@ function get_patient_name(patient)
 	 })
   }
 
-  function get_stent_data()
+  function get_stent_data(riskScores)
   {
   	KOPost(
   	{
@@ -101,6 +101,7 @@ function get_patient_name(patient)
   		success: function(response)
   		{
   			console.log('got value from stent object');
+  			riskScores["bleedRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');	
   		},
   		error: function(response)
@@ -113,7 +114,7 @@ function get_patient_name(patient)
   	})
   }
 
-function get_ischemic_data(pt)
+function get_ischemic_data(pt, riskScores)
 {
 	console.log('BIRTHDATE: ', pt.birthDate)
 	KOPost(
@@ -123,6 +124,7 @@ function get_ischemic_data(pt)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
+			riskScores["stentRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)

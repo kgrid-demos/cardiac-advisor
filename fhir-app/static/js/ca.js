@@ -72,18 +72,24 @@ FHIR.oauth2.ready(function(smart)
 		})
 		$("#patient-ag").text(calculateAge(pt.birthDate))
 
+		var riskScores = 
+		{
+			"bleedRisk": null,
+			"stentRisk": null
+		}
+
 		$("#get_data").click(function()
 		{
 			//alert("shi")
-			get_ischemic_data(pt);
-			get_stent_data();
+			get_ischemic_data(pt, riskScores);
+			get_stent_data(riskScores);
 			$(".visual-field").slideDown("slow");
 
 		})
 
 		$("#write-data").click(function()
 		{
-			write_risk_data($("#bleed-risk").text(), $("#stent-risk").text(), smart)
+			write_risk_data(riskScores["bleedRisk"], riskScores["stentRisk"], smart)
 		})
 		
 	})
