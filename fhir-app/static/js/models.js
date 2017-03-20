@@ -41,34 +41,42 @@ export var rsc_obsv = {
             }
          }
       };
-export var rsc_riskasm = {
-      "resource": {
+const var rsc_riskasm = 
+{
+      "resource": 
+      {
   			"resourceType": "RiskAssessment",																// fixed for Risk Assessment
   			"id": "kgrid-ra101",																						// UI input
   			"date": "2014-07-19",																						//UI input
-  			"subject":{
+  			"subject":
+        {
     			"reference":"Patient/kgrid-02"                                // Patient ID, auto filled
     		},
-  			"prediction": [
-    		{
-      			"outcome": {
-        			"text": "Diabetes"																				// KO specific
-      			},
-      			"probabilityCodeableConcept": {
-        			"coding": [
-          		{
-            		"system": "http://hl7.org/fhir/risk-probability",       // fixed for probabilityCodeableConcept
-            		"code": "certain",																			// KO specific
-            		"display": "effectively guaranteed"
-          		}
-        			]
+
+  			"prediction": 
+        [
+      		{
+        			"outcome": 
+              {
+          			"text": "Diabetes"																				// KO specific
+        			},
+        			"probabilityCodeableConcept": 
+              {
+          			"coding": 
+                [
+              		{
+                		"system": "http://hl7.org/fhir/risk-probability",       // fixed for probabilityCodeableConcept
+                		"code": "certain",																			// KO specific
+                		"display": "effectively guaranteed"
+              		}
+          			]
+              }
+          }
+        ]
       }
-    }
-  ]
-}
 };
 
-export var rsc_condition = {
+var rsc_condition = {
         "resource": {
         "resourceType": "Condition",
         "id": "kgrid-co05",

@@ -39,10 +39,10 @@
   <div class="row border-box">
 	  <div class="container box-header color-scheme">
 			<h3> input information </h3>
-			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="patient1"> Autofill Sample 1 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="patient1"> Autofill Sample 2 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="patient1"> Autofill Sample 3 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="patient1"> Autofill Sample 4
+			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="0"> Autofill Sample 1 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="1"> Autofill Sample 2 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="2"> Autofill Sample 3 &nbsp &nbsp &nbsp
+			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="3"> Autofill Sample 4
 
 	  </div>
 	  <br>
@@ -167,7 +167,12 @@
 				<h3> Press to write risk scores to patient's health record</h3><br>
 				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
 				<br><br>
+				<div id="preview" style="display: none">
+					<h3> Resource Preview </h3>
+					<pre id="json-preview" class="text-left"> </pre>
+				</div>
 		</div>
+
 	</div>
 </div>
 

@@ -7,21 +7,16 @@ var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, '
 //input: birhtdate as a string in the form YYYY-MM-DD
 //output: an integer representing the age based on the birthdate
 function calculateAge(birthday)
-	{
-		var today = new Date();
-		var birthDate = new Date(birthday);
-		var age = today.getFullYear() - birthDate.getFullYear();
-		var m = today.getMonth() - birthDate.getMonth();
-		if(m < 0 || (m == 0 && today.getDate() < birthDate.getDate()))
-			age--;
+{
+	var today = new Date();
+	var birthDate = new Date(birthday);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+	if(m < 0 || (m == 0 && today.getDate() < birthDate.getDate()))
+		age--;
 
-		return age;
-	}
-
-// function get_patient_name(patient)
-// {
-
-// }
+	return age;
+}
 
 //input: patient FHIR resource
 //output: patient's name as a string
@@ -156,7 +151,114 @@ function populate_inputs(smart, callback)
 	.done(callback)
 }
 
-function write_ischemic_risk_data(riskValue, patient)
+function autofill(num, retrieved)
 {
+	console.log("autofill val", num)
+	if(num === 0 || num === 1)
+	{
+		//mod will be either 2 or 3
+		var mod = num + 2
+		$(".no-btn").each(function(index)
+		{
+			if(index % mod && !retrieved.has(index))
+			{
+				$(this).prop("checked", true);
+			}
+
+		})
+		$(".yes-btn").each(function(index)
+		{
+			if(!(index % mod) && !retrieved.has(index))
+			{
+				$(this).prop("checked", true);
+			}
+		})
+	}
+	else if(num === 2)
+	{
+		$(".yes-btn").each(function(index)
+		{
+			if(!$(this).is(":checked") && !retrieved.has(index))
+				$(this).prop("checked", true);
+		})
+	}
+	else
+	{
+		$(".no-btn").each(function(index)
+		{
+			if(!$(this).is(":checked") && !retrieved.has(index))
+				$(this).prop("checked", true);
+		})
+	}
+
 
 }
+
+function write_risk_data(bleedRisk, stentRisk, smart)
+{
+	var riskAsm = 
+	{
+		"resource":
+	{
+     "resourceType": "RiskAssessment",              
+     "id": "kgrid-ra101",                      
+     "date": "2014-07-19",                      
+     "subject":{
+       "reference":"Patient/" + smart.patient.id                               
+      },
+     "prediction": [
+      {
+         "outcome": {
+           "text": "Ischemic bleeding risk"                  
+         },
+         "probabilityDecimal": bleedRisk,
+         "probabilityCodeableConcept": {
+           "coding": [
+            {
+              "system": "http://hl7.org/fhir/risk-probability",      
+            }
+           ]
+         }
+      },
+
+      {
+      	"outcome": {
+           "text": "Stent thrombosis risk"                  
+         },
+         "probabilityDecimal": stentRisk,
+         "probabilityCodeableConcept": {
+           "coding": [
+            {
+              "system": "http://hl7.org/fhir/risk-probability",      
+            }
+           ]
+      }
+    }
+  ]
+}
+}
+
+	var preview = $("#json-preview")
+	preview.html(JSON.stringify(riskAsm, undefined, 3))
+	$("#preview").slideDown("slow")
+
+	smart.api.update(riskAsm).then(function()
+	{
+		//alert("hooray")
+		console.log("successfully wrote data to health record")
+		$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+
+	})
+}
+
+// function finish_write(resource, smart)
+// {
+// 	smart.api.update(resource).then(function()
+// 	{
+// 		alert("hooray")
+// 		console.log("successfully wrote data to health record")
+// 		$("#preview").append("<div class='alert alert-success'> <string> Success!</strong> </div>")
+
+// 	})
+
+// }
