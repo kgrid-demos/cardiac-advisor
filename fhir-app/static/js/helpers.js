@@ -101,7 +101,7 @@ function get_patient_name(patient)
   		success: function(response)
   		{
   			console.log('got value from stent object');
-  			riskScores["bleedRisk"] = response.result
+  			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');	
   		},
   		error: function(response)
@@ -124,7 +124,7 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
-			riskScores["stentRisk"] = response.result
+			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)
