@@ -1,32 +1,101 @@
-//$$$$
+//$$$
 
 $(document).ready(function()
 {
+
+	//	console.log("rsc", rsc_obsv)
 	
-	$("#get_data").click(function()
+	  	//alert('yo');
+FHIR.oauth2.ready(function(smart)
+{
+    //alert("whoa")
+	var patient = smart.patient.read()
+
+	var retrieved = new Set()
+	//alert("here")
+	var renalCode = "36225005"
+	var hypertensionCode = "38341003"
+	//TODO: check for different diabetes codes - there are different kinds	
+	var diabetesCode = "44054006"
+
+	$.when(patient).done(function(pt)
 	{
-	  //alert('yo');
-		FHIR.oauth2.ready(function(smart)
+		console.log("PATIENT RESOURCE: ", pt);
+	    //alert('got yo patient')
+		patientInfo = pt;
+		console.log(patientInfo);
+		$("#patient-name").text(get_patient_name(pt))
+
+		var retrieved = new Set()
+		populate_inputs(smart, function(condition)
 		{
-		   // alert("whoa")
-			var patient = smart.patient.read()
-			$.when(patient).done(function(pt)
+			console.log("condition yo", condition)
+			if(value_in_resource(condition, resource_path_for(renalCode)))
 			{
-				console.log("PATIENT RESOURCE: ", pt);
-			   // alert('got yo patient')
-				patientInfo = pt;
-				console.log(patientInfo);
+				retrieved.add(keyDict['renal'])
+				$("#renal-form").find("input").prop("disabled", true)
+				$("#renal-yes").prop("checked", true)
+				$(".renal-data").css("outline", "1px solid #5cbf2a")
+				console.log('SET', retrieved)
+			}
+			if(value_in_resource(condition, resource_path_for(hypertensionCode)))
+			{
+				retrieved.add(keyDict['hypertension'])
+				$("#hypertension-form").find("input").prop("disabled", true)
+				$("#hypertension-yes").prop("checked", true)
+				$(".hypertension-data").css("outline", "1px solid #5cbf2a")
+			}
+			if(value_in_resource(condition, resource_path_for(diabetesCode)))
+			{
+				retrieved.add(keyDict['diabetes'])
+				$("#diabetes-form").find("input").prop("disabled", true)
+				$("#diabetes-yes").prop("checked", true)
+				$(".diabetes-data").css("outline", "1px solid #5cbf2a")
+			}
 
-				$("#patient-age").text(calculateAge(pt.birthDate))
+			if(retrieved.size > 0)
+			{
+				console.log("retrieved elts", retrieved)
+				$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
+			}
 
-				get_ischemic_data(pt);
-				get_stent_data();
-				$(".visual-field").slideDown("slow");
-
+			$(".sample").click(function()
+			{
+				autofill(parseInt($(this).val()) ,retrieved)
+				$("#get_data").slideDown("slow"	)
+				$("#bleeding-icon").slideUp("slow");
+				$("#bleeding-icon").html("");
+				$("#stent-gage").slideUp("slow");
+				$("#stent-gage").html("");
 			})
+
+		})
+		$("#patient-ag").text(calculateAge(pt.birthDate))
+
+		var riskScores = 
+		{
+			"bleedRisk": null,
+			"stentRisk": null
+		}
+
+		$("#get_data").click(function()
+		{
+			//alert("shi")
+			get_ischemic_data(pt, riskScores);
+			get_stent_data(riskScores);
+			$(".visual-field").slideDown("slow");
+
 		})
 
+		$("#write-data").click(function()
+		{
+			write_risk_data(riskScores["bleedRisk"], riskScores["stentRisk"], smart)
+		})
+		
 	})
+})
+
+
 
 	$("input:radio[name='yes/no']").change(function()
 	{
@@ -41,76 +110,6 @@ $(document).ready(function()
 		}
 
 	})
-
-	$(".sample").click(function()
-	{
-		$("#bleeding-icon").slideUp("slow");
-		$("#bleeding-icon").html("");
-		$("#stent-gage").slideUp("slow");
-		$("#stent-gage").html("");
-	})
-
-	$("#sample1").click(function()
-	{
-		$(".no-btn").each(function(index)
-		{
-			if(index % 2)
-			{
-				$(this).prop("checked", true);
-			}
-
-		})
-
-		$(".yes-btn").each(function(index)
-		{
-			if(!(index % 2))
-			{
-				$(this).prop("checked", true);
-			}
-		})
-
-		$("#get_data").slideDown("slow");
-
-	})
-
-	$("#sample2").click(function()
-	{
-		$(".no-btn").each(function(index)
-		{
-			if(!(index % 3))
-				$(this).prop("checked", true);
-		})
-		$(".yes-btn").each(function(index)
-		{
-			if(index % 3)
-				$(this).prop("checked", true);
-		})
-
-		$("#get_data").slideDown("slow")
-	})
-
-	$("#sample3").click(function()
-	{
-		$(".yes-btn").each(function()
-		{
-			if(!$(this).is(":checked"))
-				$(this).prop("checked", true);
-		})
-
-		$("#get_data").slideDown("slow")
-	});
-
-	$("#sample4").click(function()
-	{
-		$(".no-btn").each(function()
-		{
-			if(!$(this).is(":checked"))
-				$(this).prop("checked", true);
-		})
-
-		$("#get_data").slideDown("slow")
-
-	});
 
 
 	$(".show_gage").click(function()
@@ -134,10 +133,10 @@ $(document).ready(function()
 
 	})
 
-	 $("#start").click(function()
-  	 {
-  		$("#input_div").slideDown("slow");
-  	 })
+	 // $("#start").click(function()
+  // 	 {
+  // 		$("#input_div").slideDown("slow");
+  // 	 })
 	  
 })
 

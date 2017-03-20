@@ -7,16 +7,16 @@ var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, '
 //input: birhtdate as a string in the form YYYY-MM-DD
 //output: an integer representing the age based on the birthdate
 function calculateAge(birthday)
-	{
-		var today = new Date();
-		var birthDate = new Date(birthday);
-		var age = today.getFullYear() - birthDate.getFullYear();
-		var m = today.getMonth() - birthDate.getMonth();
-		if(m < 0 || (m == 0 && today.getDate() < birthDate.getDate()))
-			age--;
+{
+	var today = new Date();
+	var birthDate = new Date(birthday);
+	var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+	if(m < 0 || (m == 0 && today.getDate() < birthDate.getDate()))
+		age--;
 
-		return age;
-	}
+	return age;
+}
 
 //input: patient FHIR resource
 //output: patient's name as a string
@@ -38,7 +38,7 @@ function get_patient_name(patient)
 	  alert($('input[name="yes/no"]:checked').val())
   }
   
-  //input: parameeters for knwledge object, takes an arbitrary number of parameters. 
+  //input: parameters for knwledge object, takes an arbitrary number of parameters. 
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
@@ -91,7 +91,7 @@ function get_patient_name(patient)
 	 })
   }
 
-  function get_stent_data()
+  function get_stent_data(riskScores)
   {
   	KOPost(
   	{
@@ -101,18 +101,20 @@ function get_patient_name(patient)
   		success: function(response)
   		{
   			console.log('got value from stent object');
+  			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');	
   		},
   		error: function(response)
   		{
   			console.log('got error in stent msg');
 			console.log(response.errorMessage);
+			$("#stent-vis").css("display", "none")
 			$("#stent-risk").text(response.errorMessage)
   		}
   	})
   }
 
-function get_ischemic_data(pt)
+function get_ischemic_data(pt, riskScores)
 {
 	console.log('BIRTHDATE: ', pt.birthDate)
 	KOPost(
@@ -122,6 +124,7 @@ function get_ischemic_data(pt)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
+			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)
@@ -133,3 +136,143 @@ function get_ischemic_data(pt)
 	})
 
 }
+
+function value_in_resource(resourceObj, path)
+{
+	return jsonpath.query(resourceObj, path).length > 0
+}
+
+function resource_path_for(code)
+{
+	return "$..resource.code.coding[?(@.code==" + code + ")].code"
+}
+
+function populate_inputs(smart, callback)
+{
+	smart.api.search({type: "Condition"})
+	.done(callback)
+}
+
+function autofill(num, retrieved)
+{
+	console.log("autofill val", num)
+	if(num === 0 || num === 1)
+	{
+		//mod will be either 2 or 3
+		var mod = num + 2
+		$(".no-btn").each(function(index)
+		{
+			if(index % mod && !retrieved.has(index))
+			{
+				$(this).prop("checked", true);
+			}
+
+		})
+		$(".yes-btn").each(function(index)
+		{
+			if(!(index % mod) && !retrieved.has(index))
+			{
+				$(this).prop("checked", true);
+			}
+		})
+	}
+	else if(num === 2)
+	{
+		$(".yes-btn").each(function(index)
+		{
+			if(!$(this).is(":checked") && !retrieved.has(index))
+				$(this).prop("checked", true);
+		})
+	}
+	else
+	{
+		$(".no-btn").each(function(index)
+		{
+			if(!$(this).is(":checked") && !retrieved.has(index))
+				$(this).prop("checked", true);
+		})
+	}
+
+
+}
+
+function write_risk_data(bleedRisk, stentRisk, smart)
+{
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = yyyy+'-'+mm+'-'+dd;
+	var riskAsm = 
+	{
+		"resource":
+	{
+     "resourceType": "RiskAssessment",              
+     "id": "kgrid-ra101",                      
+     "date": today,                      
+     "subject":{
+       "reference":"Patient/" + smart.patient.id                               
+      },
+     "prediction": [
+      {
+         "outcome": {
+           "text": "Ischemic bleeding risk"                  
+         },
+         "probabilityDecimal": bleedRisk,
+         "probabilityCodeableConcept": {
+           "coding": [
+            {
+              "system": "http://hl7.org/fhir/risk-probability",      
+            }
+           ]
+         }
+      },
+
+      {
+      	"outcome": {
+           "text": "Stent thrombosis risk"                  
+         },
+         "probabilityDecimal": stentRisk,
+         "probabilityCodeableConcept": {
+           "coding": [
+            {
+              "system": "http://hl7.org/fhir/risk-probability",      
+            }
+           ]
+      }
+    }
+  ]
+}
+}
+
+	var preview = $("#json-preview")
+	preview.html(JSON.stringify(riskAsm, undefined, 3))
+	$("#preview").slideDown("slow")
+
+	smart.api.update(riskAsm).then(function()
+	{
+		//alert("hooray")
+		console.log("successfully wrote data to health record")
+		$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+
+	})
+}
+
+// function finish_write(resource, smart)
+// {
+// 	smart.api.update(resource).then(function()
+// 	{
+// 		alert("hooray")
+// 		console.log("successfully wrote data to health record")
+// 		$("#preview").append("<div class='alert alert-success'> <string> Success!</strong> </div>")
+
+// 	})
+
+// }

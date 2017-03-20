@@ -4,6 +4,11 @@
 		height: 100%;
 	}
 
+  .underline
+  {
+    border-bottom: 1px solid steelblue;
+  }
+
 	.blue-background
 	{
 		background-color: steelblue !important;
@@ -172,5 +177,5 @@
 
 #input_div
 {
-	display: none;
+
 }
