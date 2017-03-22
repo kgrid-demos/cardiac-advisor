@@ -196,6 +196,29 @@ function autofill(num, retrieved)
 
 }
 
+function predictionTemplate(txt, riskValue)
+{
+	var thing =
+	{
+         "outcome":
+         {
+           "text": txt                 
+         },
+         "relativeRisk": riskValue,
+         "probabilityCodeableConcept": 
+         {
+           "coding": 
+          	[
+	       		{
+	              "system": "http://hl7.org/fhir/risk-probability"      
+	            }
+           	]
+         }
+    }
+
+    return thing
+}
+
 function write_risk_data(bleedRisk, stentRisk, smart)
 {
 	var today = new Date();
@@ -210,69 +233,45 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	    mm='0'+mm;
 	} 
 	var today = yyyy+'-'+mm+'-'+dd;
-	var riskAsm = 
+	
+	var riskAsm =
 	{
 		"resource":
+		{
+		     "resourceType": "RiskAssessment",              
+		     "id": "kgrid-ra102",                      
+		     "date": today,                      
+		     "subject":{
+		       "reference":"Patient/" + smart.patient.id                               
+		      },
+		     "prediction": []
+		}
+	}
+
+	var prediction = riskAsm['resource']['prediction']
+
+	if(bleedRisk)
+		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
+
+	if(stentRisk)
+		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk))
+
+	if(!bleedRisk && !stentRisk)
 	{
-     "resourceType": "RiskAssessment",              
-     "id": "kgrid-ra101",                      
-     "date": today,                      
-     "subject":{
-       "reference":"Patient/" + smart.patient.id                               
-      },
-     "prediction": [
-      {
-         "outcome": {
-           "text": "Ischemic bleeding risk"                  
-         },
-         "probabilityDecimal": bleedRisk,
-         "probabilityCodeableConcept": {
-           "coding": [
-            {
-              "system": "http://hl7.org/fhir/risk-probability",      
-            }
-           ]
-         }
-      },
-
-      {
-      	"outcome": {
-           "text": "Stent thrombosis risk"                  
-         },
-         "probabilityDecimal": stentRisk,
-         "probabilityCodeableConcept": {
-           "coding": [
-            {
-              "system": "http://hl7.org/fhir/risk-probability",      
-            }
-           ]
-      }
-    }
-  ]
-}
-}
-
-	var preview = $("#json-preview")
-	preview.html(JSON.stringify(riskAsm, undefined, 3))
-	$("#preview").slideDown("slow")
-
-	smart.api.update(riskAsm).then(function()
+		$("#preview").append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>")
+	}
+	else
 	{
-		//alert("hooray")
-		console.log("successfully wrote data to health record")
-		$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+		var preview = $("#json-preview")
+		preview.html(JSON.stringify(riskAsm, undefined, 3))
+		$("#preview").slideDown("slow")
 
-	})
+		smart.api.update(riskAsm).then(function()
+		{
+			//alert("hooray")
+			console.log("successfully wrote data to health record")
+			$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+
+		})
+	}
 }
-
-// function finish_write(resource, smart)
-// {
-// 	smart.api.update(resource).then(function()
-// 	{
-// 		alert("hooray")
-// 		console.log("successfully wrote data to health record")
-// 		$("#preview").append("<div class='alert alert-success'> <string> Success!</strong> </div>")
-
-// 	})
-
-// }
