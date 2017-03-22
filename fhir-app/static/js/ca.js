@@ -1,4 +1,4 @@
-
+//$$$
 
 $(document).ready(function()
 {
@@ -63,10 +63,7 @@ FHIR.oauth2.ready(function(smart)
 			{
 				autofill(parseInt($(this).val()) ,retrieved)
 				$("#get_data").slideDown("slow"	)
-				$("#bleeding-icon").slideUp("slow");
-				$("#bleeding-icon").html("");
-				$("#stent-gage").slideUp("slow");
-				$("#stent-gage").html("");
+				hide_visuals()
 			})
 
 		})
@@ -100,10 +97,7 @@ FHIR.oauth2.ready(function(smart)
 	$("input:radio[name='yes/no']").change(function()
 	{
 		//alert("!");
-		$("#bleeding-icon").slideUp("slow");
-		$("#bleeding-icon").html("");
-		$("#stent-gage").slideUp("slow");
-		$("#stent-gage").html("");
+		hide_visuals()
 		if($("input[name='yes/no']:checked").length == 12)
 		{
 			$("#get_data").slideDown("slow");

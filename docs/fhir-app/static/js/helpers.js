@@ -271,7 +271,20 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 			//alert("hooray")
 			console.log("successfully wrote data to health record")
 			$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+			$("#write-data").prop("disabled", "disabled")
 
 		})
 	}
+}
+function hide_visuals()
+{
+		$("#bleeding-icon").slideUp("slow")
+		$("#bleeding-icon").html("")
+		$("#stent-gage").slideUp("slow")
+		$("#stent-gage").html("")
+		$(".visual-field").slideUp("slow")
+		$("#json-preview").html("")
+		$("#write-data").removeAttr("disabled")
+		$(".alert").html("")
+		$("#preview").slideUp("slow")
 }
