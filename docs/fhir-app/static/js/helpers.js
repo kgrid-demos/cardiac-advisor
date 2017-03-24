@@ -84,6 +84,7 @@ function get_patient_name(patient)
 	 }
 
 	 console.log("AJAX SETTINGS: ", set)
+	 //gonna need to change this when they change how the execution stack handles errors
 	 $.ajax(set).done(function(response)
 	 {
 	 	if(response.result) instr.success(response);
@@ -276,15 +277,28 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 		})
 	}
 }
+
+function reset_gages()
+{
+	$(".show_gage").text("Display visual")
+	var stentGage = $("#stent-gage")
+	stentGage.slideUp("slow", function()
+	{
+		stentGage.html("")
+	})
+	var bleedGage = $("#bleeding-icon")
+	bleedGage.slideUp("slow", function()
+	{
+		bleedGage.html("")
+	})
+}
 function hide_visuals()
 {
-		$("#bleeding-icon").slideUp("slow")
-		$("#bleeding-icon").html("")
-		$("#stent-gage").slideUp("slow")
-		$("#stent-gage").html("")
+		reset_gages()
 		$(".visual-field").slideUp("slow")
 		$("#json-preview").html("")
 		$("#write-data").removeAttr("disabled")
 		$(".alert").html("")
 		$("#preview").slideUp("slow")
+		$("#get_data").removeAttr("disabled")
 }

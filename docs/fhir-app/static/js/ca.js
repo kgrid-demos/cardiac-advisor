@@ -18,6 +18,12 @@ FHIR.oauth2.ready(function(smart)
 	//TODO: check for different diabetes codes - there are different kinds	
 	var diabetesCode = "44054006"
 
+	var riskScores = 
+	{
+		"bleedRisk": null,
+		"stentRisk": null
+	}
+
 	$.when(patient).done(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
@@ -69,18 +75,13 @@ FHIR.oauth2.ready(function(smart)
 		})
 		$("#patient-ag").text(calculateAge(pt.birthDate))
 
-		var riskScores = 
-		{
-			"bleedRisk": null,
-			"stentRisk": null
-		}
-
 		$("#get_data").click(function()
 		{
 			//alert("shi")
 			get_ischemic_data(pt, riskScores);
 			get_stent_data(riskScores);
 			$(".visual-field").slideDown("slow");
+			$(this).prop("disabled", true)
 
 		})
 
@@ -90,11 +91,8 @@ FHIR.oauth2.ready(function(smart)
 		})
 		
 	})
-})
 
-
-
-	$("input:radio[name='yes/no']").change(function()
+		$("input:radio[name='yes/no']").change(function()
 	{
 		//alert("!");
 		hide_visuals()
@@ -105,32 +103,43 @@ FHIR.oauth2.ready(function(smart)
 
 	})
 
-
 	$(".show_gage").click(function()
 	{
-		$div = $(this).parent("div");
-		id = $div.attr("id");
-		text = $div.find("span").text();
-		text = text.substr(0, text.length - 1);
+		var divID = this.name
+		var vis = $(this)
+		var count_ = null
+		var arrayDiv = $("#" + divID)
 
-		//alert(text);
-		var divID_ = this.name;
-		console.log("divID: ", divID_);
-		var domObj = $("#" + divID_);
-		
-		if(!domObj.is(":visible"))
+		if(divID === "bleeding-icon")
+			count_ = riskScores["bleedRisk"]
+		else
+			count_ = riskScores["stentRisk"]
+
+		//alert(count_)
+
+		if(!arrayDiv.is(":visible"))
 		{
-			draw_array({divID: divID_, count: parseFloat(text), gridWidth: 10, gridHeight: 10, personFill: "steelblue",
+			arrayDiv.append("<br>")
+			draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
 					backgroundFill: "#FFFFFF", key: true})
-			$("#" + divID_).slideDown("slow");
+			$("#" + divID).slideDown("slow", function()
+			{
+				vis.text("Hide visual")
+			});
+		}
+		else
+		{
+			arrayDiv.slideUp("slow", function()
+			{
+				arrayDiv.html("")
+				vis.text("Display visual")
+			})
 		}
 
 	})
 
-	 // $("#start").click(function()
-  // 	 {
-  // 		$("#input_div").slideDown("slow");
-  // 	 })
+})
+
 	  
 })
 
