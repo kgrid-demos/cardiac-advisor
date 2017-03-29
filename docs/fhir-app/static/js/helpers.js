@@ -299,6 +299,7 @@ function hide_visuals()
 		$("#json-preview").html("")
 		$("#write-data").removeAttr("disabled")
 		$(".alert").html("")
+		$(".alert").css("display", "none")
 		$("#preview").slideUp("slow")
 		$("#get_data").removeAttr("disabled")
 }
