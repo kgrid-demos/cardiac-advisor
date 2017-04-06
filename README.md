@@ -1,7 +1,7 @@
 # cardiac-advisor
 SMART cardiac advisor
 
-Publish by copying `/fhir-app` to `/docs/fhir-app` folder
+Publish by copying files in `/fhir-app` to `/docs/fhir-app` folder, but do __not__ change the launch.html file
 
 ## Overview
 
