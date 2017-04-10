@@ -33,12 +33,13 @@ function get_patient_name(patient)
 	else return "anonymous";
 }
 
-  function getButtonValue(inputName)
-  {
-	  alert($('input[name="yes/no"]:checked').val())
-  }
+
+function getButtonValue(inputName)
+{
+  alert($('input[name="yes/no"]:checked').val())
+}
   
-  //input: parameters for knwledge object, takes an arbitrary number of parameters. 
+  //input: parameters for knwledge object, takes a list as the first argument 
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
@@ -71,6 +72,16 @@ function get_patient_name(patient)
 
 //input: data, ark id, success callback, error callback. Parameters need to be in the same object
 //output: sends a POST request to the knowledge object with the ark ID, runs callbacks on success/error (async)
+/*
+	instr should be formatted like so:
+		{
+			arkID: ...
+			data: ...
+			success: function(result)...
+			error: function(result)...
+		}
+
+*/
   function KOPost(instr)
   {
   	var set = 
@@ -90,8 +101,31 @@ function get_patient_name(patient)
 	 	if(response.result) instr.success(response);
 	 	else instr.error(response);
 	 })
+
+	 // $.ajax(
+	 // {
+		//   "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
+		//   "method": "POST",
+		//   "headers": {
+		// 	  "content-type": "application/json",
+		//   },
+		//   "data": instr.data,
+
+		//   success: function(response)
+		//   {
+		//       instr.success(response)
+		//   }
+
+		//   error: function(response)
+		//   {
+		//       instr.error(response)
+		//   }
+	 })
   }
 
+  //input: dictionary keeping track of the risk scores
+  //output: makes call to stent risk knowledge object and updates the riskScores dictionary. also
+  //	displays the risk score on the page as a percentage
   function get_stent_data(riskScores)
   {
   	KOPost(
@@ -115,6 +149,10 @@ function get_patient_name(patient)
   	})
   }
 
+
+//input: SMART patient resource and a dictionary to contain returned value
+//output: makes call to ischemic bleeding risk knowledge object and updates riskScores dictionary to contain result
+//			also displays result on the page as a percentage
 function get_ischemic_data(pt, riskScores)
 {
 	console.log('BIRTHDATE: ', pt.birthDate)
@@ -138,29 +176,43 @@ function get_ischemic_data(pt, riskScores)
 
 }
 
+//input: a FHIR resouce and a jsonpath string
+//output: returns true if the FHIR resource contains the path you specified, false otherwise
 function value_in_resource(resourceObj, path)
 {
 	return jsonpath.query(resourceObj, path).length > 0
 }
 
+//input: medical code
+//output: returns a jsonpath string for a generic FHIR resource that searches for the code
+//	note: may not work for all FHIR resources.
 function resource_path_for(code)
 {
 	return "$..resource.code.coding[?(@.code==" + code + ")].code"
 }
 
+//input: smart endpoint, callback to do something with condition resource
+//output: retrieves FHIR Condition resource using smart endpoint, uses callback to do something with
+//	the resource
 function populate_inputs(smart, callback)
 {
 	smart.api.search({type: "Condition"})
 	.done(callback)
 }
 
+
+//input: autofill option number and object containing values retrieved using SMART
+//output: autofills the input buttons on the table, does not overwrite thing retrieved
+//			fro EHR using smart
 function autofill(num, retrieved)
 {
 	console.log("autofill val", num)
+	//if one of the first 2 autofill options are selected
 	if(num === 0 || num === 1)
 	{
 		//mod will be either 2 or 3
 		var mod = num + 2
+		//select every other or every 2 "no" input buttons (depending on what num is)
 		$(".no-btn").each(function(index)
 		{
 			if(index % mod && !retrieved.has(index))
@@ -169,6 +221,7 @@ function autofill(num, retrieved)
 			}
 
 		})
+		//make the remaining ones "yes" selected
 		$(".yes-btn").each(function(index)
 		{
 			if(!(index % mod) && !retrieved.has(index))
@@ -177,6 +230,8 @@ function autofill(num, retrieved)
 			}
 		})
 	}
+	//third autfill option
+	//make everything "yes" selected
 	else if(num === 2)
 	{
 		$(".yes-btn").each(function(index)
@@ -185,6 +240,8 @@ function autofill(num, retrieved)
 				$(this).prop("checked", true);
 		})
 	}
+	//autofill option 4
+	//mark everything as "no"
 	else
 	{
 		$(".no-btn").each(function(index)
@@ -197,8 +254,11 @@ function autofill(num, retrieved)
 
 }
 
+//input: description text and risk score as a decimal
+//output: returns outcome dictionary that is inserted into a FHIR RiskAssessment resource
 function predictionTemplate(txt, riskValue)
 {
+	//format is important, SMART won't write it if the format is wrong
 	var thing =
 	{
          "outcome":
@@ -220,6 +280,8 @@ function predictionTemplate(txt, riskValue)
     return thing
 }
 
+//input: risk scores and smart endpoint
+//output: uses SMART API to create a RiskAssesment resource and writes it to the patient's EHR
 function write_risk_data(bleedRisk, stentRisk, smart)
 {
 	var today = new Date();
@@ -233,8 +295,12 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	if(mm<10){
 	    mm='0'+mm;
 	} 
+
+	//current date formatted as yyyy-mm-dd
 	var today = yyyy+'-'+mm+'-'+dd;
 	
+	//RiskAssessment resource template
+	//have to add in prediction information
 	var riskAsm =
 	{
 		"resource":
@@ -251,6 +317,7 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 
 	var prediction = riskAsm['resource']['prediction']
 
+	//add prediction information to resource if there is data
 	if(bleedRisk)
 		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
 
@@ -264,13 +331,16 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	else
 	{
 		var preview = $("#json-preview")
+		//display preview of resource
 		preview.html(JSON.stringify(riskAsm, undefined, 3))
 		$("#preview").slideDown("slow")
 
+		//write the resource to the patient's EHR
 		smart.api.update(riskAsm).then(function()
 		{
 			//alert("hooray")
 			console.log("successfully wrote data to health record")
+			//update visuals
 			$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
 			$("#write-data").prop("disabled", "disabled")
 
@@ -278,6 +348,7 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	}
 }
 
+//output: resets and clears the icon arrays on the page
 function reset_gages()
 {
 	$(".show_gage").text("Display visual")
@@ -292,6 +363,8 @@ function reset_gages()
 		bleedGage.html("")
 	})
 }
+
+//output: hides all visuals on the page
 function hide_visuals()
 {
 		reset_gages()
