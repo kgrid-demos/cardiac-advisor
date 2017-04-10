@@ -120,7 +120,7 @@ function getButtonValue(inputName)
 		//   {
 		//       instr.error(response)
 		//   }
-	 })
+	// })
   }
 
   //input: dictionary keeping track of the risk scores
