@@ -11,7 +11,7 @@
 
    `http://kgrid.org/cardiac-advisor/fhir-app/launch.html`
 
-   (The **Client ID** doesn't matter, you can leave it empty.)
+   (The **Client ID** doesn't matter, but you have to put something in.)
 
 
 1. The **Cardiac Advisor** application will open in a new window/tab. (If this your first time accessing the application you'll be asked to authorize the Cardiac Advisor application.)
