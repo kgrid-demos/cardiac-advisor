@@ -21,7 +21,7 @@ FHIR.oauth2.ready(function(smart)
 	var diabetesCode = "44054006"
 
 	//This is used to keep track of results from knowledge objects
-	var riskScores = 
+	var riskScores =
 	{
 		"bleedRisk": null,
 		"stentRisk": null
@@ -40,7 +40,7 @@ FHIR.oauth2.ready(function(smart)
 		{
 			console.log("condition yo", condition)
 
-			//if there the patient has a condition observation resource containing an 
+			//if there the patient has a condition observation resource containing an
 			// observation, outlilne the table box in green to show it was retrieved from the EHR
 			// keep track of retrieved information using Retrieved set
 			if(value_in_resource(condition, resource_path_for(renalCode)))
@@ -103,7 +103,7 @@ FHIR.oauth2.ready(function(smart)
 		{
 			write_risk_data(riskScores["bleedRisk"], riskScores["stentRisk"], smart)
 		})
-		
+
 	})
 
 	//if the user changes one of the input options, clear the visuals and reset everything
@@ -121,7 +121,7 @@ FHIR.oauth2.ready(function(smart)
 	//show icon array
 	$(".show_gage").click(function()
 	{
-		//the name attribute of this object's tag should be the same as the desired ID for the div in 
+		//the name attribute of this object's tag should be the same as the desired ID for the div in
 		//	which the icon array is being drawn
 		var divID = this.name
 		//vis is the button the user clicked (one of the 2)
@@ -164,7 +164,5 @@ FHIR.oauth2.ready(function(smart)
 
 })
 
-	  
-})
 
- 
+})

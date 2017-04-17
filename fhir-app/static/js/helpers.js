@@ -1,7 +1,7 @@
-// var keyDict = {0: 'DAPT', 4: 'infar', 5: 'priorPCI', 6: 'CHF', 7: 'veinGraft', 8: 'stentDiameter', 
+// var keyDict = {0: 'DAPT', 4: 'infar', 5: 'priorPCI', 6: 'CHF', 7: 'veinGraft', 8: 'stentDiameter',
 //  				9: 'pac', 10: 'cigSmoker', 11: 'diabetes', 1: 'periphDisease',  2: 'hypertension', 3: 'renal'};
 
-var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8, 
+var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
 
 //input: birhtdate as a string in the form YYYY-MM-DD
@@ -38,8 +38,8 @@ function getButtonValue(inputName)
 {
   alert($('input[name="yes/no"]:checked').val())
 }
-  
-  //input: parameters for knwledge object, takes a list as the first argument 
+
+  //input: parameters for knwledge object, takes a list as the first argument
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
@@ -84,7 +84,7 @@ function getButtonValue(inputName)
 */
   function KOPost(instr)
   {
-  	var set = 
+  	var set =
   	 {
 		  "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
 		  "method": "POST",
@@ -131,13 +131,13 @@ function getButtonValue(inputName)
   	KOPost(
   	{
   		arkID: "99999/fk45m6gq9t",
-  		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter', 
+  		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter',
   			'pac', 'cigSmoker', 'diabetes', 'periphDisease', 'renal']),
   		success: function(response)
   		{
   			console.log('got value from stent object');
   			riskScores["stentRisk"] = response.result
-			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');	
+			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
   		},
   		error: function(response)
   		{
@@ -263,15 +263,15 @@ function predictionTemplate(txt, riskValue)
 	{
          "outcome":
          {
-           "text": txt                 
+           "text": txt
          },
          "relativeRisk": riskValue,
-         "probabilityCodeableConcept": 
+         "probabilityCodeableConcept":
          {
-           "coding": 
+           "coding":
           	[
 	       		{
-	              "system": "http://hl7.org/fhir/risk-probability"      
+	              "system": "http://hl7.org/fhir/risk-probability"
 	            }
            	]
          }
@@ -291,25 +291,25 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	var yyyy = today.getFullYear();
 	if(dd<10){
 	    dd='0'+dd;
-	} 
+	}
 	if(mm<10){
 	    mm='0'+mm;
-	} 
+	}
 
 	//current date formatted as yyyy-mm-dd
 	var today = yyyy+'-'+mm+'-'+dd;
-	
+
 	//RiskAssessment resource template
 	//have to add in prediction information
 	var riskAsm =
 	{
 		"resource":
 		{
-		     "resourceType": "RiskAssessment",              
-		     "id": "kgrid-ra102",                      
-		     "date": today,                      
+		     "resourceType": "RiskAssessment",
+		     "id": "kgrid-ra102",
+		     "date": today,
 		     "subject":{
-		       "reference":"Patient/" + smart.patient.id                               
+		       "reference":"Patient/" + smart.patient.id
 		      },
 		     "prediction": []
 		}
