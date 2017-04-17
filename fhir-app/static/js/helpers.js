@@ -3,6 +3,9 @@
 
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
+var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
+var baseUrl ="http://kgrid.med.umich.edu/stack";
+var objLeadUrl = "/knowledgeObject/ark:/";
 
 //input: birhtdate as a string in the form YYYY-MM-DD
 //output: an integer representing the age based on the birthdate
@@ -86,7 +89,7 @@ function getButtonValue(inputName)
   {
   	var set =
   	 {
-		  "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
+		  "url": baseUrl+objLeadUrl+ instr.arkID + "/result",
 		  "method": "POST",
 		  "headers": {
 			  "content-type": "application/json",
@@ -96,32 +99,18 @@ function getButtonValue(inputName)
 
 	 console.log("AJAX SETTINGS: ", set)
 	 //gonna need to change this when they change how the execution stack handles errors
-	 $.ajax(set).done(function(response)
+	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
-	 	if(response.result) instr.success(response);
-	 	else instr.error(response);
-	 })
+     console.log(jqXHR);
+	 	instr.success(data);
+  }).fail(function(jqXHR, textStatus, errorThrown){
+    console.log(jqXHR);
+    instr.error(jqXHR.responseJSON);
+  }).always(function(){
+    console.log("Finished");
+  })
 
-	 // $.ajax(
-	 // {
-		//   "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
-		//   "method": "POST",
-		//   "headers": {
-		// 	  "content-type": "application/json",
-		//   },
-		//   "data": instr.data,
-
-		//   success: function(response)
-		//   {
-		//       instr.success(response)
-		//   }
-
-		//   error: function(response)
-		//   {
-		//       instr.error(response)
-		//   }
-	// })
-  }
+}
 
   //input: dictionary keeping track of the risk scores
   //output: makes call to stent risk knowledge object and updates the riskScores dictionary. also
@@ -135,16 +124,20 @@ function getButtonValue(inputName)
   			'pac', 'cigSmoker', 'diabetes', 'periphDisease', 'renal']),
   		success: function(response)
   		{
-  			console.log('got value from stent object');
+  			console.log(response);
+        $("#stent-vis").css("display", "block")
+        $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
   		},
   		error: function(response)
   		{
-  			console.log('got error in stent msg');
-			console.log(response.errorMessage);
+  			console.log(response);
+			console.log(response.message);
 			$("#stent-vis").css("display", "none")
-			$("#stent-risk").text(response.errorMessage)
+      $("#stent-error").css("display", "block")
+			$("#stent-error").text(response.status+" - "+response.message)
+      $("#write-data").prop("disabled", "disabled")
   		}
   	})
   }
@@ -163,14 +156,19 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
+      $("#bleed-vis").css("display", "block")
+      $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)
 		{
-			console.log(response.errorMessage);
+			console.log(response.message);
+      $("#bleed-vis").css("display", "none")
+      $("#bleed-error").css("display", "block")
 		  	$("#bleed-vis").css("display", "none");
-			$("#bleed-risk").text(response.errorMessage);
+			$("#bleed-error").text(response.status+" - "+response.message);
+      $("#write-data").prop("disabled", "disabled")
 		}
 	})
 

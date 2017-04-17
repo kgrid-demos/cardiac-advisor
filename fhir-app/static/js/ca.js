@@ -91,7 +91,7 @@ FHIR.oauth2.ready(function(smart)
 		$("#get_data").click(function()
 		{
 
-			get_ischemic_data(pt, riskScores);
+		  get_ischemic_data(pt, riskScores);
 			get_stent_data(riskScores);
 			//get ready to show visuals
 			$(".visual-field").slideDown("slow");
