@@ -1,8 +1,11 @@
-// var keyDict = {0: 'DAPT', 4: 'infar', 5: 'priorPCI', 6: 'CHF', 7: 'veinGraft', 8: 'stentDiameter', 
+// var keyDict = {0: 'DAPT', 4: 'infar', 5: 'priorPCI', 6: 'CHF', 7: 'veinGraft', 8: 'stentDiameter',
 //  				9: 'pac', 10: 'cigSmoker', 11: 'diabetes', 1: 'periphDisease',  2: 'hypertension', 3: 'renal'};
 
-var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8, 
+var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
+var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
+var baseUrl ="http://kgrid.med.umich.edu/stack";
+var objLeadUrl = "/knowledgeObject/ark:/";
 
 //input: birhtdate as a string in the form YYYY-MM-DD
 //output: an integer representing the age based on the birthdate
@@ -38,8 +41,8 @@ function getButtonValue(inputName)
 {
   alert($('input[name="yes/no"]:checked').val())
 }
-  
-  //input: parameters for knwledge object, takes a list as the first argument 
+
+  //input: parameters for knwledge object, takes a list as the first argument
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
@@ -84,9 +87,9 @@ function getButtonValue(inputName)
 */
   function KOPost(instr)
   {
-  	var set = 
+  	var set =
   	 {
-		  "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
+		  "url": baseUrl+objLeadUrl+ instr.arkID + "/result",
 		  "method": "POST",
 		  "headers": {
 			  "content-type": "application/json",
@@ -96,32 +99,18 @@ function getButtonValue(inputName)
 
 	 console.log("AJAX SETTINGS: ", set)
 	 //gonna need to change this when they change how the execution stack handles errors
-	 $.ajax(set).done(function(response)
+	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
-	 	if(response.result) instr.success(response);
-	 	else instr.error(response);
-	 })
+     console.log(jqXHR);
+	 	instr.success(data);
+  }).fail(function(jqXHR, textStatus, errorThrown){
+    console.log(jqXHR);
+    instr.error(jqXHR.responseJSON);
+  }).always(function(){
+    console.log("Finished");
+  })
 
-	 // $.ajax(
-	 // {
-		//   "url": "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack/knowledgeObject/ark:/"+ instr.arkID + "/result",
-		//   "method": "POST",
-		//   "headers": {
-		// 	  "content-type": "application/json",
-		//   },
-		//   "data": instr.data,
-
-		//   success: function(response)
-		//   {
-		//       instr.success(response)
-		//   }
-
-		//   error: function(response)
-		//   {
-		//       instr.error(response)
-		//   }
-	// })
-  }
+}
 
   //input: dictionary keeping track of the risk scores
   //output: makes call to stent risk knowledge object and updates the riskScores dictionary. also
@@ -131,20 +120,24 @@ function getButtonValue(inputName)
   	KOPost(
   	{
   		arkID: "99999/fk45m6gq9t",
-  		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter', 
+  		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter',
   			'pac', 'cigSmoker', 'diabetes', 'periphDisease', 'renal']),
   		success: function(response)
   		{
-  			console.log('got value from stent object');
+  			console.log(response);
+        $("#stent-vis").css("display", "block")
+        $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
-			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');	
+			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
   		},
   		error: function(response)
   		{
-  			console.log('got error in stent msg');
-			console.log(response.errorMessage);
+  			console.log(response);
+			console.log(response.message);
 			$("#stent-vis").css("display", "none")
-			$("#stent-risk").text(response.errorMessage)
+      $("#stent-error").css("display", "block")
+			$("#stent-error").text(response.status+" - "+response.message)
+      $("#write-data").prop("disabled", "disabled")
   		}
   	})
   }
@@ -163,14 +156,19 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
+      $("#bleed-vis").css("display", "block")
+      $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)
 		{
-			console.log(response.errorMessage);
+			console.log(response.message);
+      $("#bleed-vis").css("display", "none")
+      $("#bleed-error").css("display", "block")
 		  	$("#bleed-vis").css("display", "none");
-			$("#bleed-risk").text(response.errorMessage);
+			$("#bleed-error").text(response.status+" - "+response.message);
+      $("#write-data").prop("disabled", "disabled")
 		}
 	})
 
@@ -263,15 +261,15 @@ function predictionTemplate(txt, riskValue)
 	{
          "outcome":
          {
-           "text": txt                 
+           "text": txt
          },
          "relativeRisk": riskValue,
-         "probabilityCodeableConcept": 
+         "probabilityCodeableConcept":
          {
-           "coding": 
+           "coding":
           	[
 	       		{
-	              "system": "http://hl7.org/fhir/risk-probability"      
+	              "system": "http://hl7.org/fhir/risk-probability"
 	            }
            	]
          }
@@ -291,25 +289,25 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	var yyyy = today.getFullYear();
 	if(dd<10){
 	    dd='0'+dd;
-	} 
+	}
 	if(mm<10){
 	    mm='0'+mm;
-	} 
+	}
 
 	//current date formatted as yyyy-mm-dd
 	var today = yyyy+'-'+mm+'-'+dd;
-	
+
 	//RiskAssessment resource template
 	//have to add in prediction information
 	var riskAsm =
 	{
 		"resource":
 		{
-		     "resourceType": "RiskAssessment",              
-		     "id": "kgrid-ra102",                      
-		     "date": today,                      
+		     "resourceType": "RiskAssessment",
+		     "id": "kgrid-ra102",
+		     "date": today,
 		     "subject":{
-		       "reference":"Patient/" + smart.patient.id                               
+		       "reference":"Patient/" + smart.patient.id
 		      },
 		     "prediction": []
 		}
