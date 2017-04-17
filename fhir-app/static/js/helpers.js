@@ -7,8 +7,12 @@ var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStac
 var baseUrl ="http://kgrid.med.umich.edu/stack";
 var objLeadUrl = "/knowledgeObject/ark:/";
 
-//input: birhtdate as a string in the form YYYY-MM-DD
-//output: an integer representing the age based on the birthdate
+
+/**
+ * Calculates age of a person based on their birthDate
+ * @param  {String} birthday birthdate in formatted as YYY-MM-DD
+ * @return {number}          returns the person's age
+ */
 function calculateAge(birthday)
 {
 	var today = new Date();
@@ -21,8 +25,12 @@ function calculateAge(birthday)
 	return age;
 }
 
-//input: patient FHIR resource
-//output: patient's name as a string
+
+/**
+ * gets patient's full name from patient fhir resource
+ * @param  {Object} patient Patient FHIR resource obtained from SMART API
+ * @return {String}         returns patient's full name. Returns "anonymous" if not available
+ */
 function get_patient_name(patient)
 {
 	if(patient.name)
@@ -46,6 +54,13 @@ function getButtonValue(inputName)
   //optionals is an optional parameter, it should be an object that holds any extra keys you want to add to data
   //needs: a key dictionary for mapping values
   //output: returns object mapping parameters to their values
+
+  /**
+   * maps input buttons on index.html table to their values
+   * @param  {list} args      key dictionary for mapping values
+   * @param  {object} optionals object containing any extra keys you want to map
+   * @return {String}           returns json object mapping parameters to their values
+   */
   function get_data(args, optionals)
   {
   	var data = {};
@@ -73,18 +88,18 @@ function getButtonValue(inputName)
   	return JSON.stringify(data);
   }
 
-//input: data, ark id, success callback, error callback. Parameters need to be in the same object
-//output: sends a POST request to the knowledge object with the ark ID, runs callbacks on success/error (async)
-/*
-	instr should be formatted like so:
-		{
-			arkID: ...
-			data: ...
-			success: function(result)...
-			error: function(result)...
-		}
-
-*/
+/**
+ * sends a POST request to the knowledge object with specified ark ID, runs callbacks on success/error (async)
+ * @param {object} instr object containing ark ID, success callback, and error callback
+ *
+ * instr should be formatted like so:
+     {
+         arkID: ...
+         data: ...
+         success: function(result)...
+         error: function(result)...
+     }
+ */
   function KOPost(instr)
   {
   	var set =
@@ -98,23 +113,25 @@ function getButtonValue(inputName)
 	 }
 
 	 console.log("AJAX SETTINGS: ", set)
-	 //gonna need to change this when they change how the execution stack handles errors
+
 	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
-     console.log(jqXHR);
-	 	instr.success(data);
-  }).fail(function(jqXHR, textStatus, errorThrown){
-    console.log(jqXHR);
-    instr.error(jqXHR.responseJSON);
-  }).always(function(){
-    console.log("Finished");
-  })
+         console.log(jqXHR);
+    	 instr.success(data);
+      }).fail(function(jqXHR, textStatus, errorThrown){
+        console.log(jqXHR);
+        instr.error(jqXHR.responseJSON);
+      }).always(function(){
+        console.log("Finished");
+      })
 
 }
 
-  //input: dictionary keeping track of the risk scores
-  //output: makes call to stent risk knowledge object and updates the riskScores dictionary. also
-  //	displays the risk score on the page as a percentage
+
+  /**
+   * makes call to stent risk knowledge object and updates the riskScores object, also displays score on page as a percentage
+   * @param  {Object} riskScores an object that keeps track of the 2 risk scores
+   */
   function get_stent_data(riskScores)
   {
   	KOPost(
@@ -125,8 +142,8 @@ function getButtonValue(inputName)
   		success: function(response)
   		{
   			console.log(response);
-        $("#stent-vis").css("display", "block")
-        $("#stent-error").css("display", "none")
+            $("#stent-vis").css("display", "block")
+            $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
   		},
@@ -135,17 +152,18 @@ function getButtonValue(inputName)
   			console.log(response);
 			console.log(response.message);
 			$("#stent-vis").css("display", "none")
-      $("#stent-error").css("display", "block")
-			$("#stent-error").text(response.status+" - "+response.message)
-      $("#write-data").prop("disabled", "disabled")
+            $("#stent-error").css("display", "block")
+			$("#stent-error").text(response.status + " - " + response.message)
+            //$("#write-data").prop("disabled", "disabled")
   		}
   	})
   }
 
-
-//input: SMART patient resource and a dictionary to contain returned value
-//output: makes call to ischemic bleeding risk knowledge object and updates riskScores dictionary to contain result
-//			also displays result on the page as a percentage
+/**
+ * makes call to ischemic bleeding risk knowledge object and updates the riskScores object,
+ * also displays score on page (percentage)
+ * @param  {Object} riskScores an object that keeps track of the 2 risk scores
+ */
 function get_ischemic_data(pt, riskScores)
 {
 	console.log('BIRTHDATE: ', pt.birthDate)
@@ -156,52 +174,65 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
-      $("#bleed-vis").css("display", "block")
-      $("#bleed-error").css("display", "none")
+            $("#bleed-vis").css("display", "block")
+            $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
 		},
 		error: function(response)
 		{
 			console.log(response.message);
-      $("#bleed-vis").css("display", "none")
-      $("#bleed-error").css("display", "block")
+            $("#bleed-vis").css("display", "none")
+            $("#bleed-error").css("display", "block")
 		  	$("#bleed-vis").css("display", "none");
-			$("#bleed-error").text(response.status+" - "+response.message);
-      $("#write-data").prop("disabled", "disabled")
+			$("#bleed-error").text(response.status + " - " + response.message);
+            //$("#write-data").prop("disabled", "disabled")
 		}
 	})
 
 }
 
-//input: a FHIR resouce and a jsonpath string
-//output: returns true if the FHIR resource contains the path you specified, false otherwise
+
+/**
+ * returns true if FHIR resource contains specified path, false otherwise
+ * @param  {Object} resourceObj FHIR resource
+ * @param  {String} path        jsonpath string
+ * @return {Boolean}            returns true if path exists in resource, false otherwise
+ */
 function value_in_resource(resourceObj, path)
 {
 	return jsonpath.query(resourceObj, path).length > 0
 }
 
-//input: medical code
-//output: returns a jsonpath string for a generic FHIR resource that searches for the code
-//	note: may not work for all FHIR resources.
+
+/**
+ * takes in a medical codde and returns a jsonpath string for a generic FHIR resource that searches for the code
+ * note: may not work for all FHIR resources
+ * @param  {String|Number} code medical code
+ * @return {String}      returns formatted jsonpath for the specified code
+ */
 function resource_path_for(code)
 {
 	return "$..resource.code.coding[?(@.code==" + code + ")].code"
 }
 
-//input: smart endpoint, callback to do something with condition resource
-//output: retrieves FHIR Condition resource using smart endpoint, uses callback to do something with
-//	the resource
+/**
+ * retrieves FHIR Conditin resource using smart endpoint, uses callback to do somethign with resource
+ * @param  {Object}   smart    SMART API endpoint obtained from FHIR.oauth2.ready()
+ * @param  {Function} callback callback to do something with FHIR resource
+ */
 function populate_inputs(smart, callback)
 {
 	smart.api.search({type: "Condition"})
 	.done(callback)
 }
 
-
-//input: autofill option number and object containing values retrieved using SMART
-//output: autofills the input buttons on the table, does not overwrite thing retrieved
-//			fro EHR using smart
+/**
+ * autofills table inputs based on option selected, does not overwrite things retrieved from
+ * EHR using SMART
+ * @param  {Number} num       autofill option Number
+ * @param  {Object} retrieved object containing values retrieved using SMART
+ */
 function autofill(num, retrieved)
 {
 	console.log("autofill val", num)
@@ -252,11 +283,16 @@ function autofill(num, retrieved)
 
 }
 
-//input: description text and risk score as a decimal
-//output: returns outcome dictionary that is inserted into a FHIR RiskAssessment resource
+/**
+ * makes a template for prediction key in RiskAssessment FHIR resource
+ * this is the part of the FHIR resource that contains the risk scores
+ * @param  {String} txt       description of risk value
+ * @param  {Float} riskValue  risk score as a decimal
+ * @return {Object}           returns outcome dictionary to be inserted into RiskAssessment resrouce
+ */
 function predictionTemplate(txt, riskValue)
 {
-	//format is important, SMART won't write it if the format is wrong
+	//format is important, SMART won't write it if the key names are wrong
 	var thing =
 	{
          "outcome":
@@ -278,8 +314,12 @@ function predictionTemplate(txt, riskValue)
     return thing
 }
 
-//input: risk scores and smart endpoint
-//output: uses SMART API to create a RiskAssesment resource and writes it to the patient's EHR
+/**
+ * uses SMART API to create a RiskAssesment resource and writes it to the patient's EHR
+ * @param  {Float} bleedRisk    bleeding risk as a decimal
+ * @param  {Float} stentRisk    stent risk as a decimal
+ * @param  {Object} smart       SMART API endpoint from FHIR.oauth2.ready()
+ */
 function write_risk_data(bleedRisk, stentRisk, smart)
 {
 	var today = new Date();
@@ -346,7 +386,7 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	}
 }
 
-//output: resets and clears the icon arrays on the page
+// resets and clears the icon arrays on the page
 function reset_gages()
 {
 	$(".show_gage").text("Display visual")
@@ -362,7 +402,7 @@ function reset_gages()
 	})
 }
 
-//output: hides all visuals on the page
+// hides all visuals on the page
 function hide_visuals()
 {
 		reset_gages()

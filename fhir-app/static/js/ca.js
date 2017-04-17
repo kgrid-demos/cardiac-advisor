@@ -3,7 +3,7 @@
 $(document).ready(function()
 {
 
-//This gives the smart endopoint for using SMART API calls
+//This gives the smart endpoint for using SMART API calls
 FHIR.oauth2.ready(function(smart)
 {
 
@@ -31,7 +31,7 @@ FHIR.oauth2.ready(function(smart)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
 
-		patientInfo = pt;
+		var patientInfo = pt;
 		console.log(patientInfo);
 		$("#patient-name").text(get_patient_name(pt))
 
