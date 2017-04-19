@@ -39,7 +39,3 @@ __Note__: you will need access to the github repisitory to do this
 
 - http://smarthealthit.org/
 - http://docs.smarthealthit.org/sandbox/
-
-To revoke the authorization granted to the Cardiac advisor visit:
-
-- https://authorize-dstu2.smarthealthit.org/manage/user/approved
