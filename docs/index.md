@@ -2,7 +2,8 @@
 
 # Step 1 - Clone the Cardiac Advisor repository
 __Note__: you will need access to the github repisitory to do this
-   * Clone the repository https://github.com/kgrid/cardiac-advisor.git into any directory you want
+   * Clone the Cardiac Advisor repository into any directory you want by entering this in the command-line: 
+   `git clone https://github.com/kgrid/cardiac-advisor.git`
  
 # Step 2 - Start local server
    * From the command-line, navigate to the directory containing the "fhir-app" folder you downloaded
