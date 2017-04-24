@@ -223,7 +223,7 @@ function resource_path_for(code)
  */
 function populate_inputs(smart, callback)
 {
-	smart.api.search({type: "Condition"})
+	smart.patient.api.search({type: "Condition"})
 	.done(callback)
 }
 
