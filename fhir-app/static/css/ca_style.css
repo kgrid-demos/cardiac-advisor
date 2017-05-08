@@ -2,8 +2,26 @@
 	html, body
 	{
 		height: 100%;
+		color: #666666;
 	}
+	h1 {
+		font-size: 28px;
+	}
+	.box-header>h3{
 
+		 margin:0px;
+	 }
+
+	header {
+		height: 60px;
+		background-color: #cc0000;
+	}
+	.patient-row {
+		background-color: #f3f3f3;
+	}
+	.patient-row span {
+		margin-left: 10px;
+	}
   .underline
   {
     border-bottom: 1px solid steelblue;
@@ -19,9 +37,9 @@
 	  background-color: #cc0000 !important;
 	  color: white !important;
   }
-  .jumbotron
+  .header
   {
-	  height: 250px;
+	  height: 60px;
 	  margin-bottom: 0px !important;
   }
   .inline
@@ -34,6 +52,7 @@
 		outline: 1px solid steelblue;
 		margin-top: 15px;
 		margin-bottom: 15px;
+		padding: 5px;
 	}
 
 	.border-right
@@ -51,20 +70,23 @@
 	.visual-field
 	{
 		border: 1px solid steelblue;
-		height: 50%;
-		display: none;
+		/*height: 50%;
 		margin-bottom: 15px;
-		margin-right: 5px;
+		margin-right: 5px;*/
 	}
 
+	.pad-left10 {
+		padding-left: 10px;
+	}
 	.box-header
 	{
-		padding: -15px;
+		padding: 10px;
 	}
 
 	.table-striped
 	{
 		width: 100%;
+		margin: 0px auto;
 	}
 
 	form
@@ -83,11 +105,8 @@
       /*background-image: url("https://s-media-cache-ak0.pinimg.com/736x/6a/0a/21/6a0a21b30b781a2d35f1e1fa9c2ff130.jpg");*/
 
   }
-  .container-fluid {
-      padding-top: 70px;
-      padding-bottom: 70px;
-  }
-    .margin {margin-bottom: 45px;}
+
+	.margin {margin-bottom: 45px;}
 
   .myButton {
   background-color: #cc0000;

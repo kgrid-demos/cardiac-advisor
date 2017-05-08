@@ -70,7 +70,7 @@ FHIR.oauth2.ready(function(smart)
 			if(retrieved.size > 0)
 			{
 				console.log("retrieved elts", retrieved)
-				$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
+				//$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
 			}
 
 			//Autofill sample buttons
@@ -84,8 +84,9 @@ FHIR.oauth2.ready(function(smart)
 		})
 
 		//display patient's age
-		$("#patient-ag").text(calculateAge(pt.birthDate))
-
+		$("#patient-age").text(calculateAge(pt.birthDate))
+    $("#patient-id").text(pt.id);
+    $("#patient-gender").text(pt.gender);
 
 		//make calls to knowledge objects when user clicks the "Get Risk" button
 		$("#get_data").click(function()
@@ -94,8 +95,8 @@ FHIR.oauth2.ready(function(smart)
 		  get_ischemic_data(pt, riskScores);
 			get_stent_data(riskScores);
 			//get ready to show visuals
-			$(".visual-field").slideDown("slow");
-			$(this).prop("disabled", true)
+			// $(".visual-field").slideDown("slow");
+			// // $(this).prop("disabled", true)
 
 		})
 
