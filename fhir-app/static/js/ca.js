@@ -2,8 +2,8 @@
 
 $(document).ready(function()
 {
-
-//This gives the smart endpoint for using SMART API calls
+  ir_fill("bleeding-icon", 0);
+  ir_fill("stent-gage", 0);//This gives the smart endpoint for using SMART API calls
 FHIR.oauth2.ready(function(smart)
 {
 
@@ -21,11 +21,11 @@ FHIR.oauth2.ready(function(smart)
 	var diabetesCode = "44054006"
 
 	//This is used to keep track of results from knowledge objects
-	var riskScores =
-	{
-		"bleedRisk": null,
-		"stentRisk": null
-	}
+  var riskScores =
+  {
+    "bleedRisk": null,
+    "stentRisk": null
+  }
 
 	$.when(patient).done(function(pt)
 	{
@@ -77,8 +77,11 @@ FHIR.oauth2.ready(function(smart)
 			$(".sample").click(function()
 			{
 				autofill(parseInt($(this).val()) ,retrieved)
-				$("#get_data").slideDown("slow"	)
-				hide_visuals()
+				// $("#get_data").slideDown("slow"	)
+				// hide_visuals()
+        get_ischemic_data(pt, riskScores);
+        get_stent_data(riskScores);
+
 			})
 
 		})
@@ -88,17 +91,14 @@ FHIR.oauth2.ready(function(smart)
     $("#patient-id").text(pt.id);
     $("#patient-gender").text(pt.gender);
 
-		//make calls to knowledge objects when user clicks the "Get Risk" button
-		$("#get_data").click(function()
-		{
+    $("input:radio[name='yes/no']").change(function()
+    {
+      //alert("!");
+      get_ischemic_data(pt, riskScores);
+      get_stent_data(riskScores);
 
-		  get_ischemic_data(pt, riskScores);
-			get_stent_data(riskScores);
-			//get ready to show visuals
-			// $(".visual-field").slideDown("slow");
-			// // $(this).prop("disabled", true)
 
-		})
+    })
 
 		$("#write-data").click(function()
 		{
@@ -108,62 +108,8 @@ FHIR.oauth2.ready(function(smart)
 	})
 
 	//if the user changes one of the input options, clear the visuals and reset everything
-	$("input:radio[name='yes/no']").change(function()
-	{
-		//alert("!");
-		hide_visuals()
-		if($("input[name='yes/no']:checked").length == 12)
-		{
-			$("#get_data").slideDown("slow");
-		}
 
-	})
-
-	//show icon array
-	$(".show_gage").click(function()
-	{
-		//the name attribute of this object's tag should be the same as the desired ID for the div in
-		//	which the icon array is being drawn
-		var divID = this.name
-		//vis is the button the user clicked (one of the 2)
-		var vis = $(this)
-		var count_ = null
-		var arrayDiv = $("#" + divID)
-
-		//get proper count parameter based on which of the 2 icon arrays is being drawn
-		if(divID === "bleeding-icon")
-			count_ = riskScores["bleedRisk"]
-		else
-			count_ = riskScores["stentRisk"]
-
-
-		//if the icon array is not already visible, draw the array
-		if(!arrayDiv.is(":visible"))
-		{
-			arrayDiv.append("<br>")
-			draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
-					backgroundFill: "#FFFFFF", key: true})
-			$("#" + divID).slideDown("slow", function()
-			{
-				//button will now change to hide visual if clicked again
-				vis.text("Hide visual")
-			});
-		}
-		//if the icon array is already visible, this means the user clicked the "hide visual" button
-		//	so clear the icon array and slide the visual field up
-		else
-		{
-			arrayDiv.slideUp("slow", function()
-			{
-				arrayDiv.html("")
-				//change button to say "display visual"
-				vis.text("Display visual")
-			})
-		}
-
-	})
 
 })
-
 
 })

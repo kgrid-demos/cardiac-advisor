@@ -67,16 +67,27 @@
 		margin: -1px;
 
 	}
+	div#bleed-div, div#stent-div {
+		height:100%;
+	}
 	.visual-field
 	{
 		border: 1px solid steelblue;
-		/*height: 50%;
-		margin-bottom: 15px;
-		margin-right: 5px;*/
+		margin-top: 15px;
+		/*margin-right: 0px;*/
 	}
-
+	.risk-val {
+		font-size:54px;
+		font-weight: 600;
+	}
+	.pad-left0 {
+		padding-left: 0px;
+	}
 	.pad-left10 {
 		padding-left: 10px;
+	}
+	div#input_div td {
+		font-weight:600;
 	}
 	.box-header
 	{
@@ -86,7 +97,7 @@
 	.table-striped
 	{
 		width: 100%;
-		margin: 0px auto;
+		margin: 34px auto 1px;
 	}
 
 	form

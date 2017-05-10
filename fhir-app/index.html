@@ -35,18 +35,26 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4 pad-left0">
 
 <div class="" id="input_div">
   <div class="border-box">
 	  <div class=" box-header color-scheme">
 			<h3> Input Information </h3>
-      <span> Autofill Sample</span>
-			<input  class="sample" id="sample1" type="radio" name="patient1" value="0"> 1 &nbsp &nbsp &nbsp
-			<input  class="sample" id="sample2" type="radio" name="patient1" value="1"> 2 &nbsp &nbsp &nbsp
-			<input  class="sample" id="sample3" type="radio" name="patient1" value="2"> 3 &nbsp &nbsp &nbsp
+      <div class="row">
+        <div class="col-md-4">
+          <span> Autofill Sample</span>
+        </div>
+        <div class="col-md-2">
+          <input  class="sample" id="sample1" type="radio" name="patient1" value="0"> 1
+        </div><div class="col-md-2">
+			<input  class="sample" id="sample2" type="radio" name="patient1" value="1"> 2
+      </div><div class="col-md-2">
+			<input  class="sample" id="sample3" type="radio" name="patient1" value="2"> 3
+      </div><div class="col-md-2">
 			<input  class="sample" id="sample4" type="radio" name="patient1" value="3"> 4
-
+    </div>
+  </div>
 	  </div>
 	  <table class="table-striped">
       <tbody>
@@ -108,39 +116,44 @@
 	  </table>
 
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <button type="button" id="get_data" class="btn btn-primary btn-lg color-scheme" >Get Risk</button>
-  </div>
+  </div> -->
 
 
 </div>
 </div>
-<div class="col-md-7">
-<div id="visual-info">
+<div class="col-md-8">
 	<div class="row">
-
 		<div class="col-md-6  visual-field text-center">
 			<div id="bleed-div">
-				<h3>GUSTO Bleeding Risk: <span class="risk-val" id="bleed-risk"> </span></h3>
-				<button id="bleed-vis" class="show_gage btn btn-primary btn-block" name="bleeding-icon">Display Visual</button>
-        <span class="risk-val" id="bleed-error"> </span>
+				<h3>GUSTO Bleeding Risk</h3>
+         <span class="risk-val" id="bleed-risk"> --%</span>
+	        <span class="risk-val" id="bleed-error"> </span>
 				<br>
-				<div id=svg-container>
+
 					<div id="bleeding-icon"> </div>
-				</div>
+
 			</div>
 		</div>
-		<div class="col-md-6 visual-field">
+		<div class="col-md-6 visual-field text-center">
 			<div id="stent-div">
-				<h3>Stent Thrombosis Risk: <span class="risk-val" id="stent-risk"> </span> </h3>
-				<button id="stent-vis" class="show_gage btn btn-primary btn-block" name="stent-gage">Display Visual</button>
+				<h3>Stent Thrombosis Risk </h3>
+        <span class="risk-val" id="stent-risk"> --% </span>
         <span class="risk-val" id="stent-error"> </span>
 				<br>
 				<div id="stent-gage" > </div>
 			</div>
 		</div>
+
+	</div>
+
+
+
+</div>
+</div>
 <div classs="row">
-		<div class="col-md-12 col-lg-offset-2 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
+		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
 				<h3> Press to write risk scores to patient's health record</h3><br>
 				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
 				<br><br>
@@ -149,12 +162,6 @@
 					<pre id="json-preview" class="text-left"> </pre>
 				</div>
 		</div>
-</div>
-	</div>
-</div>
-
-
-</div>
 </div>
 </div>
 <!-- <div class="container-fluid container-car bg-2 text-center">

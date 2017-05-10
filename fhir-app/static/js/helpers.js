@@ -146,6 +146,8 @@ function getButtonValue(inputName)
             $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
+
+      ir_fill("stent-gage",riskScores["stentRisk"]);
   		},
   		error: function(response)
   		{
@@ -159,6 +161,30 @@ function getButtonValue(inputName)
   	})
   }
 
+
+  function ir_fill(divID, score)
+  {
+    //the name attribute of this object's tag should be the same as the desired ID for the div in
+    //	which the icon array is being drawn
+    //vis is the button the user clicked (one of the 2)
+    var count_ = score;
+    var arrayDiv = $("#" + divID);
+  // As long as <ul> has a child node, remove it
+  arrayDiv.empty();
+    //get proper count parameter based on which of the 2 icon arrays is being drawn
+    // if(divID === "bleeding-icon")
+    //   count_ = riskScores["bleedRisk"]
+    // else
+    //   count_ = riskScores["stentRisk"]
+
+
+    //if the icon array is not already visible, draw the array
+
+      // arrayDiv.append("<br>")
+      draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
+          backgroundFill: "#FFFFFF", key: true})
+
+  }
 /**
  * makes call to ischemic bleeding risk knowledge object and updates the riskScores object,
  * also displays score on page (percentage)
@@ -178,6 +204,7 @@ function get_ischemic_data(pt, riskScores)
             $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
+      ir_fill("bleeding-icon", riskScores["bleedRisk"]);
 		},
 		error: function(response)
 		{
