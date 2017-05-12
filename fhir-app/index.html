@@ -5,6 +5,7 @@
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  	<link rel="stylesheet" href="./static/css/ca_style.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  	<script src="./static/js/helpers.js"> </script>
  	<script src="./static/js/ca.js"> </script>
  	<script src="https://d3js.org/d3.v4.min.js"></script>
@@ -30,6 +31,13 @@
     <div class="col-md-3"><h3><small>age:</small> <span id="patient-age"> </span></h3>  </div>
     <div class="col-md-3"> <h3><small>gender:</small><span id="patient-gender"> </span> </h3> </div>
     <div class="col-md-3"><h3><small>id:<span id="patient-id"> </span> </small></h3> </div>
+</div>
+<div class="row resource-row">
+  <div class="col-md-3"></div>
+  <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">23</span> </h2> </div>
+  <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 10</span></h3>  </div>
+  <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
+
 </div>
 </div>
 
@@ -131,10 +139,47 @@
          <span class="risk-val" id="bleed-risk"> --%</span>
 	        <span class="risk-val" id="bleed-error"> </span>
 				<br>
+      </div>
+      <div id="exTab1">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1a" data-toggle="tab">Visualization</a>
+			</li>
+			<li><a href="#2a" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3a" data-toggle="tab">SMART Write</a>
+			</li>
 
-					<div id="bleeding-icon"> </div>
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1a">
+          <div id="bleeding-icon"> </div>
+				</div>
+				<div class="tab-pane" id="2a">
+          <div class="col-sm-4">
+            <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/67034/k47c7m" class=knowledgeButton target="_blank">Bleeding Risk Calculator</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3a">
+          <div classs="row">
+          		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
+          				<h3> Press to write risk scores to patient's health record</h3><br>
+          				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
+          				<br><br>
+          				<div id="preview" style="display: none">
+          					<h3> Resource Preview </h3>
+          					<pre id="json-preview" class="text-left"> </pre>
+          				</div>
+          		</div>
+          </div>
+				</div>
 
 			</div>
+  </div>
+
+
+
 		</div>
 		<div class="col-md-6 visual-field text-center">
 			<div id="stent-div">
@@ -142,8 +187,45 @@
         <span class="risk-val" id="stent-risk"> --% </span>
         <span class="risk-val" id="stent-error"> </span>
 				<br>
-				<div id="stent-gage" > </div>
+
 			</div>
+      <div id="exTab2">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1b" data-toggle="tab">Visualization</a>
+			</li>
+			<li><a href="#2b" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3b" data-toggle="tab">SMART Write</a>
+			</li>
+
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1b">
+          <div id="stent-gage" > </div>
+				</div>
+				<div class="tab-pane" id="2b">
+          <div class="col-sm-4">
+            <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk45m6gq9t" class=knowledgeButton target="_blank">Stent Thrombosis Risk Calclator</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3b">
+          <div classs="row">
+          		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
+          				<h3> Press to write risk scores to patient's health record</h3><br>
+          				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
+          				<br><br>
+          				<div id="preview" style="display: none">
+          					<h3> Resource Preview </h3>
+          					<pre id="json-preview" class="text-left"> </pre>
+          				</div>
+          		</div>
+          </div>
+				</div>
+
+			</div>
+  </div>
 		</div>
 
 	</div>
@@ -152,17 +234,7 @@
 
 </div>
 </div>
-<div classs="row">
-		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
-				<h3> Press to write risk scores to patient's health record</h3><br>
-				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
-				<br><br>
-				<div id="preview" style="display: none">
-					<h3> Resource Preview </h3>
-					<pre id="json-preview" class="text-left"> </pre>
-				</div>
-		</div>
-</div>
+
 </div>
 <!-- <div class="container-fluid container-car bg-2 text-center">
   <h3 >Object Teller</h3>
@@ -171,9 +243,22 @@
     <span class="glyphicon glyphicon-search"></span> Object Teller Library
   </a>
 </div> -->
+<div class="container">
+<div class="row statussec">
 
+<button class="btn" type="button" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
+  APP LOG - Post PCI Risk Assessment
+</button>
+<div class="collapse in" id="collapseStatus">
+
+    <textarea id="statusArea" disabled></textarea>
+
+</div>
+</div>
+
+</div>
 <!-- Third Container (Grid) -->
-<div class="container-fluid container-car bg-3 text-center">
+<!-- <div class="container-fluid container-car bg-3 text-center">
   <h3 class="margin">Knowledge Objects used in this project</h3><br>
   <div class="row">
     <div class="col-sm-4">
@@ -186,7 +271,7 @@
      <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- <div class="container-fluid text-center margin-bot" style="margin-bottom: 0px; background-color: steelblue; color: white;">
 			<p>This application asks you to input some information about a patient</p>
@@ -202,8 +287,8 @@
 </div> -->
 
 <!-- Footer -->
-<footer class="container-fluid container-car bg-4 text-center">
-  <p>Univeristy of Michigan Medical School 2016</p>
+<footer class="container-fluid container-car color-scheme text-center">
+  <p>Univeristy of Michigan Medical School 2017</p>
 </footer>
 
 </body>

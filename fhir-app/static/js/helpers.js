@@ -111,16 +111,18 @@ function getButtonValue(inputName)
 		  },
 		  "data": instr.data
 	 }
-
+   appendLog("Sending Patient Data to Knowledge Object: ark:/ " + instr.arkID);
 	 console.log("AJAX SETTINGS: ", set)
 
 	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
          console.log(jqXHR);
     	 instr.success(data);
+       appendLog("Risk Score returned from Knowledge Object: ark:/ " + instr.arkID);
       }).fail(function(jqXHR, textStatus, errorThrown){
         console.log(jqXHR);
         instr.error(jqXHR.responseJSON);
+        appendLog("Error returned from Knowledge Object: ark:/ " + instr.arkID);
       }).always(function(){
         console.log("Finished");
       })
@@ -219,6 +221,14 @@ function get_ischemic_data(pt, riskScores)
 
 }
 
+function appendLog(message) {
+	var d = new Date();
+	var ts = d.toISOString();
+	$("#statusArea").append("\n" + d + "   " + message);
+	$("#statusArea")[0].scrollTop = $("#statusArea")[0].scrollHeight;
+}
+
+
 
 /**
  * returns true if FHIR resource contains specified path, false otherwise
@@ -252,6 +262,10 @@ function populate_inputs(smart, callback)
 {
 	smart.patient.api.search({type: "Condition"})
 	.done(callback)
+}
+
+function resource_counting(smart, rsc, callback){
+  smart.patient.api.search({type:rsc}).done(callback);
 }
 
 /**

@@ -2,6 +2,7 @@
 
 $(document).ready(function()
 {
+    appendLog("Ready.");
   ir_fill("bleeding-icon", 0);
   ir_fill("stent-gage", 0);//This gives the smart endpoint for using SMART API calls
 FHIR.oauth2.ready(function(smart)
@@ -30,12 +31,17 @@ FHIR.oauth2.ready(function(smart)
 	$.when(patient).done(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
-
+    appendLog("Retrieved Patient Data from SMART Sandbox.");
 		var patientInfo = pt;
 		console.log(patientInfo);
 		$("#patient-name").text(get_patient_name(pt))
 
 		var retrieved = new Set()
+    resource_counting(smart, "Condition", function(rsp){
+    			var totalcount= rsp.data.total;
+					console.log("contition:"+totalcount);
+          $("#condition_count").text(totalcount);
+    })
 		populate_inputs(smart, function(condition)
 		{
 			console.log("condition yo", condition)
@@ -76,9 +82,11 @@ FHIR.oauth2.ready(function(smart)
 			//Autofill sample buttons
 			$(".sample").click(function()
 			{
+        var sampleno = parseInt($(this).val())+1;
 				autofill(parseInt($(this).val()) ,retrieved)
 				// $("#get_data").slideDown("slow"	)
 				// hide_visuals()
+        appendLog("Autofill sample "+sampleno+ " is selected.");
         get_ischemic_data(pt, riskScores);
         get_stent_data(riskScores);
 
