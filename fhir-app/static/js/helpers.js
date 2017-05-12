@@ -134,7 +134,7 @@ function getButtonValue(inputName)
    * makes call to stent risk knowledge object and updates the riskScores object, also displays score on page as a percentage
    * @param  {Object} riskScores an object that keeps track of the 2 risk scores
    */
-  function get_stent_data(riskScores)
+  function get_stent_data(pt, riskScores)
   {
   	KOPost(
   	{
@@ -150,6 +150,7 @@ function getButtonValue(inputName)
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
 
       ir_fill("stent-gage",riskScores["stentRisk"]);
+            prepRiskAsm(null,riskScores["stentRisk"],pt.id,"kgrid-ra22");
   		},
   		error: function(response)
   		{
@@ -207,6 +208,7 @@ function get_ischemic_data(pt, riskScores)
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
       ir_fill("bleeding-icon", riskScores["bleedRisk"]);
+      prepRiskAsm(riskScores["bleedRisk"],null,pt.id,"kgrid-ra21");
 		},
 		error: function(response)
 		{
@@ -355,6 +357,63 @@ function predictionTemplate(txt, riskValue)
     return thing
 }
 
+function prepRiskAsm(bleedRisk, stentRisk, pid, rid)
+  {
+  	var today = new Date();
+  	var dd = today.getDate();
+  	var mm = today.getMonth()+1; //January is 0!
+
+  	var yyyy = today.getFullYear();
+  	if(dd<10){
+  	    dd='0'+dd;
+  	}
+  	if(mm<10){
+  	    mm='0'+mm;
+  	}
+    var riskname = "bleed";
+  	//current date formatted as yyyy-mm-dd
+  	var today = yyyy+'-'+mm+'-'+dd;
+
+  	//RiskAssessment resource template
+  	//have to add in prediction information
+  	var riskAsm =
+  	{
+  		"resource":
+  		{
+  		     "resourceType": "RiskAssessment",
+  		     "id": rid,
+  		     "date": today,
+  		     "subject":{
+  		       "reference":"Patient/" + pid
+  		      },
+  		     "prediction": []
+  		}
+  	}
+
+  	var prediction = riskAsm['resource']['prediction']
+
+  	//add prediction information to resource if there is data
+  	if(bleedRisk){
+
+      riskname="bleed";
+  		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
+    }
+  	if(stentRisk){
+      riskname="stent";
+  		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk))
+    }
+  	if(!bleedRisk && !stentRisk)
+  	{
+  		$("#preview-"+riskname).append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>")
+  	}else{
+      var preview = $("#json-preview-"+riskname)
+  		//display preview of resource
+  		preview.html(JSON.stringify(riskAsm, undefined, 3))
+    }
+}
+
+
+
 /**
  * uses SMART API to create a RiskAssesment resource and writes it to the patient's EHR
  * @param  {Float} bleedRisk    bleeding risk as a decimal
@@ -385,7 +444,7 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 		"resource":
 		{
 		     "resourceType": "RiskAssessment",
-		     "id": "kgrid-ra102",
+		     "id": null,
 		     "date": today,
 		     "subject":{
 		       "reference":"Patient/" + smart.patient.id
@@ -393,16 +452,20 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 		     "prediction": []
 		}
 	}
-
+  var riskname =null;
 	var prediction = riskAsm['resource']['prediction']
 
 	//add prediction information to resource if there is data
-	if(bleedRisk)
+	if(bleedRisk){
+    riskname="bleed";
+    riskAsm.resource.id="kgrid-ra21";
 		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
-
-	if(stentRisk)
+  }
+	if(stentRisk){
+    riskname="stent";
+    riskAsm.resource.id="kgrid-ra22";
 		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk))
-
+  }
 	if(!bleedRisk && !stentRisk)
 	{
 		$("#preview").append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>")
@@ -420,13 +483,36 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 			//alert("hooray")
 			console.log("successfully wrote data to health record")
 			//update visuals
-			$("#preview").append("<div class='alert alert-success'> <strong> Success!</strong> </div>")
+      $("#write-data-"+riskname).addClass("done");
+      $("#write-status-"+riskname).removeClass("hidden");
+      // $("#write-status-"+riskname).text("Success");
 			$("#write-data").prop("disabled", "disabled")
-
+      resourecount_refresh(smart);
 		})
 	}
 }
 
+function resetWriteButton(riskname){
+  $("#write-data-"+riskname).removeClass("done");
+  $("#write-status-"+riskname).addClass("hidden");
+}
+function resourecount_refresh(smart) {
+  resource_counting(smart, "Condition", function(rsp){
+        var totalcount= rsp.data.total;
+        console.log("contition:"+totalcount);
+        $("#condition_count").text(totalcount);
+  })
+  resource_counting(smart, "Observation", function(rsp){
+        var totalcount= rsp.data.total;
+        console.log("contition:"+totalcount);
+        $("#observation_count").text(totalcount);
+  })
+  resource_counting(smart, "RiskAssessment", function(rsp){
+        var totalcount= rsp.data.total;
+        console.log("contition:"+totalcount);
+        $("#risk_count").text(totalcount);
+  })
+}
 // resets and clears the icon arrays on the page
 function reset_gages()
 {
@@ -441,17 +527,4 @@ function reset_gages()
 	{
 		bleedGage.html("")
 	})
-}
-
-// hides all visuals on the page
-function hide_visuals()
-{
-		reset_gages()
-		// $(".visual-field").slideUp("slow")
-		// $("#json-preview").html("")
-		// $("#write-data").removeAttr("disabled")
-		// $(".alert").html("")
-		// $(".alert").css("display", "none")
-		// $("#preview").slideUp("slow")
-		// $("#get_data").removeAttr("disabled")
 }

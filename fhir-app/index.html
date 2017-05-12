@@ -34,8 +34,8 @@
 </div>
 <div class="row resource-row">
   <div class="col-md-3"></div>
-  <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">23</span> </h2> </div>
-  <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 10</span></h3>  </div>
+  <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">0</span> </h3> </div>
+  <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 0</span></h3>  </div>
   <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
 
 </div>
@@ -66,56 +66,56 @@
 	  </div>
 	  <table class="table-striped">
       <tbody>
-        <tr>
+        <tr class="bleed stent vis">
           <td class="pad-left10">Continuing DAPT</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr>
-        <tr>
+        <tr  class="bleed stent  vis">
           <td class="pad-left10">Peripheral Artery Disease</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr>
-        <tr>
+        <tr  class="bleed stent  vis">
           <td class="pad-left10 hypertension-data">Hypertension</td>
           <td><form class="info hypertension-data" id="hypertension-form"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes
   					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
         </tr>
-        <tr>
-          <td class="pad-left10">Renal Insufficiency</td>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10 renal-data">Renal Insufficiency</td>
           <td><form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
         </tr>
-        <tr>
+        <tr  class="stent  vis">
           <td class="pad-left10">Infarction at presentation</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
         </tr>
-        <tr>
+        <tr  class="stent  vis">
           <td class="pad-left10">Prior PCI</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class="stent  vis">
           <td class="pad-left10">History of CHF or LVEF < 30%</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class="stent  vis">
           <td class="pad-left10">Vein graft PCI</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class="stent  vis">
           <td class="pad-left10">Stent Diameter &lt 30mm</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class="stent  vis">
           <td class="pad-left10">Paclitaxel-eluting stent</td>
           <td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class=" stent vis">
           <td class="pad-left10">Cigarette smoker</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-        </tr><tr>
+        </tr><tr  class=" stent vis">
           <td class="pad-left10 diabetes-data">Diabetes</td>
           <td><form class="info diabetes-data" id="diabetes-form"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
@@ -133,7 +133,8 @@
 </div>
 <div class="col-md-8">
 	<div class="row">
-		<div class="col-md-6  visual-field text-center">
+		<div class="col-md-6 pad-left0 text-center" id="bleed-pane">
+      <div class="visual-field">
 			<div id="bleed-div">
 				<h3>GUSTO Bleeding Risk</h3>
          <span class="risk-val" id="bleed-risk"> --%</span>
@@ -157,31 +158,32 @@
           <div id="bleeding-icon"> </div>
 				</div>
 				<div class="tab-pane" id="2a">
-          <div class="col-sm-4">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
             <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/67034/k47c7m" class=knowledgeButton target="_blank">Bleeding Risk Calculator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
           </div>
 				</div>
         <div class="tab-pane" id="3a">
           <div classs="row">
-          		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
-          				<h3> Press to write risk scores to patient's health record</h3><br>
-          				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
-          				<br><br>
-          				<div id="preview" style="display: none">
-          					<h3> Resource Preview </h3>
-          					<pre id="json-preview" class="text-left"> </pre>
+          		<div class="col-md-12 text-center write-preview" >
+                  <div id="preview-bleed">
+          					<pre id="json-preview-bleed" class="text-left"> </pre>
           				</div>
+          				<button type="button" class="btn btn-primary" id="write-data-bleed">Update Patient Record</button>
+                  <div id="write-status-bleed" class="text-center hidden"> Success </div>
           		</div>
           </div>
 				</div>
-
 			</div>
   </div>
-
-
-
+</div>
 		</div>
-		<div class="col-md-6 visual-field text-center">
+		<div class="col-md-6 visual-field text-center" id="stent-pane">
 			<div id="stent-div">
 				<h3>Stent Thrombosis Risk </h3>
         <span class="risk-val" id="stent-risk"> --% </span>
@@ -206,20 +208,24 @@
           <div id="stent-gage" > </div>
 				</div>
 				<div class="tab-pane" id="2b">
-          <div class="col-sm-4">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
             <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk45m6gq9t" class=knowledgeButton target="_blank">Stent Thrombosis Risk Calclator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
           </div>
 				</div>
         <div class="tab-pane" id="3b">
           <div classs="row">
-          		<div class="col-md-12 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
-          				<h3> Press to write risk scores to patient's health record</h3><br>
-          				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
-          				<br><br>
-          				<div id="preview" style="display: none">
-          					<h3> Resource Preview </h3>
-          					<pre id="json-preview" class="text-left"> </pre>
-          				</div>
+          		<div class="col-md-12 text-center write-preview">
+                <div id="preview-stent" >
+                  <pre id="json-preview-stent" class="text-left"> </pre>
+                </div>
+          				<button type="button" class="btn btn-primary" id="write-data-stent">Update Patient Record</button>
+                  <div id="write-status-stent" class="text-center hidden"> Success </div>
           		</div>
           </div>
 				</div>
@@ -227,7 +233,7 @@
 			</div>
   </div>
 		</div>
-
+</div>
 	</div>
 
 
@@ -236,13 +242,7 @@
 </div>
 
 </div>
-<!-- <div class="container-fluid container-car bg-2 text-center">
-  <h3 >Object Teller</h3>
-  <p>This Cardiac Advisor makes use of Knowledge Objects from the Object Teller Library</p>
-  <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller" class="btn btn-default btn-lg" target="_blank">
-    <span class="glyphicon glyphicon-search"></span> Object Teller Library
-  </a>
-</div> -->
+
 <div class="container">
 <div class="row statussec">
 
@@ -250,9 +250,7 @@
   APP LOG - Post PCI Risk Assessment
 </button>
 <div class="collapse in" id="collapseStatus">
-
     <textarea id="statusArea" disabled></textarea>
-
 </div>
 </div>
 

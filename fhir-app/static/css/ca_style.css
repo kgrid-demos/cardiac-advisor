@@ -6,20 +6,66 @@
 	}
 	h1 {
 		font-size: 28px;
+		margin-top: 12px;
+		margin-bottom:12px;
 	}
 	h2, h3 {
-		margin-top: 5px;
-		margin-bottom: 5px;
+		margin-top: 3px;
+		margin-bottom: 0px;
 	}
 	.box-header>h3{
 
 		 margin:0px;
 	 }
-
+	 a:hover, a:active, a:focus,a:visited {
+		 color: #fff;
+text-decoration: none;
+	 }
 	header {
 		height: 60px;
 		background-color: #cc0000;
 	}
+
+tr.stent, tr.bleed {
+	opacity: 0.1;
+	trnasition: opacity 0.8s linear;
+}
+tr.stent.vis, tr.bleed.vis {
+	opacity: 1;
+}
+
+	::-webkit-scrollbar {
+    width: 8px;
+		height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+/*     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
+}
+::-webkit-scrollbar-track {
+      background-color: #fff;
+} /* the new scrollbar will have a flat appearance with the set background color */
+
+::-webkit-scrollbar-thumb {
+      background-color: #e6e6e6;
+} /* this will style the thumb, ignoring the track */
+
+::-webkit-scrollbar-button {
+    display:none;
+      background-color: #e6e6e6;
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+
+::-webkit-scrollbar-corner {
+      background-color: #fff;
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+
 	.patient-row {
 		margin-top: 0px;
 		background-color: #f3f3f3;
@@ -101,6 +147,7 @@
 	{
 		border: 1px solid steelblue;
 		margin-top: 0px;
+		padding: 0px 5px;
 		/*margin-right: 0px;*/
 	}
 	.risk-val {
@@ -113,6 +160,15 @@
 	.pad-left10 {
 		padding-left: 10px;
 	}
+	.pad-right5 {
+		padding-right: 5px;
+	}
+	.pad-top30 {
+		padding-top: 30px;
+	}
+	.pad-top40 {
+		padding-top: 40px;
+	}
 	div#input_div td {
 		font-weight:600;
 	}
@@ -124,7 +180,7 @@
 	.table-striped
 	{
 		width: 100%;
-		margin: 23px auto 1px;
+		margin: 16px auto 1px;
 	}
 
 	form
@@ -205,12 +261,22 @@
       color: #fff;
   }
   .container-car {
-		line-height: 40px;
-		height: 40px;
+		line-height: 32px;
+		height: 32px;
     position: fixed;
 		bottom:0;
 		width: 100%;
   }
+
+	div[id^="write-status"] {
+		font-size: 20px;
+		font-weight: 500;
+		color: #fff;
+		background-color: #4CAF50;
+	}
+	button[id^="write-data"].done, div[id^="write-status"].hidden {
+		display:none;
+	}
   .knowledgeButton {
     background-color: #4CAF50;
     border: none;
@@ -224,7 +290,9 @@
     cursor: pointer;
     width: 300px	;
 }
-
+pre {
+	max-height:400px;
+}
 .margin-bot
 {
 	margin-bottom: 10px;
@@ -235,7 +303,7 @@ div#collapseStatus {
 
 div.statussec {
 	border: none;
-	margin-bottom: 20px;
+	margin-bottom: 34px;
 }
 div.statussec button, div.statussec button:hover,  div.statussec button:active,  div.statussec button:focus {
 	width: 100%;
@@ -261,4 +329,8 @@ textarea#statusArea {
 	font-size: 14px;
 	margin: 0 auto;
 	overflow: auto;
+}
+.hypertension-data.filled, .renal-data.filled, .diabetes-data.filled {
+	background-color: #c2deb4;
+	transition:all 3s ease;
 }

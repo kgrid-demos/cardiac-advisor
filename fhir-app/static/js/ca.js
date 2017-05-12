@@ -5,11 +5,21 @@ $(document).ready(function()
     appendLog("Ready.");
   ir_fill("bleeding-icon", 0);
   ir_fill("stent-gage", 0);//This gives the smart endpoint for using SMART API calls
+
+  $("[id$='pane']").hover(function() {
+    var hoveredElement = this.id.replace("-pane", "");
+    $(".vis").removeClass("vis");
+    $("." + hoveredElement).addClass("vis");
+  }, function() {
+    $(".stent").addClass("vis");
+    $(".bleed").addClass("vis");
+  });
+
+
+
 FHIR.oauth2.ready(function(smart)
 {
-
-
-    //get patient information from SMART API
+  //get patient information from SMART API
 	var patient = smart.patient.read()
 
 	var retrieved = new Set()
@@ -37,11 +47,7 @@ FHIR.oauth2.ready(function(smart)
 		$("#patient-name").text(get_patient_name(pt))
 
 		var retrieved = new Set()
-    resource_counting(smart, "Condition", function(rsp){
-    			var totalcount= rsp.data.total;
-					console.log("contition:"+totalcount);
-          $("#condition_count").text(totalcount);
-    })
+    resourecount_refresh(smart);
 		populate_inputs(smart, function(condition)
 		{
 			console.log("condition yo", condition)
@@ -54,7 +60,7 @@ FHIR.oauth2.ready(function(smart)
 				retrieved.add(keyDict['renal'])
 				$("#renal-form").find("input").prop("disabled", true)
 				$("#renal-yes").prop("checked", true)
-				$(".renal-data").css("outline", "1px solid #5cbf2a")
+				$(".renal-data").addClass("filled");
 				console.log('SET', retrieved)
 			}
 			if(value_in_resource(condition, resource_path_for(hypertensionCode)))
@@ -62,14 +68,14 @@ FHIR.oauth2.ready(function(smart)
 				retrieved.add(keyDict['hypertension'])
 				$("#hypertension-form").find("input").prop("disabled", true)
 				$("#hypertension-yes").prop("checked", true)
-				$(".hypertension-data").css("outline", "1px solid #5cbf2a")
+				$(".hypertension-data").addClass("filled")
 			}
 			if(value_in_resource(condition, resource_path_for(diabetesCode)))
 			{
 				retrieved.add(keyDict['diabetes'])
 				$("#diabetes-form").find("input").prop("disabled", true)
 				$("#diabetes-yes").prop("checked", true)
-				$(".diabetes-data").css("outline", "1px solid #5cbf2a")
+				$(".diabetes-data").addClass("filled")
 			}
 
 			//If we got anything from the EHR display message explaining the green highlights
@@ -88,29 +94,33 @@ FHIR.oauth2.ready(function(smart)
 				// hide_visuals()
         appendLog("Autofill sample "+sampleno+ " is selected.");
         get_ischemic_data(pt, riskScores);
-        get_stent_data(riskScores);
-
+        get_stent_data(pt,riskScores);
+        resetWriteButton("bleed");
+        resetWriteButton("stent");
 			})
 
 		})
 
-		//display patient's age
-		$("#patient-age").text(calculateAge(pt.birthDate))
+		//display patient's info
+		$("#patient-age").text(calculateAge(pt.birthDate));
     $("#patient-id").text(pt.id);
     $("#patient-gender").text(pt.gender);
 
     $("input:radio[name='yes/no']").change(function()
     {
-      //alert("!");
       get_ischemic_data(pt, riskScores);
-      get_stent_data(riskScores);
-
-
+      get_stent_data(pt,riskScores);
+      resetWriteButton("bleed");
+      resetWriteButton("stent");
     })
 
-		$("#write-data").click(function()
+		$("#write-data-bleed").click(function()
 		{
-			write_risk_data(riskScores["bleedRisk"], riskScores["stentRisk"], smart)
+			write_risk_data(riskScores["bleedRisk"],null, smart)
+		})
+    $("#write-data-stent").click(function()
+		{
+			write_risk_data(null,riskScores["stentRisk"], smart)
 		})
 
 	})
