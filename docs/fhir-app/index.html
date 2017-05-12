@@ -5,6 +5,7 @@
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  	<link rel="stylesheet" href="./static/css/ca_style.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  	<script src="./static/js/helpers.js"> </script>
  	<script src="./static/js/ca.js"> </script>
  	<script src="https://d3js.org/d3.v4.min.js"></script>
@@ -18,176 +19,244 @@
  </head>
 
 <body>
-
-<div class="jumbotron container-fluid color-scheme text-center">
-	 <h1><font color = "white"> Welcome to the Cardiac Advisor </font> </h1>
-  <p>
-    <font color=#e6e6e6>The Cardiac Advisor is powered by the Object Teller digital library management system which is part of the Knowledge Grid platform from the University of Michigan Medical School </font></p>
-
-</p>
-
+<header>
+<div class="container color-scheme">
+	 <h1>Post PCI Risks</h1>
 </div>
-
+</header>
 <!-- First Container -->
 <div class="container">
-  <h3 class="margin"> <span class="underline">Enter information for <span id="patient-name"> </span> </span> </h3>
-  <h3 id="ehr-info"></h3>
+  <div class="row patient-row">
+    <div class="col-md-3"><h2><span id="patient-name"> </span> </h2> </div>
+    <div class="col-md-3"><h3><small>age:</small> <span id="patient-age"> </span></h3>  </div>
+    <div class="col-md-3"> <h3><small>gender:</small><span id="patient-gender"> </span> </h3> </div>
+    <div class="col-md-3"><h3><small>id:<span id="patient-id"> </span> </small></h3> </div>
+</div>
+<div class="row resource-row">
+  <div class="col-md-3"></div>
+  <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">0</span> </h3> </div>
+  <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 0</span></h3>  </div>
+  <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
 
 </div>
+</div>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 pad-left0">
 
-
-<div class="container" id="input_div">
-  <div class="row border-box">
-	  <div class="container box-header color-scheme">
-			<h3> input information </h3>
-			<input style="margin-bottom: 10px;" class="sample" id="sample1" type="radio" name="patient1" value="0"> Autofill Sample 1 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample2" type="radio" name="patient1" value="1"> Autofill Sample 2 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample3" type="radio" name="patient1" value="2"> Autofill Sample 3 &nbsp &nbsp &nbsp
-			<input style="margin-bottom: 10px;" class="sample" id="sample4" type="radio" name="patient1" value="3"> Autofill Sample 4
-
+<div class="" id="input_div">
+  <div class="border-box">
+	  <div class=" box-header color-scheme">
+			<h3> Input Information </h3>
+      <div class="row">
+        <div class="col-md-4">
+          <span> Autofill Sample</span>
+        </div>
+        <div class="col-md-2">
+          <input  class="sample" id="sample1" type="radio" name="patient1" value="0"> 1
+        </div><div class="col-md-2">
+			<input  class="sample" id="sample2" type="radio" name="patient1" value="1"> 2
+      </div><div class="col-md-2">
+			<input  class="sample" id="sample3" type="radio" name="patient1" value="2"> 3
+      </div><div class="col-md-2">
+			<input  class="sample" id="sample4" type="radio" name="patient1" value="3"> 4
+    </div>
+  </div>
 	  </div>
-	  <br>
 	  <table class="table-striped">
-
-		  <thead>
-		  	<tr>
-		  		<th class="pad"> <span class="underline"> Age value retrieved from EHR: <span id="patient-ag"></span> </span><br><br></th>
-		  	</tr>
-		  </thead>
-		  <thead>
-			  <tr>
-				  <th class="pad">Continuing DAPT</th>
-				  <th class="pad">Peripheral Artery Disease</th>
-				  <th class="hypertension-data">Hypertension</th>
-				  <th class="pad renal-data">Renal Insufficiency</th>
-			  </tr>
-		  </thead>
-		 <tbody>
-			<tr>
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info hypertension-data" id="hypertension-form"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
-					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-			</tr>
-		 </tbody>
-		 <thead>
-		 	<tr>
-			 	<th class="pad">Infarction at presentation</th>
-			 	<th class="pad">Prior PCI</th>
-			 	<th class="pad">History of CHF or LVEF < 30%</th>
-			 	<th class="pad">Vein graft PCI</th>
-		 	</tr>
-		 </thead>
-
-		<tbody>
-			<tr>
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-			</tr>
-		 </tbody>
-
-		 <thead>
-		 	<tr>
-				<th class="pad">Stent Diameter &lt 30mm</th>
-			 	<th class="pad">Paclitaxel-eluting stent</th>
-			 	<th class="pad">Cigarette smoker</th>
-			 	<th class="pad diabetes-data">Diabetes</th>
-		 	</tr>
-		 </thead>
-
-		 	 <tbody>
-			<tr>
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
-
-				<td> <form class="info diabetes-data" id="diabetes-form"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes <br>
-					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
-			</tr>
-		 </tbody>
+      <tbody>
+        <tr class="bleed stent vis">
+          <td class="pad-left10">Continuing DAPT</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10">Peripheral Artery Disease</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10 hypertension-data">Hypertension</td>
+          <td><form class="info hypertension-data" id="hypertension-form"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10 renal-data">Renal Insufficiency</td>
+          <td><form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+        </tr>
+        <tr  class="stent  vis">
+          <td class="pad-left10">Infarction at presentation</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+        </tr>
+        <tr  class="stent  vis">
+          <td class="pad-left10">Prior PCI</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">History of CHF or LVEF < 30%</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Vein graft PCI</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Stent Diameter &lt 30mm</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Paclitaxel-eluting stent</td>
+          <td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class=" stent vis">
+          <td class="pad-left10">Cigarette smoker</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class=" stent vis">
+          <td class="pad-left10 diabetes-data">Diabetes</td>
+          <td><form class="info diabetes-data" id="diabetes-form"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+      </tbody>
 	  </table>
 
   </div>
-  <div class="row">
-    <button type="button" id="get_data" class="btn btn-primary btn-lg color-scheme" style="display: none;">Get Risk</button>
-  </div>
+  <!-- <div class="row">
+    <button type="button" id="get_data" class="btn btn-primary btn-lg color-scheme" >Get Risk</button>
+  </div> -->
 
 
 </div>
-
-<div class="container" id="visual-info">
+</div>
+<div class="col-md-8">
 	<div class="row">
-
-		<div class="col-lg-4 col-lg-offset-2 visual-field text-center">
+		<div class="col-md-6 pad-left0 text-center" id="bleed-pane">
+      <div class="visual-field">
 			<div id="bleed-div">
-				<h3>GUSTO Bleeding Risk: <span class="risk-val" id="bleed-risk"> </span></h3>
-				<button id="bleed-vis" class="show_gage btn btn-primary btn-block" name="bleeding-icon">Display Visual</button>
-        <span class="risk-val" id="bleed-error"> </span>
+				<h3>GUSTO Bleeding Risk</h3>
+         <span class="risk-val" id="bleed-risk"> --%</span>
+	        <span class="risk-val" id="bleed-error"> </span>
 				<br>
-				<div id=svg-container>
-					<div id="bleeding-icon" style="display: none;"> </div>
+      </div>
+      <div id="exTab1">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1a" data-toggle="tab">Visualization</a>
+			</li>
+			<li><a href="#2a" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3a" data-toggle="tab">SMART Write</a>
+			</li>
+
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1a">
+          <div id="bleeding-icon"> </div>
+				</div>
+				<div class="tab-pane" id="2a">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
+            <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/67034/k47c7m" class=knowledgeButton target="_blank">Bleeding Risk Calculator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3a">
+          <div classs="row">
+          		<div class="col-md-12 text-center write-preview" >
+                  <div id="preview-bleed">
+          					<pre id="json-preview-bleed" class="text-left"> </pre>
+          				</div>
+          				<button type="button" class="btn btn-primary" id="write-data-bleed">Update Patient Record</button>
+                  <div id="write-status-bleed" class="text-center hidden"> Success </div>
+          		</div>
+          </div>
 				</div>
 			</div>
+  </div>
+</div>
 		</div>
-		<div class="col-lg-4 visual-field">
+		<div class="col-md-6 visual-field text-center" id="stent-pane">
 			<div id="stent-div">
-				<h3>Stent Thrombosis Risk: <span class="risk-val" id="stent-risk"> </span> </h3>
-				<button id="stent-vis" class="show_gage btn btn-primary btn-block" name="stent-gage">Display Visual</button>
+				<h3>Stent Thrombosis Risk </h3>
+        <span class="risk-val" id="stent-risk"> --% </span>
         <span class="risk-val" id="stent-error"> </span>
 				<br>
-				<div id="stent-gage" style="display: none;"> </div>
+
 			</div>
-		</div>
+      <div id="exTab2">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1b" data-toggle="tab">Visualization</a>
+			</li>
+			<li><a href="#2b" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3b" data-toggle="tab">SMART Write</a>
+			</li>
 
-		<div class="col-lg-8 col-lg-offset-2 visual-field text-center" style="border: 1px solid #cc0000;" id="write-preview">
-				<h3> Press to write risk scores to patient's health record</h3><br>
-				<button type="button" class="btn btn-primary" id="write-data">Write Data</button>
-				<br><br>
-				<div id="preview" style="display: none">
-					<h3> Resource Preview </h3>
-					<pre id="json-preview" class="text-left"> </pre>
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1b">
+          <div id="stent-gage" > </div>
 				</div>
+				<div class="tab-pane" id="2b">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
+            <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk45m6gq9t" class=knowledgeButton target="_blank">Stent Thrombosis Risk Calclator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3b">
+          <div classs="row">
+          		<div class="col-md-12 text-center write-preview">
+                <div id="preview-stent" >
+                  <pre id="json-preview-stent" class="text-left"> </pre>
+                </div>
+          				<button type="button" class="btn btn-primary" id="write-data-stent">Update Patient Record</button>
+                  <div id="write-status-stent" class="text-center hidden"> Success </div>
+          		</div>
+          </div>
+				</div>
+
+			</div>
+  </div>
 		</div>
-
+</div>
 	</div>
+
+
+
+</div>
 </div>
 
-
-<div class="container-fluid container-car bg-2 text-center">
-  <h3 >Object Teller</h3>
-  <p>This Cardiac Advisor makes use of Knowledge Objects from the Object Teller Library</p>
-  <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller" class="btn btn-default btn-lg" target="_blank">
-    <span class="glyphicon glyphicon-search"></span> Object Teller Library
-  </a>
 </div>
 
+<div class="container">
+<div class="row statussec">
+
+<button class="btn" type="button" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
+  APP LOG - Post PCI Risk Assessment
+</button>
+<div class="collapse in" id="collapseStatus">
+    <textarea id="statusArea" disabled></textarea>
+</div>
+</div>
+
+</div>
 <!-- Third Container (Grid) -->
-<div class="container-fluid container-car bg-3 text-center">
+<!-- <div class="container-fluid container-car bg-3 text-center">
   <h3 class="margin">Knowledge Objects used in this project</h3><br>
   <div class="row">
     <div class="col-sm-4">
@@ -200,9 +269,9 @@
      <a href="http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ObjectTeller/object/ark:/99999/fk40s01p75" class=knowledgeButton target="_blank">Icon Array</a>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="container-fluid text-center margin-bot" style="margin-bottom: 0px; background-color: steelblue; color: white;">
+<!-- <div class="container-fluid text-center margin-bot" style="margin-bottom: 0px; background-color: steelblue; color: white;">
 			<p>This application asks you to input some information about a patient</p>
 
 			<p>Some information, like age and gender, does not need to be entered, as this application gathers data from
@@ -213,11 +282,11 @@
 				SMART
 			</a>
 	</div>
-</div>
+</div> -->
 
 <!-- Footer -->
-<footer class="container-fluid container-car bg-4 text-center">
-  <p>Univeristy of Michigan Medical School 2016</p>
+<footer class="container-fluid container-car color-scheme text-center">
+  <p>Univeristy of Michigan Medical School 2017</p>
 </footer>
 
 </body>
