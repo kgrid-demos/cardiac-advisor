@@ -9,6 +9,9 @@
 		margin-top: 12px;
 		margin-bottom:12px;
 	}
+h1 small {
+	color: #fff;
+}
 	h2, h3 {
 		margin-top: 3px;
 		margin-bottom: 0px;
