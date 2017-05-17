@@ -20,7 +20,7 @@ __Note__: you will need access to the github repisitory to do this
    * Do not enter the "fhir-app" folder
    * Start a local server at port 8000 (recommended server is Node's http-server)
 
-   > `http-server -p 8000`
+    `http-server -p 8000`
 
    * __Note__: using Python's SimpleHTTPServer may not work with this application
 
@@ -30,9 +30,9 @@ __Note__: you will need access to the github repisitory to do this
    * In "Registered Apps", there might be some default apps. To register the app, click on the button of "+Register New App";
    * The registration form has two required fields: "App Name" for displaying in the sandbox, "App Launch URI" should be
 
-    - `http://kgrid.org/cardiac-advisor/fhir-app/launch.html` for the published SMART Post PCI Risks Calculator;
+    `http://kgrid.org/cardiac-advisor/fhir-app/launch.html` for the published SMART Post PCI Risks Calculator;
 
-    - `http://localhost:8000/fhir-app/launch.html` for the locally-hosted SMART Post PCI Risks Calculator;
+    `http://localhost:8000/fhir-app/launch.html` for the locally-hosted SMART Post PCI Risks Calculator;
 
    * Select the image of your choice and upload as the icon to be idsplayed in the sandbox ;
    * After save, the system will provide you the client ID. As for now, you don't need to make any changes in the launch.html.
