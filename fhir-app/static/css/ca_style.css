@@ -9,6 +9,9 @@
 		margin-top: 12px;
 		margin-bottom:12px;
 	}
+h1 small {
+	color: #fff;
+}
 	h2, h3 {
 		margin-top: 3px;
 		margin-bottom: 0px;
@@ -64,6 +67,10 @@ tr.stent.vis, tr.bleed.vis {
 ::-webkit-scrollbar-corner {
       background-color: #fff;
 } /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+input[type=radio] {
+    margin: 4px 4px 0px 16px;
+	}
 
 
 	.patient-row {
@@ -141,7 +148,7 @@ tr.stent.vis, tr.bleed.vis {
   border-radius: 2px;
 }
 	div#bleed-div, div#stent-div {
-		height:100%;
+		height:123px;
 	}
 	.visual-field
 	{
@@ -153,6 +160,14 @@ tr.stent.vis, tr.bleed.vis {
 	.risk-val {
 		font-size:54px;
 		font-weight: 600;
+	}
+	.risk-error {
+		font-size: 16px;
+	  position: absolute;
+    padding: 16px;
+		width: 94%;
+		text-align: center;
+		color: #cc0000;
 	}
 	.pad-left0 {
 		padding-left: 0px;

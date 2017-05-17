@@ -1,40 +1,56 @@
-## Using the Cardiac Advisor with the SMART Sandbox
+# Using the Post PCI Risks Calculator with the SMART Sandbox
 
-# Step 1 - Clone the Cardiac Advisor repository
+## Running Locally-hosted App in SMART Sandbox
+
+You can run this app hosted locally from SMART Sandbox. This will help if you want to make changes or edit anything before publishing it. Follow the steps to register and launch the app. Be sure that the correct App Launch URI is used when regstering.
+
+## Running Published App in SMART Sandbox
+
+You can run this app published at kgrid.org/cardiac-advisor from SMART Sandbox. Skip Step 1 and 2, follow the rest steps to register and launch the app. Be sure that the correct App Launch URI is used when regstering.
+
+## Quick Start Guide
+
+### Step 1 - Clone the Cardiac Advisor repository
 __Note__: you will need access to the github repisitory to do this
    * Clone the Cardiac Advisor repository into any directory you want by entering this in the command-line:
    * `git clone https://github.com/kgrid/cardiac-advisor.git`
- 
-# Step 2 - Start local server
+
+### Step 2 - Start local server
    * From the command-line, navigate to the directory containing the "fhir-app" folder you downloaded
    * Do not enter the "fhir-app" folder
    * Start a local server at port 8000 (recommended server is Node's http-server)
+
+   `http-server -p 8000`
+
    * __Note__: using Python's SimpleHTTPServer may not work with this application
 
+### Step 3 - Register app in SMART sandbox
+   * Go to the [SMART Sandbox](https://sandbox.smarthealthit.org). You may be asked to login. If you don't have an account in the public sandbox you will need to create one by clicking "sign up" and following the instructions.
+   * Once logged in, select the desired sandbox from your list. (You can use the default one which is the only one after first sign-in);
+   * In "Registered Apps", there might be some default apps. To register the app, click on the button of "+Register New App";
+   * The registration form has two required fields: "App Name" for displaying in the sandbox, "App Launch URI" should be
 
-# Step 3 - Register app in SMART sandbox
-   * Go to the [SMART Sandbox](http://docs.smarthealthit.org/sandbox/). You may be asked to login. If you don't have an account in the public sandbox you will need to create one.
-   * Once you are signed in, you should be on the sandbox manager page. Click the "register new app" button to begin the registration process.
-   * You will see a menu with several options. Make sure the app type is "Public Client". You can name the app anything you want.
-   * For the app launch URI, you will need to choose a local address and port. If you have followed the previous instructions, make the application URI: `http://localhost:8000/fhir-app/launch.html`
-   * Make sure the "patient-scoped app" checkbox is checked
-   * press the "save" button
+   `http://kgrid.org/cardiac-advisor/fhir-app/launch.html` for the published SMART Post PCI Risks Calculator;
 
-# Step 4 - Client ID
-   * After pressing the "save" button, a window will appear giving you the client ID for your SMART application. This ID is __very__ important.
-   * Copy the Client ID that shows up
-   * Open the launch.html file in the fhir-app folder with a text editor
-   * Change the string following "client_id:" to be the client ID you received and save the file
-   * After doing that, the launch.html page should look like this:
-   
-   ![example launch page](https://github.com/kgrid/cardiac-advisor/blob/master/launch.png)
+   `http://localhost:8000/fhir-app/launch.html` for the locally-hosted SMART Post PCI Risks Calculator;
 
-# Step 5 - Launching the app
-   * Make sure your local web server is running on the right port
-   * On the Sandbox Manager page, you should see the app you just registered
-   * Click the "launch" button, and the application will launch
-   * If this is the first time you are launching the app, it may take some time to launch
-   * If SMART asks you to grant permssions to the application, select the option to give it permission to run the application
+   * Select the image of your choice and upload as the icon to be idsplayed in the sandbox ;
+   * After save, the system will provide you the client ID. As for now, you don't need to make any changes in the launch.html.
+   * The app should appear in your sandbox "Registered Apps" and be ready for launch.
+
+### Step 4 - Launching the app
+   * If running the locally-hosted app, make sure your local web server is running on the right port
+   * On the Sandbox Manager page, you should see the app you just registered in "Registered Apps";
+   * Click the "launch" button, and the application will launch;
+   * A panel of Patient Picker will show up. Select the patient for the app to conitue;
+   * If this is the first time you are launching the app, it may take some time to launch and SMART may ask you to grant permssions to the application. Authorize the application to continue;
+   * __Note__: The Patient Picker can be customized by entering a FHIR query to Sample Patient field in Registered App Detail Panel so that the patient picker only shows the list which the app applies. Example:
+
+   `Patient?gender=male` will show only male patient to be selected from.
+
+   `Patient?birthdate=lt1987-01-01` will show only the patients born before January 1, 1987 to be selected from.
+
+
 
 ### For more information visit:
 

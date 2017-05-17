@@ -144,7 +144,7 @@ function getButtonValue(inputName)
   		success: function(response)
   		{
   			console.log(response);
-            $("#stent-vis").css("display", "block")
+            $("#stent-risk").css("display", "block")
             $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
 			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
@@ -156,7 +156,7 @@ function getButtonValue(inputName)
   		{
   			console.log(response);
 			console.log(response.message);
-			$("#stent-vis").css("display", "none")
+			$("#stent-risk").css("display", "none")
             $("#stent-error").css("display", "block")
 			$("#stent-error").text(response.status + " - " + response.message)
             //$("#write-data").prop("disabled", "disabled")
@@ -203,7 +203,7 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
-            $("#bleed-vis").css("display", "block")
+            $("#bleed-risk").css("display", "block")
             $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
@@ -213,9 +213,9 @@ function get_ischemic_data(pt, riskScores)
 		error: function(response)
 		{
 			console.log(response.message);
-            $("#bleed-vis").css("display", "none")
+            $("#bleed-risk").css("display", "none")
             $("#bleed-error").css("display", "block")
-		  	$("#bleed-vis").css("display", "none");
+		  	// $("#bleed-vis").css("display", "none");
 			$("#bleed-error").text(response.status + " - " + response.message);
             //$("#write-data").prop("disabled", "disabled")
 		}
