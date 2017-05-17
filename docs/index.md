@@ -19,9 +19,7 @@ __Note__: you will need access to the github repisitory to do this
    * From the command-line, navigate to the directory containing the "fhir-app" folder you downloaded
    * Do not enter the "fhir-app" folder
    * Start a local server at port 8000 (recommended server is Node's http-server)
-
     `http-server -p 8000`
-
    * __Note__: using Python's SimpleHTTPServer may not work with this application
 
 ### Step 3 - Register app in SMART sandbox
@@ -29,11 +27,8 @@ __Note__: you will need access to the github repisitory to do this
    * Once logged in, select the desired sandbox from your list. (You can use the default one which is the only one after first sign-in);
    * In "Registered Apps", there might be some default apps. To register the app, click on the button of "+Register New App";
    * The registration form has two required fields: "App Name" for displaying in the sandbox, "App Launch URI" should be
-
     `http://kgrid.org/cardiac-advisor/fhir-app/launch.html` for the published SMART Post PCI Risks Calculator;
-
     `http://localhost:8000/fhir-app/launch.html` for the locally-hosted SMART Post PCI Risks Calculator;
-
    * Select the image of your choice and upload as the icon to be idsplayed in the sandbox ;
    * After save, the system will provide you the client ID. As for now, you don't need to make any changes in the launch.html.
    * The app should appear in your sandbox "Registered Apps" and be ready for launch.
@@ -45,12 +40,8 @@ __Note__: you will need access to the github repisitory to do this
    * A panel of Patient Picker will show up. Select the patient for the app to continue;
    * If this is the first time you are launching the app, it may take some time to launch and SMART may ask you to grant permssions to the application. Authorize the application to continue;
    * __Note__: The Patient Picker can be customized by entering a FHIR query to Sample Patient field in Registered App Detail Panel so that the patient picker only shows the list which the app applies. Example:
-
     `Patient?gender=male` will show only male patient to be selected from.
-
     `Patient?birthdate=lt1987-01-01` will show only the patients born before January 1, 1987 to be selected from.
-
-
 
 ### For more information visit:
 
