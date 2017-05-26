@@ -77,9 +77,7 @@ a:hover {
 }
 .site-header .wrapper, .site-footer .wrapper {
   position: relative;
-
   max-width: 1024px;
-
 }
 
 .site-title {
@@ -87,7 +85,7 @@ a:hover {
   background-size: 60px;
   background-repeat: no-repeat;
   padding-left: 80px;
-      background-position-y: 8px;
+  background-position-y: 8px;
 }
 .site-nav {
   line-height: 2.6em;
@@ -95,6 +93,7 @@ a:hover {
 .pad-left15 {
   padding-left: 15px;
 }
+
 @media screen and (min-width: 600px)
 {
 .site-nav .trigger {
@@ -110,11 +109,24 @@ background-color: #f5f5f5;
 .page-content .wrapper {
   padding-left: 280px;
 }
-.trigger ul {
-  margin-left: 20px;
-}
 }
 .site-nav .trigger li {
   font-size:13px;
   list-style: none;
+}
+.trigger ul {
+  margin-left: 20px;
+}
+/* footer*/
+.site-footer {
+  border-top: 1px solid #f5f5f5;
+  background-color: #f5f5f5;
+}
+h3.footer-sectitle {
+  padding-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.copyright.school{
+  height:40px;
 }
