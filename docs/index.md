@@ -50,6 +50,6 @@ __Note__: you will need access to the github repisitory to do this
     `Patient?birthdate=lt1987-01-01` will show only the patients born before January 1, 1987 to be selected from.
 
 ## For more information visit:
-
+{:.no_toc}
 - http://smarthealthit.org/
 - http://docs.smarthealthit.org/sandbox/
