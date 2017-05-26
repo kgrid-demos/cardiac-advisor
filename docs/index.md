@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 # Using the Post PCI Risks Calculator with the SMART Sandbox
 
 ## Running Locally-hosted App in SMART Sandbox
