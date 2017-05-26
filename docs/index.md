@@ -1,6 +1,7 @@
 
 
-# Using the Post PCI Risks Calculator with the SMART Sandbox
+# Using the Post PCI Risks Calculator
+{:.no_toc}
 
 * TOC
 {:toc}
