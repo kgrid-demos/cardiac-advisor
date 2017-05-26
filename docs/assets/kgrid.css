@@ -58,7 +58,7 @@ h1,h2,h3,h4,h5,h6 {
 	margin: 0 0 0px 0;
 }
 
-h1 { font-size: 40px; line-height: 1em; }
+h1 { font-size: 36px; line-height: 1.1em; margin-bottom:28px;}
 h2 { font-size: 28px; line-height: 1.25em;}
 h3 { font-size: 18px; }
 h4 { font-size: 16px; }
@@ -129,4 +129,18 @@ h3.footer-sectitle {
 }
 .copyright.school{
   height:40px;
+}
+ul#markdown-toc {
+  position: absolute;
+  left: -270px;
+  border:2px solid #e5e5e5;
+  margin-left: 0px;
+  padding: 15px;
+}
+ul#markdown-toc li {
+  list-style: none;
+}
+
+.post-content {
+  position: relative;
 }
