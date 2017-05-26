@@ -6,7 +6,7 @@ You can run this app hosted locally from SMART Sandbox. This will help if you wa
 
 ## Running Published App in SMART Sandbox
 
-You can run this app published at kgrid.org/cardiac-advisor from SMART Sandbox. Skip Step 1 and 2, follow the rest steps to register and launch the app. Be sure that the correct App Launch URI is used when reigstering.u
+You can run this app published at kgrid.org/cardiac-advisor from SMART Sandbox. Skip Step 1 and 2, follow the rest steps to register and launch the app. Be sure that the correct App Launch URI is used when reigstering.
 
 ## Quick Start Guide
 
@@ -29,7 +29,7 @@ __Note__: you will need access to the github repisitory to do this
    * The registration form has two required fields: "App Name" for displaying in the sandbox, "App Launch URI" should be
     `http://kgrid.org/cardiac-advisor/fhir-app/launch.html` for the published SMART Post PCI Risks Calculator;
     `http://localhost:8000/fhir-app/launch.html` for the locally-hosted SMART Post PCI Risks Calculator;
-   * Select the image of your choice and upload as the icon to be idsplayed in the sandbox ;
+   * Select the image of your choice and upload as the icon to be displayed in the sandbox ;
    * After save, the system will provide you the client ID. As for now, you don't need to make any changes in the launch.html.
    * The app should appear in your sandbox "Registered Apps" and be ready for launch.
 
