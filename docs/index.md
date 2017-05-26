@@ -1,7 +1,9 @@
-* TOC
-{:toc}
+
 
 # Using the Post PCI Risks Calculator with the SMART Sandbox
+
+* TOC
+{:toc}
 
 ## Running Locally-hosted App in SMART Sandbox
 
@@ -46,7 +48,7 @@ __Note__: you will need access to the github repisitory to do this
     `Patient?gender=male` will show only male patient to be selected from.
     `Patient?birthdate=lt1987-01-01` will show only the patients born before January 1, 1987 to be selected from.
 
-### For more information visit:
+## For more information visit:
 
 - http://smarthealthit.org/
 - http://docs.smarthealthit.org/sandbox/
