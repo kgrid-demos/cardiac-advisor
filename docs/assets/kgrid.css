@@ -122,8 +122,14 @@ background-color: #f5f5f5;
   border-top: 1px solid #f5f5f5;
   background-color: #f5f5f5;
 }
-h3.footer-sectitle {
+.footer-col {
   padding-bottom: 20px;
+}
+.footer-col ul {
+  margin-bottom:0px;
+}
+h3.footer-sectitle {
+  padding-bottom: 0px;
   font-size: 14px;
   font-weight: 600;
 }

@@ -5,7 +5,7 @@ description: > # this means to ignore newlines until "baseurl:"
   PostPCI Risks App calculates the risks in 12-30 months after the procedure with pateint data from SMART sandbox
 
 
-github_username:  kgrid-um-team
+#github_username:  kgrid-um-team
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
