@@ -74,6 +74,10 @@ a:hover {
 .site-header {
   border-top: none;
   min-height:60px;
+  width: 100%;
+    position: fixed;
+    z-index: 999;
+    background: #fff;
 }
 .site-header .wrapper, .site-footer .wrapper {
   position: relative;
@@ -93,7 +97,18 @@ a:hover {
 .pad-left15 {
   padding-left: 15px;
 }
-
+.pad-left280 {
+  padding-left: 280px;
+}
+.page-content {
+  padding-top:90px;;
+}
+:target:before {
+  content:"";
+  display:block;
+  height:88px; /* fixed header height*/
+  margin:-88px 0 0; /* negative fixed header height */
+}
 @media screen and (min-width: 600px)
 {
 .site-nav .trigger {
@@ -106,7 +121,7 @@ background-color: #f5f5f5;
 .page-content {
   min-height: 500px;
 }
-.page-content .wrapper {
+.page-content .wrapper.pad-alt {
   padding-left: 280px;
 }
 }
@@ -121,6 +136,7 @@ background-color: #f5f5f5;
 .site-footer {
   border-top: 1px solid #f5f5f5;
   background-color: #f5f5f5;
+  padding-bottom: 0px;
 }
 .footer-col {
   padding-bottom: 20px;
@@ -137,11 +153,12 @@ h3.footer-sectitle {
   height:40px;
 }
 ul#markdown-toc {
-  border:2px solid #f5f5f5;
+  border:2px solid #e5e5e5;
   margin-left: 0px;
+  margin-bottom: 30px;
   padding: 15px;
   display:inline-block;
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 ul#markdown-toc li {
   list-style: none;
