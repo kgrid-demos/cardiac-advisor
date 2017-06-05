@@ -20,6 +20,15 @@ $(document).ready(function()
 FHIR.oauth2.ready(function(smart)
 {
   //get patient information from SMART API
+  // console.log(smart);
+  // console.log(smart.server.serviceUrl);
+  var ver = 0;
+  if(smart.server.serviceUrl.includes("dstu2")){
+    ver =2;
+  } else if(smart.server.serviceUrl.includes("stu3")) {
+    ver =3;
+  }
+  // console.log(ver);
 	var patient = smart.patient.read()
 
 	var retrieved = new Set()
@@ -44,7 +53,7 @@ FHIR.oauth2.ready(function(smart)
     appendLog("Retrieved Patient Data from SMART Sandbox.");
 		var patientInfo = pt;
 		console.log(patientInfo);
-		$("#patient-name").text(get_patient_name(pt))
+		$("#patient-name").text(get_patient_name(ver, pt))
 
 		var retrieved = new Set()
     resourecount_refresh(smart);

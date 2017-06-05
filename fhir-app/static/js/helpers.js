@@ -31,13 +31,24 @@ function calculateAge(birthday)
  * @param  {Object} patient Patient FHIR resource obtained from SMART API
  * @return {String}         returns patient's full name. Returns "anonymous" if not available
  */
-function get_patient_name(patient)
+function get_patient_name(ver, patient)
 {
+
 	if(patient.name)
 	{
 		var names = patient.name.map(function(name)
 		{
-			return name.given.join(" ") + " " + name.family.join(" ");
+      switch(ver){
+        case 2:
+          return name.given.join(" ") + " " + name.family.join(" ");
+        case 3:
+          return name.given.join(" ") + " " + name.family;
+        default:
+          return name.given.join(" ");
+      }
+
+
+
 		})
 		return names.join("/");
 	}
@@ -504,12 +515,12 @@ function resourecount_refresh(smart) {
   })
   resource_counting(smart, "Observation", function(rsp){
         var totalcount= rsp.data.total;
-        console.log("contition:"+totalcount);
+        console.log("Observation:"+totalcount);
         $("#observation_count").text(totalcount);
   })
   resource_counting(smart, "RiskAssessment", function(rsp){
         var totalcount= rsp.data.total;
-        console.log("contition:"+totalcount);
+        console.log("Risk:"+totalcount);
         $("#risk_count").text(totalcount);
   })
 }
