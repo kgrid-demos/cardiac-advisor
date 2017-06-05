@@ -136,6 +136,11 @@ input[type=radio] {
 	.tab-pane {
 		height: 469px;
 	}
+
+.pad-5 {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 	#exTab1 .nav-pills, #exTab2 .nav-pills {
 		opacity: 0;
 		transition: opacity 0.8s linear;
@@ -195,7 +200,7 @@ input[type=radio] {
 	.table-striped
 	{
 		width: 100%;
-		margin: 16px auto 1px;
+		margin: 36px auto 1px;
 	}
 
 	form

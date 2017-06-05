@@ -5,7 +5,7 @@
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  	<link rel="stylesheet" href="./static/css/ca_style.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  	<script src="./static/js/helpers.js"> </script>
  	<script src="./static/js/ca.js"> </script>
  	<script src="https://d3js.org/d3.v4.min.js"></script>
@@ -53,13 +53,13 @@
         <div class="col-md-4">
           <span> Autofill Sample</span>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 pad-5">
           <input  class="sample" id="sample1" type="radio" name="patient1" value="0"> 1
-        </div><div class="col-md-2">
+        </div><div class="col-md-2 pad-5">
 			<input  class="sample" id="sample2" type="radio" name="patient1" value="1"> 2
-      </div><div class="col-md-2">
+    </div><div class="col-md-2 pad-5">
 			<input  class="sample" id="sample3" type="radio" name="patient1" value="2"> 3
-      </div><div class="col-md-2">
+    </div><div class="col-md-2 pad-5">
 			<input  class="sample" id="sample4" type="radio" name="patient1" value="3"> 4
     </div>
   </div>
@@ -137,7 +137,7 @@
       <div class="visual-field">
 			<div id="bleed-div">
 				<h3>GUSTO Bleeding Risk</h3>
-         <span class="risk-val" id="bleed-risk"> --%</span>
+         <span class="risk-val odometer" id="bleed-risk"> --%</span>
 	        <div class="risk-error" id="bleed-error"></div>
 				<br>
       </div>
@@ -186,7 +186,7 @@
 		<div class="col-md-6 visual-field text-center" id="stent-pane">
 			<div id="stent-div">
 				<h3>Stent Thrombosis Risk </h3>
-        <span class="risk-val" id="stent-risk"> --% </span>
+        <span class="risk-val odometer" id="stent-risk"> --% </span>
         <div class="risk-error" id="stent-error"></div>
 				<br>
 
