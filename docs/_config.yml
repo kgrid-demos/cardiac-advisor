@@ -1,6 +1,7 @@
 title: Post PCI Risks
 author: KGrid Development Team
 email: dlhs.knowledge.grid@umich.edu
+multipage: false
 description: > # this means to ignore newlines until "baseurl:"
   PostPCI Risks App calculates the risks in 12-30 months after the procedure with pateint data from SMART sandbox
 
