@@ -4,9 +4,10 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading"></h1>
+  <h1 class="page-heading">{{ site.title }}</h1>
+  <h4 class="desc">{{site.description}}</h4>
 
-  {{ content }}
+<!--
 
   <ul class="post-list">
     {% for post in site.posts %}
@@ -19,7 +20,7 @@ layout: default
         </h2>
       </li>
     {% endfor %}
-  </ul>
+  </ul> -->
 
   <!-- <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p> -->
 
