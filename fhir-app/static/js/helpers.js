@@ -3,7 +3,7 @@
 
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
-var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
+// var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
 var baseUrl ="http://kgrid.med.umich.edu/stack";
 var objLeadUrl = "/knowledgeObject/ark:/";
 
@@ -158,7 +158,7 @@ function getButtonValue(inputName)
             $("#stent-risk").css("display", "block")
             $("#stent-error").css("display", "none")
   			riskScores["stentRisk"] = response.result
-			$("#stent-risk").text((response.result * 100).toFixed(2) + '%');
+			$("#stent-risk").text((response.result * 100).toFixed(1) + '%');
 
       ir_fill("stent-gage",riskScores["stentRisk"]);
             prepRiskAsm(null,riskScores["stentRisk"],pt.id,"kgrid-ra22");
@@ -217,7 +217,7 @@ function get_ischemic_data(pt, riskScores)
             $("#bleed-risk").css("display", "block")
             $("#bleed-error").css("display", "none")
 			riskScores["bleedRisk"] = response.result
-			$("#bleed-risk").text("" + (response.result * 100).toFixed(2) + '%');
+			$("#bleed-risk").text("" + (response.result * 100).toFixed(1) + '%');
       ir_fill("bleeding-icon", riskScores["bleedRisk"]);
       prepRiskAsm(riskScores["bleedRisk"],null,pt.id,"kgrid-ra21");
 		},

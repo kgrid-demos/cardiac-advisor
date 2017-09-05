@@ -21,8 +21,7 @@ h1 small {
 		 margin:0px;
 	 }
 	 a:hover, a:active, a:focus,a:visited {
-		 color: #fff;
-text-decoration: none;
+	text-decoration: none;
 	 }
 	header {
 		height: 60px;
@@ -200,7 +199,7 @@ input[type=radio] {
 	.table-striped
 	{
 		width: 100%;
-		margin: 36px auto 1px;
+		margin: 36px auto 14px;
 	}
 
 	form
@@ -298,9 +297,9 @@ input[type=radio] {
 		display:none;
 	}
   .knowledgeButton {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
+    background-color: #fff;
+    border: 1px solid #0075bc;
+    color: #0075bc;
     padding: 10px 12px;
     text-align: center;
     text-decoration: none;
@@ -310,6 +309,10 @@ input[type=radio] {
     cursor: pointer;
     width: 300px	;
 }
+  .knowledgeButton:hover{
+		color:#0075bc;
+		background-color: #fff;
+	}
 pre {
 	max-height:400px;
 }

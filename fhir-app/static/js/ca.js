@@ -2,7 +2,8 @@
 
 $(document).ready(function()
 {
-    appendLog("Ready.");
+  appendLog("Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
+  appendLog("Post PCI Assessment Ready.");
   ir_fill("bleeding-icon", 0);
   ir_fill("stent-gage", 0);//This gives the smart endpoint for using SMART API calls
 
