@@ -6,7 +6,7 @@ var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, '
 // var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
 var baseUrl ="http://kgrid.med.umich.edu/stack";
 var objLeadUrl = "/knowledgeObject/ark:/";
-
+var b = false;
 
 /**
  * Calculates age of a person based on their birthDate
@@ -25,7 +25,12 @@ function calculateAge(birthday)
 	return age;
 }
 
-
+function startup(){
+  b=true;
+}
+function pauseonerror(){
+  b=false;
+}
 /**
  * gets patient's full name from patient fhir resource
  * @param  {Object} patient Patient FHIR resource obtained from SMART API
@@ -195,7 +200,7 @@ function getButtonValue(inputName)
     //if the icon array is not already visible, draw the array
 
       // arrayDiv.append("<br>")
-      draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
+    draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
           backgroundFill: "#FFFFFF", key: true})
 
   }
