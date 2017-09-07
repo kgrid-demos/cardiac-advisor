@@ -2,8 +2,8 @@
 
 $(document).ready(function()
 {
-  appendLog("Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
-  appendLog("Post PCI Assessment Ready.");
+  appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
+  appendLog("Application Event - Post PCI Risk Assessment Ready.");
   ir_fill("bleeding-icon", 0);
   ir_fill("stent-gage", 0);//This gives the smart endpoint for using SMART API calls
 
@@ -51,7 +51,7 @@ FHIR.oauth2.ready(function(smart)
 	$.when(patient).done(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
-    appendLog("Retrieved Patient Data from SMART Sandbox.");
+    appendLog("Application Event - Retrieved Patient Data from SMART Sandbox.");
 		var patientInfo = pt;
 		console.log(patientInfo);
 		$("#patient-name").text(get_patient_name(ver, pt))
@@ -102,7 +102,7 @@ FHIR.oauth2.ready(function(smart)
 				autofill(parseInt($(this).val()) ,retrieved)
 				// $("#get_data").slideDown("slow"	)
 				// hide_visuals()
-        appendLog("Autofill sample "+sampleno+ " is selected.");
+        appendLog("Application Event - Autofill sample "+sampleno+ " is selected.");
         get_ischemic_data(pt, riskScores);
         get_stent_data(pt,riskScores);
         resetWriteButton("bleed");

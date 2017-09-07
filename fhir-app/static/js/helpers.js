@@ -122,18 +122,18 @@ function getButtonValue(inputName)
 		  },
 		  "data": instr.data
 	 }
-   appendLog("Sending Patient Data to Knowledge Object: ark:/ " + instr.arkID);
+   appendLog("K-GRID Service Request - Sending Patient Data to Knowledge Object: ark:/ " + instr.arkID);
 	 console.log("AJAX SETTINGS: ", set)
 
 	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
          console.log(jqXHR);
     	 instr.success(data);
-       appendLog("Risk Score returned from Knowledge Object: ark:/ " + instr.arkID);
+       appendLog("K-GRID Service Response - Risk Score returned from Knowledge Object: ark:/ " + instr.arkID);
       }).fail(function(jqXHR, textStatus, errorThrown){
         console.log(jqXHR);
         instr.error(jqXHR.responseJSON);
-        appendLog("Error returned from Knowledge Object: ark:/ " + instr.arkID);
+        appendLog("K-GRID Service Response - Error returned from Knowledge Object: ark:/ " + instr.arkID);
       }).always(function(){
         console.log("Finished");
       })
