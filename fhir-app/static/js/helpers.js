@@ -4,7 +4,7 @@
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
 // var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
-var baseUrl ="https://kgrid-test.miserver.it.umich.edu/stack2";
+var baseUrl ="http://kgrid.med.umich.edu/stack";
 var objLeadUrl = "/knowledgeObject/ark:/";
 var b = false;
 
