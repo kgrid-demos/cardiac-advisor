@@ -4,8 +4,9 @@
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
 // var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
-var baseUrl ="http://kgrid.med.umich.edu/stack";
-var objLeadUrl = "/knowledgeObject/ark:/";
+// var baseUrl ="http://kgrid.med.umich.edu/stack";
+// var objLeadUrl = "/knowledgeObject/ark:/";
+var baseUrl ="https://kgrid-activator.herokuapp.com/";
 var b = false;
 
 /**
@@ -41,7 +42,8 @@ function get_patient_name(ver, patient)
 
 	if(patient.name)
 	{
-		var names = patient.name.map(function(name)
+		var names = patient.name.filter(function(n) {return n.use=="official"}).
+      map(function(name)
 		{
       switch(ver){
         case 2:
@@ -51,9 +53,6 @@ function get_patient_name(ver, patient)
         default:
           return name.given.join(" ");
       }
-
-
-
 		})
 		return names.join("/");
 	}
@@ -120,7 +119,7 @@ function getButtonValue(inputName)
   {
   	var set =
   	 {
-		  "url": baseUrl+objLeadUrl+ instr.arkID + "/result",
+		  "url": baseUrl+ instr.arkID + instr.endpoint,
 		  "method": "POST",
 		  "headers": {
 			  "content-type": "application/json",
@@ -154,7 +153,8 @@ function getButtonValue(inputName)
   {
   	KOPost(
   	{
-  		arkID: "99999/fk45m6gq9t",
+      arkID: "99999/fk45m6gq9t/v0.0.2",
+      endpoint:"/getStentThrombosisRisk",
   		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter',
   			'pac', 'cigSmoker', 'diabetes', 'periphDisease', 'renal']),
   		success: function(response)
@@ -214,7 +214,8 @@ function get_ischemic_data(pt, riskScores)
 	console.log('BIRTHDATE: ', pt.birthDate)
 	KOPost(
 	{
-		arkID: "67034/k47c7m",
+    arkID: "67034/k47c7m/v0.0.2",
+    endpoint:"/getIschemicRisk",
 		data: get_data(['DAPT', 'periphDisease', 'hypertension', 'renal'], {age: calculateAge(pt.birthDate)}),
 		success: function(response)
 		{

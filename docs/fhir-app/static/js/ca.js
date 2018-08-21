@@ -30,9 +30,9 @@ FHIR.oauth2.ready(function(smart)
   // console.log(smart);
   // console.log(smart.server.serviceUrl);
   var ver = 0;
-  if(smart.server.serviceUrl.includes("dstu2")){
+  if(smart.server.serviceUrl.includes("r2")){
     ver =2;
-  } else if(smart.server.serviceUrl.includes("stu3")) {
+  } else if(smart.server.serviceUrl.includes("r3")) {
     ver =3;
   }
   // console.log(ver);
