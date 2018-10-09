@@ -1,24 +1,15 @@
 {
-  "name": "Cancer-Advisor",
+  "name": "Cardiac-Advisor",
   "version": "1.0.0",
-  "description": "KGrid Cancer Advisor Demo App",
+  "description": "KGrid Cardiac Advisor Demo App",
   "main": " ",
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "deploydocs": "scripty"
+    "docs:build": "vuepress build docs"
   },
   "author": "KGrid Team",
   "license": "MIT",
-  "dependencies": {
-    "scripty": "^1.7.2"
-  },
   "devDependencies": {
     "vuepress": "^0.14.4"
-  },
-  "scripty": {
-    "path": "scripts",
-    "windowsPath": "scriptswin",
-    "silent": true
   }
 }
