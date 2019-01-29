@@ -6,7 +6,7 @@ var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, '
 // var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
 // var baseUrl ="http://kgrid.med.umich.edu/stack";
 // var objLeadUrl = "/knowledgeObject/ark:/";
-var baseUrl ="https://activator.kgrid.org/";
+var baseUrl ="https://hippo-activator.kgrid.org/";
 var b = false;
 
 /**
@@ -153,7 +153,7 @@ function getButtonValue(inputName)
   {
   	KOPost(
   	{
-      arkID: "99999/fk45m6gq9t/v0.0.2",
+      arkID: "99999/fk45m6gq9t/v0.0.3",
       endpoint:"/getStentThrombosisRisk",
   		data: get_data(['DAPT', 'infar', 'hypertension', 'priorPCI', 'CHF', 'veinGraft', 'stentDiameter',
   			'pac', 'cigSmoker', 'diabetes', 'periphDisease', 'renal']),
@@ -214,7 +214,7 @@ function get_ischemic_data(pt, riskScores)
 	console.log('BIRTHDATE: ', pt.birthDate)
 	KOPost(
 	{
-    arkID: "67034/k47c7m/v0.0.2",
+    arkID: "67034/k47c7m/v0.0.3",
     endpoint:"/getIschemicRisk",
 		data: get_data(['DAPT', 'periphDisease', 'hypertension', 'renal'], {age: calculateAge(pt.birthDate)}),
 		success: function(response)
