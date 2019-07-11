@@ -29,7 +29,7 @@ FHIR.oauth2.ready(function(smart)
   //get patient information from SMART API
   // console.log(smart);
   // console.log(smart.server.serviceUrl);
-  var ver = 0;
+  var ver = 3;
   if(smart.server.serviceUrl.includes("r2")){
     ver =2;
   } else if(smart.server.serviceUrl.includes("r3")) {
