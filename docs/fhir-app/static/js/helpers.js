@@ -6,7 +6,7 @@ var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, '
 // var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
 // var baseUrl ="http://kgrid.med.umich.edu/stack";
 // var objLeadUrl = "/knowledgeObject/ark:/";
-var baseUrl ="https://kgrid-activator.herokuapp.com/";
+var baseUrl ="https://activator.kgrid.org/";
 var b = false;
 
 /**
