@@ -34,9 +34,6 @@ jobs:
 
              chmod 777 .circleci/vuepress_deploy.sh && .circleci/vuepress_deploy.sh
 
-             git tag $RELEASE
-             git push origin $RELEASE
-
     - store_artifacts:
         path: dist
 
@@ -45,6 +42,7 @@ workflows:
   main:
     jobs:
     - build:
+        context: kgrid-demos
         filters:
           branches:
             only: master
