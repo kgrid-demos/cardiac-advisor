@@ -10,6 +10,6 @@
   "author": "KGrid Team",
   "license": "MIT",
   "devDependencies": {
-    "vuepress": "^1.0.3"
+    "vuepress": "^1.3.1"
   }
 }
