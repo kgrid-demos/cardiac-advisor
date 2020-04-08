@@ -20,13 +20,14 @@ $(document).ready(function()
     $(".stent").addClass("vis");
     $(".bleed").addClass("vis");
   });
+  console.log(FHIR)
+    // console.log(window.FHIR)
+    FHIR.oauth2.ready().then(function(client) {
+      app(client)
+    }).catch(function(e){
+      console.log(e)
+    });
 })
-
-//This gives the smart endpoint for using SMART API calls
-function app1(smart){
-  //get patient information from SMART API
-  console.log(smart);
-}
 
 function app(smart){
   //get patient information from SMART API
