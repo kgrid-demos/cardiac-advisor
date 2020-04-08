@@ -279,12 +279,15 @@ function resource_path_for(code)
  */
 function populate_inputs(smart, callback)
 {
-	smart.patient.api.search({type: "Condition"})
-	.done(callback)
+	smart.request("/Condition?patient=" + smart.patient.id)
+	.then(callback)
 }
 
 function resource_counting(smart, rsc, callback){
-  smart.patient.api.search({type:rsc}).done(callback);
+  smart.request(rsc, {
+                    resolveReferences: [ "medicationReference" ],
+                    graph: true
+                }).then(callback)
 }
 
 /**
@@ -514,17 +517,17 @@ function resetWriteButton(riskname){
   $("#write-status-"+riskname).addClass("hidden");
 }
 function resourecount_refresh(smart) {
-  resource_counting(smart, "Condition", function(rsp){
+  resource_counting(smart, "/Condition?patient=" + smart.patient.id, function(rsp){
         var totalcount= rsp.data.total;
-        console.log("contition:"+totalcount);
+        console.log("condition:"+totalcount);
         $("#condition_count").text(totalcount);
   })
-  resource_counting(smart, "Observation", function(rsp){
+  resource_counting(smart, "/Observation", function(rsp){
         var totalcount= rsp.data.total;
         console.log("Observation:"+totalcount);
         $("#observation_count").text(totalcount);
   })
-  resource_counting(smart, "RiskAssessment", function(rsp){
+  resource_counting(smart, "/RiskAssessment", function(rsp){
         var totalcount= rsp.data.total;
         console.log("Risk:"+totalcount);
         $("#risk_count").text(totalcount);

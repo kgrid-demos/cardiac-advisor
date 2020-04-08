@@ -4,15 +4,14 @@ $(document).ready(function()
 {
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
-  appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
-  appendLog("Application Event - Post PCI Risk Assessment Ready.");
-  ir_fill("bleeding-icon", 0);
-  ir_fill("stent-gage", 0);
-
-}else {
-  appendLog('K-GRID Resource Response - Error');
-  $("input").prop("disabled", "disabled");
-}
+    appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
+    appendLog("Application Event - Post PCI Risk Assessment Ready.");
+    ir_fill("bleeding-icon", 0);
+    ir_fill("stent-gage", 0);
+  }else {
+    appendLog('K-GRID Resource Response - Error');
+    $("input").prop("disabled", "disabled");
+  }
   $("[id$='pane']").hover(function() {
     var hoveredElement = this.id.replace("-pane", "");
     $(".vis").removeClass("vis");
@@ -24,19 +23,21 @@ $(document).ready(function()
 
 
 //This gives the smart endpoint for using SMART API calls
-FHIR.oauth2.ready(function(smart)
+FHIR.oauth2.ready().then(function(smart)
 {
   //get patient information from SMART API
-  // console.log(smart);
-  console.log(smart.server.serviceUrl);
+  console.log(smart);
+  console.log(smart.state.serverUrl);
   var ver = 3;
-  if(smart.server.serviceUrl.includes("r2")){
+  if(smart.state.serverUrl.includes("DSTU2")){
     ver =2;
-  } else if(smart.server.serviceUrl.includes("r3")) {
+  } else if(smart.state.serverUrl.includes("r3")) {
     ver =3;
   }
   // console.log(ver);
-	var patient = smart.patient.read()
+	// var patient = smart.patient.read().then(function(pt){
+  //   console.log(pt)
+  // })
 
 	var retrieved = new Set()
 
@@ -54,19 +55,24 @@ FHIR.oauth2.ready(function(smart)
     "stentRisk": null
   }
 
-	$.when(patient).done(function(pt)
+	smart.patient.read().then(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
     appendLog("Application Event - Retrieved Patient Data from SMART Sandbox.");
 		var patientInfo = pt;
 		console.log(patientInfo);
+    //display patient's info
 		$("#patient-name").text(get_patient_name(ver, pt))
+    $("#patient-age").text(calculateAge(pt.birthDate));
+    $("#patient-id").text(pt.id);
+    $("#patient-gender").text(pt.gender);
 
 		var retrieved = new Set()
-    resourecount_refresh(smart);
-		populate_inputs(smart, function(condition)
+    // resourecount_refresh(smart);
+    smart.request("/Condition?patient=" + smart.patient.id)
+  	.then(function(condition)
 		{
-			console.log("condition yo", condition)
+			console.log("condition: ", condition)
 
 			//if there the patient has a condition observation resource containing an
 			// observation, outlilne the table box in green to show it was retrieved from the EHR
@@ -117,10 +123,6 @@ FHIR.oauth2.ready(function(smart)
 
 		})
 
-		//display patient's info
-		$("#patient-age").text(calculateAge(pt.birthDate));
-    $("#patient-id").text(pt.id);
-    $("#patient-gender").text(pt.gender);
 
     $("input:radio[name='yes/no']").change(function()
     {
@@ -130,14 +132,14 @@ FHIR.oauth2.ready(function(smart)
       resetWriteButton("stent");
     })
 
-		$("#write-data-bleed").click(function()
-		{
-			write_risk_data(riskScores["bleedRisk"],null, smart)
-		})
-    $("#write-data-stent").click(function()
-		{
-			write_risk_data(null,riskScores["stentRisk"], smart)
-		})
+		// $("#write-data-bleed").click(function()
+		// {
+		// 	write_risk_data(riskScores["bleedRisk"],null, smart)
+		// })
+    // $("#write-data-stent").click(function()
+		// {
+		// 	write_risk_data(null,riskScores["stentRisk"], smart)
+		// })
 
 	})
 
