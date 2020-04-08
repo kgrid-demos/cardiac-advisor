@@ -20,11 +20,15 @@ $(document).ready(function()
     $(".stent").addClass("vis");
     $(".bleed").addClass("vis");
   });
-
+})
 
 //This gives the smart endpoint for using SMART API calls
-FHIR.oauth2.ready().then(function(smart)
-{
+function app1(smart){
+  //get patient information from SMART API
+  console.log(smart);
+}
+
+function app(smart){
   //get patient information from SMART API
   console.log(smart);
   console.log(smart.state.serverUrl);
@@ -34,18 +38,11 @@ FHIR.oauth2.ready().then(function(smart)
   } else if(smart.state.serverUrl.includes("r3")) {
     ver =3;
   }
-  // console.log(ver);
-	// var patient = smart.patient.read().then(function(pt){
-  //   console.log(pt)
-  // })
 
 	var retrieved = new Set()
-
 	//codes for different conditions from EHR
 	var renalCode = "36225005"
 	var hypertensionCode = "38341003"
-	//There are a lot of different codes for the different types of diabetes\
-	//just using this code for now
 	var diabetesCode = "44054006"
 
 	//This is used to keep track of results from knowledge objects
@@ -142,10 +139,4 @@ FHIR.oauth2.ready().then(function(smart)
 		// })
 
 	})
-
-	//if the user changes one of the input options, clear the visuals and reset everything
-
-
-})
-
-})
+}
