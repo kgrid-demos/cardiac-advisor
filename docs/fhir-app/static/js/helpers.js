@@ -42,7 +42,7 @@ function get_patient_name(ver, patient)
 
 	if(patient.name)
 	{
-		var names = patient.name.filter(function(n) {return n.use=="official"}).
+		var names = patient.name.filter(function(n) {return n.use=="usual"}).
       map(function(name)
 		{
       switch(ver){
