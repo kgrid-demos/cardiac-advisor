@@ -39,22 +39,20 @@ function pauseonerror(){
  */
 function get_patient_name(ver, patient)
 {
-
-	if(patient.name)
-	{
-		var names = patient.name.filter(function(n) {return n.use=="usual"}).map(function(name){
-      switch(ver){
-        case 2:
-          return name.given.join(" ") + " " + name.family.join(" ");
-        case 3:
-          return name.given.join(" ") + " " + name.family;
-        default:
-          return name.given.join(" ");
-      }
-		});
-		return names.join("/");
+	if(patient.name)	{
+		var names = patient.name[0];
+    switch(ver){
+      case 2:
+        return names.given.join(" ") + " " + names.family.join(" ");
+      case 3:
+        return names.given.join(" ") + " " + names.family;
+      default:
+        return names.given.join(" ");
+    }
 	}
-	else return "anonymous";
+	else {
+    return "anonymous";
+  }
 }
 
 
