@@ -2,7 +2,7 @@
 
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200409A");
+  appendLog("App Build Info: 20200410A");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
@@ -36,11 +36,11 @@ function app(smart){
   console.log(smart);
   console.log(smart.state.serverUrl);
   var ver = 3;
-  if(smart.state.serverUrl.includes("DSTU2")){
-    ver =2;
-  } else if(smart.state.serverUrl.includes("r3")) {
-    ver =3;
-  }
+  // if(smart.state.serverUrl.includes("DSTU2")){
+  //   ver =2;
+  // } else if(smart.state.serverUrl.includes("r3")) {
+  //   ver =3;
+  // }
 
 	var retrieved = new Set();
 	//codes for different conditions from EHR

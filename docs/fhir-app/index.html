@@ -29,14 +29,14 @@
     <div class="col-md-3"><h3><small>age:</small> <span id="patient-age"> </span></h3>  </div>
     <div class="col-md-3"> <h3><small>gender:</small><span id="patient-gender"> </span> </h3> </div>
     <div class="col-md-3"><h3><small>id:<span id="patient-id"> </span> </small></h3> </div>
-</div>
-<div class="row resource-row">
-  <div class="col-md-3"></div>
-  <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">0</span> </h3> </div>
-  <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 0</span></h3>  </div>
-  <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
+  </div>
+  <div class="row resource-row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">0</span> </h3> </div>
+    <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 0</span></h3>  </div>
+    <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
 
-</div>
+  </div>
 </div>
 
 <div class="container">
@@ -76,8 +76,10 @@
         </tr>
         <tr  class="bleed stent  vis">
           <td class="pad-left10 hypertension-data">Hypertension</td>
-          <td><form class="info hypertension-data" id="hypertension-form"> <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes
-  					<input class="no-btn"type="radio" name="yes/no" value=0> No </form></td>
+          <td><form class="info hypertension-data" id="hypertension-form">
+            <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No
+          </form></td>
         </tr>
         <tr  class="bleed stent  vis">
           <td class="pad-left10 renal-data">Renal Insufficiency</td>
@@ -94,7 +96,7 @@
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr><tr  class="stent  vis">
-          <td class="pad-left10">History of CHF or LVEF < 30%</td>
+          <td class="pad-left10">History of CHF or LVEF &lt; 30%</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr><tr  class="stent  vis">
@@ -102,7 +104,7 @@
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr><tr  class="stent  vis">
-          <td class="pad-left10">Stent Diameter &lt 30mm</td>
+          <td class="pad-left10">Stent Diameter &lt; 30mm</td>
           <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
   					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
         </tr><tr  class="stent  vis">
@@ -233,8 +235,6 @@
 
 
 </div>
-</div>
-
 </div>
 
 <div class="container">
