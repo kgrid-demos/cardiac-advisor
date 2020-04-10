@@ -42,9 +42,7 @@ function get_patient_name(ver, patient)
 
 	if(patient.name)
 	{
-		var names = patient.name.filter(function(n) {return n.use=="usual"}).
-      map(function(name)
-		{
+		var names = patient.name.filter(function(n) {return n.use=="usual"}).map(function(name){
       switch(ver){
         case 2:
           return name.given.join(" ") + " " + name.family.join(" ");
@@ -53,7 +51,7 @@ function get_patient_name(ver, patient)
         default:
           return name.given.join(" ");
       }
-		})
+		});
 		return names.join("/");
 	}
 	else return "anonymous";
@@ -62,7 +60,7 @@ function get_patient_name(ver, patient)
 
 function getButtonValue(inputName)
 {
-  alert($('input[name="yes/no"]:checked').val())
+  alert($('input[name="yes/no"]:checked').val());
 }
 
   //input: parameters for knwledge object, takes a list as the first argument
@@ -81,14 +79,14 @@ function getButtonValue(inputName)
   	var data = {};
   	var checkedValues = $("input[name='yes/no']:checked").map(function()
   	{
-  		return this.value
-  	}).get()
+  		return this.value;
+  	}).get();
 
-  	console.log("got checked values: ", checkedValues)
+  	console.log("got checked values: ", checkedValues);
 
   	for(var i = 0; i < args.length; i += 1)
   	{
-  		data[args[i]] = checkedValues[keyDict[args[i]]]
+  		data[args[i]] = checkedValues[keyDict[args[i]]];
   	}
   	if(optionals)
   	{
@@ -98,7 +96,7 @@ function getButtonValue(inputName)
   		}
   	}
 
-  	console.log("populated data: ", data)
+  	console.log("populated data: ", data);
 
   	return JSON.stringify(data);
   }
@@ -125,9 +123,9 @@ function getButtonValue(inputName)
 			  "content-type": "application/json",
 		  },
 		  "data": instr.data
-	 }
+	 };
    appendLog("K-GRID Service Request - Sending Patient Data to Knowledge Object: ark:/ " + instr.arkID);
-	 console.log("AJAX SETTINGS: ", set)
+	 console.log("AJAX SETTINGS: ", set);
 
 	 $.ajax(set).done(function(data, textStatus, jqXHR)
 	 {
@@ -140,7 +138,7 @@ function getButtonValue(inputName)
         appendLog("K-GRID Service Response - Error returned from Knowledge Object: ark:/ " + instr.arkID);
       }).always(function(){
         console.log("Finished");
-      })
+      });
 
 }
 
@@ -160,24 +158,24 @@ function getButtonValue(inputName)
   		success: function(response)
   		{
   			console.log(response);
-            $("#stent-risk").css("display", "block")
-            $("#stent-error").css("display", "none")
-  			riskScores["stentRisk"] = response.result
+            $("#stent-risk").css("display", "block");
+            $("#stent-error").css("display", "none");
+  			riskScores.stentRisk = response.result;
 			$("#stent-risk").text((response.result * 100).toFixed(1) + '%');
 
-      ir_fill("stent-gage",riskScores["stentRisk"]);
-            prepRiskAsm(null,riskScores["stentRisk"],pt.id,"kgrid-ra22");
+      ir_fill("stent-gage",riskScores.stentRisk);
+            prepRiskAsm(null,riskScores.stentRisk,pt.id,"kgrid-ra22");
   		},
   		error: function(response)
   		{
   			console.log(response);
 			console.log(response.message);
-			$("#stent-risk").css("display", "none")
-            $("#stent-error").css("display", "block")
-			$("#stent-error").text(response.status + " - " + response.message)
+			$("#stent-risk").css("display", "none");
+            $("#stent-error").css("display", "block");
+			$("#stent-error").text(response.status + " - " + response.message);
             //$("#write-data").prop("disabled", "disabled")
   		}
-  	})
+  	});
   }
 
 
@@ -201,7 +199,7 @@ function getButtonValue(inputName)
 
       // arrayDiv.append("<br>")
     draw_array({divID: divID, count: count_ * 100, gridWidth: 10, gridHeight: 10, personFill: "steelblue",
-          backgroundFill: "#FFFFFF", key: true})
+          backgroundFill: "#FFFFFF", key: true});
 
   }
 /**
@@ -211,7 +209,7 @@ function getButtonValue(inputName)
  */
 function get_ischemic_data(pt, riskScores)
 {
-	console.log('BIRTHDATE: ', pt.birthDate)
+	console.log('BIRTHDATE: ', pt.birthDate);
 	KOPost(
 	{
     arkID: "67034/k47c7m",
@@ -220,23 +218,23 @@ function get_ischemic_data(pt, riskScores)
 		success: function(response)
 		{
 			console.log('result  ' + response.result);
-            $("#bleed-risk").css("display", "block")
-            $("#bleed-error").css("display", "none")
-			riskScores["bleedRisk"] = response.result
+            $("#bleed-risk").css("display", "block");
+            $("#bleed-error").css("display", "none");
+			riskScores.bleedRisk = response.result;
 			$("#bleed-risk").text("" + (response.result * 100).toFixed(1) + '%');
-      ir_fill("bleeding-icon", riskScores["bleedRisk"]);
-      prepRiskAsm(riskScores["bleedRisk"],null,pt.id,"kgrid-ra21");
+      ir_fill("bleeding-icon", riskScores.bleedRisk);
+      prepRiskAsm(riskScores.bleedRisk,null,pt.id,"kgrid-ra21");
 		},
 		error: function(response)
 		{
 			console.log(response.message);
-            $("#bleed-risk").css("display", "none")
-            $("#bleed-error").css("display", "block")
+            $("#bleed-risk").css("display", "none");
+            $("#bleed-error").css("display", "block");
 		  	// $("#bleed-vis").css("display", "none");
 			$("#bleed-error").text(response.status + " - " + response.message);
             //$("#write-data").prop("disabled", "disabled")
 		}
-	})
+	});
 
 }
 
@@ -257,7 +255,7 @@ function appendLog(message) {
  */
 function value_in_resource(resourceObj, path)
 {
-	return jsonpath.query(resourceObj, path).length > 0
+	return jsonpath.query(resourceObj, path).length > 0;
 }
 
 
@@ -269,7 +267,7 @@ function value_in_resource(resourceObj, path)
  */
 function resource_path_for(code)
 {
-	return "$..resource.code.coding[?(@.code==" + code + ")].code"
+	return "$..resource.code.coding[?(@.code==" + code + ")].code";
 }
 
 /**
@@ -280,14 +278,14 @@ function resource_path_for(code)
 function populate_inputs(smart, callback)
 {
 	smart.request("/Condition?patient=" + smart.patient.id)
-	.then(callback)
+	.then(callback);
 }
 
 function resource_counting(smart, rsc, callback){
   smart.request(rsc, {
                     resolveReferences: [ "medicationReference" ],
                     graph: true
-                }).then(callback)
+                }).then(callback);
 }
 
 /**
@@ -298,12 +296,12 @@ function resource_counting(smart, rsc, callback){
  */
 function autofill(num, retrieved)
 {
-	console.log("autofill val", num)
+	console.log("autofill val", num);
 	//if one of the first 2 autofill options are selected
 	if(num === 0 || num === 1)
 	{
 		//mod will be either 2 or 3
-		var mod = num + 2
+		var mod = num + 2;
 		//select every other or every 2 "no" input buttons (depending on what num is)
 		$(".no-btn").each(function(index)
 		{
@@ -312,15 +310,15 @@ function autofill(num, retrieved)
 				$(this).prop("checked", true);
 			}
 
-		})
+		});
 		//make the remaining ones "yes" selected
 		$(".yes-btn").each(function(index)
 		{
-			if(!(index % mod) && !retrieved.has(index))
+			if((!(index % mod)) && (!retrieved.has(index)))
 			{
 				$(this).prop("checked", true);
 			}
-		})
+		});
 	}
 	//third autfill option
 	//make everything "yes" selected
@@ -330,7 +328,7 @@ function autofill(num, retrieved)
 		{
 			if(!$(this).is(":checked") && !retrieved.has(index))
 				$(this).prop("checked", true);
-		})
+		});
 	}
 	//autofill option 4
 	//mark everything as "no"
@@ -340,7 +338,7 @@ function autofill(num, retrieved)
 		{
 			if(!$(this).is(":checked") && !retrieved.has(index))
 				$(this).prop("checked", true);
-		})
+		});
 	}
 
 
@@ -372,9 +370,9 @@ function predictionTemplate(txt, riskValue)
 	            }
            	]
          }
-    }
+    };
 
-    return thing
+    return thing;
 }
 
 function prepRiskAsm(bleedRisk, stentRisk, pid, rid)
@@ -392,7 +390,7 @@ function prepRiskAsm(bleedRisk, stentRisk, pid, rid)
   	}
     var riskname = "bleed";
   	//current date formatted as yyyy-mm-dd
-  	var today = yyyy+'-'+mm+'-'+dd;
+  	var todayStr = yyyy+'-'+mm+'-'+dd;
 
   	//RiskAssessment resource template
   	//have to add in prediction information
@@ -402,33 +400,33 @@ function prepRiskAsm(bleedRisk, stentRisk, pid, rid)
   		{
   		     "resourceType": "RiskAssessment",
   		     "id": rid,
-  		     "date": today,
+  		     "date": todayStr,
   		     "subject":{
   		       "reference":"Patient/" + pid
   		      },
   		     "prediction": []
   		}
-  	}
+  	};
 
-  	var prediction = riskAsm['resource']['prediction']
+  	var prediction = riskAsm.resource.prediction;
 
   	//add prediction information to resource if there is data
   	if(bleedRisk){
 
       riskname="bleed";
-  		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
+  		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk));
     }
   	if(stentRisk){
       riskname="stent";
-  		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk))
+  		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk));
     }
   	if(!bleedRisk && !stentRisk)
   	{
-  		$("#preview-"+riskname).append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>")
+  		$("#preview-"+riskname).append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>");
   	}else{
-      var preview = $("#json-preview-"+riskname)
+      var preview = $("#json-preview-"+riskname);
   		//display preview of resource
-  		preview.html(JSON.stringify(riskAsm, undefined, 3))
+  		preview.html(JSON.stringify(riskAsm, undefined, 3));
     }
 }
 
@@ -455,7 +453,7 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 	}
 
 	//current date formatted as yyyy-mm-dd
-	var today = yyyy+'-'+mm+'-'+dd;
+	var todayStr = yyyy+'-'+mm+'-'+dd;
 
 	//RiskAssessment resource template
 	//have to add in prediction information
@@ -465,50 +463,50 @@ function write_risk_data(bleedRisk, stentRisk, smart)
 		{
 		     "resourceType": "RiskAssessment",
 		     "id": null,
-		     "date": today,
+		     "date": todayStr,
 		     "subject":{
 		       "reference":"Patient/" + smart.patient.id
 		      },
 		     "prediction": []
 		}
-	}
+	};
   var riskname =null;
-	var prediction = riskAsm['resource']['prediction']
+	var prediction = riskAsm.resource.prediction;
 
 	//add prediction information to resource if there is data
 	if(bleedRisk){
     riskname="bleed";
     riskAsm.resource.id="kgrid-ra21";
-		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk))
+		prediction.push(predictionTemplate("Ischemic bleeding risk", bleedRisk));
   }
 	if(stentRisk){
     riskname="stent";
     riskAsm.resource.id="kgrid-ra22";
-		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk))
+		prediction.push	(predictionTemplate("Stent thrombosis risk", stentRisk));
   }
 	if(!bleedRisk && !stentRisk)
 	{
-		$("#preview").append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>")
+		$("#preview").append("<div class='alert alert-danger'><strong>Failure!</strong> No risk values to write</div>");
 	}
 	else
 	{
-		var preview = $("#json-preview")
+		var preview = $("#json-preview");
 		//display preview of resource
-		preview.html(JSON.stringify(riskAsm, undefined, 3))
-		$("#preview").slideDown("slow")
+		preview.html(JSON.stringify(riskAsm, undefined, 3));
+		$("#preview").slideDown("slow");
 
 		//write the resource to the patient's EHR
 		smart.api.update(riskAsm).then(function()
 		{
 			//alert("hooray")
-			console.log("successfully wrote data to health record")
+			console.log("successfully wrote data to health record");
 			//update visuals
       $("#write-data-"+riskname).addClass("done");
       $("#write-status-"+riskname).removeClass("hidden");
       // $("#write-status-"+riskname).text("Success");
-			$("#write-data").prop("disabled", "disabled")
+			$("#write-data").prop("disabled", "disabled");
       resourecount_refresh(smart);
-		})
+		});
 	}
 }
 
@@ -521,30 +519,30 @@ function resourecount_refresh(smart) {
         var totalcount= rsp.data.total;
         console.log("condition:"+totalcount);
         $("#condition_count").text(totalcount);
-  })
+  });
   resource_counting(smart, "/Observation", function(rsp){
         var totalcount= rsp.data.total;
         console.log("Observation:"+totalcount);
         $("#observation_count").text(totalcount);
-  })
+  });
   resource_counting(smart, "/RiskAssessment", function(rsp){
         var totalcount= rsp.data.total;
         console.log("Risk:"+totalcount);
         $("#risk_count").text(totalcount);
-  })
+  });
 }
 // resets and clears the icon arrays on the page
 function reset_gages()
 {
-	$(".show_gage").text("Display visual")
-	var stentGage = $("#stent-gage")
+	$(".show_gage").text("Display visual");
+	var stentGage = $("#stent-gage");
 	stentGage.slideUp("slow", function()
 	{
-		stentGage.html("")
-	})
-	var bleedGage = $("#bleeding-icon")
+		stentGage.html("");
+	});
+	var bleedGage = $("#bleeding-icon");
 	bleedGage.slideUp("slow", function()
 	{
-		bleedGage.html("")
-	})
+		bleedGage.html("");
+	});
 }

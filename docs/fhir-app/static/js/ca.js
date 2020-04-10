@@ -2,7 +2,7 @@
 
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200409A")
+  appendLog("App Build Info: 20200409A");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
@@ -21,15 +21,15 @@ $(document).ready(function()
     $(".stent").addClass("vis");
     $(".bleed").addClass("vis");
   });
-  console.log(FHIR)
-  window.FHIR = FHIR
+  console.log(FHIR);
+  window.FHIR = FHIR;
     // console.log(window.FHIR)
     FHIR.oauth2.ready().then(function(client) {
-      app(client)
+      app(client);
     }).catch(function(e){
-      console.log(e)
+      console.log(e);
     });
-})
+});
 
 function app(smart){
   //get patient information from SMART API
@@ -42,18 +42,18 @@ function app(smart){
     ver =3;
   }
 
-	var retrieved = new Set()
+	var retrieved = new Set();
 	//codes for different conditions from EHR
-	var renalCode = "36225005"
-	var hypertensionCode = "38341003"
-	var diabetesCode = "44054006"
+	var renalCode = "36225005";
+	var hypertensionCode = "38341003";
+	var diabetesCode = "44054006";
 
 	//This is used to keep track of results from knowledge objects
   var riskScores =
   {
     "bleedRisk": null,
     "stentRisk": null
-  }
+  };
 
 	smart.patient.read().then(function(pt)
 	{
@@ -62,48 +62,48 @@ function app(smart){
 		var patientInfo = pt;
 		console.log(patientInfo);
     //display patient's info
-		$("#patient-name").text(get_patient_name(ver, pt))
+		$("#patient-name").text(get_patient_name(ver, pt));
     $("#patient-age").text(calculateAge(pt.birthDate));
     $("#patient-id").text(pt.id);
     $("#patient-gender").text(pt.gender);
 
-		var retrieved = new Set()
+		var retrieved = new Set();
     // resourecount_refresh(smart);
     smart.request("/Condition?patient=" + smart.patient.id)
   	.then(function(condition)
 		{
-			console.log("condition: ", condition)
+			console.log("condition: ", condition);
 
 			//if there the patient has a condition observation resource containing an
 			// observation, outlilne the table box in green to show it was retrieved from the EHR
 			// keep track of retrieved information using Retrieved set
 			if(value_in_resource(condition, resource_path_for(renalCode)))
 			{
-				retrieved.add(keyDict['renal'])
-				$("#renal-form").find("input").prop("disabled", true)
-				$("#renal-yes").prop("checked", true)
+				retrieved.add(keyDict.renal);
+				$("#renal-form").find("input").prop("disabled", true);
+				$("#renal-yes").prop("checked", true);
 				$(".renal-data").addClass("filled");
-				console.log('SET', retrieved)
+				console.log('SET', retrieved);
 			}
 			if(value_in_resource(condition, resource_path_for(hypertensionCode)))
 			{
-				retrieved.add(keyDict['hypertension'])
-				$("#hypertension-form").find("input").prop("disabled", true)
-				$("#hypertension-yes").prop("checked", true)
-				$(".hypertension-data").addClass("filled")
+				retrieved.add(keyDict.hypertension);
+				$("#hypertension-form").find("input").prop("disabled", true);
+				$("#hypertension-yes").prop("checked", true);
+				$(".hypertension-data").addClass("filled");
 			}
 			if(value_in_resource(condition, resource_path_for(diabetesCode)))
 			{
-				retrieved.add(keyDict['diabetes'])
-				$("#diabetes-form").find("input").prop("disabled", true)
-				$("#diabetes-yes").prop("checked", true)
-				$(".diabetes-data").addClass("filled")
+				retrieved.add(keyDict.diabetes);
+				$("#diabetes-form").find("input").prop("disabled", true);
+				$("#diabetes-yes").prop("checked", true);
+				$(".diabetes-data").addClass("filled");
 			}
 
 			//If we got anything from the EHR display message explaining the green highlights
 			if(retrieved.size > 0)
 			{
-				console.log("retrieved elts", retrieved)
+				console.log("retrieved elts", retrieved);
 				//$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
 			}
 
@@ -111,7 +111,7 @@ function app(smart){
 			$(".sample").click(function()
 			{
         var sampleno = parseInt($(this).val())+1;
-				autofill(parseInt($(this).val()) ,retrieved)
+				autofill(parseInt($(this).val()) ,retrieved);
 				// $("#get_data").slideDown("slow"	)
 				// hide_visuals()
         appendLog("Application Event - Autofill sample "+sampleno+ " is selected.");
@@ -119,9 +119,9 @@ function app(smart){
         get_stent_data(pt,riskScores);
         resetWriteButton("bleed");
         resetWriteButton("stent");
-			})
+			});
 
-		})
+		});
 
 
     $("input:radio[name='yes/no']").change(function()
@@ -130,7 +130,7 @@ function app(smart){
       get_stent_data(pt,riskScores);
       resetWriteButton("bleed");
       resetWriteButton("stent");
-    })
+    });
 
 		// $("#write-data-bleed").click(function()
 		// {
@@ -141,5 +141,5 @@ function app(smart){
 		// 	write_risk_data(null,riskScores["stentRisk"], smart)
 		// })
 
-	})
+	});
 }
