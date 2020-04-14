@@ -43,11 +43,11 @@ function get_patient_name(ver, patient)
 		var names = patient.name[0];
     switch(ver){
       case 2:
-        return names.given.join(" ") + " " + names.family.join(" ");
+        return names.text.join(" ") + " " + names.family.join(" ");
       case 3:
-        return names.given.join(" ") + " " + names.family;
+        return names.text.join(" ") + " " + names.family;
       default:
-        return names.given.join(" ");
+        return names.text.join(" ");
     }
 	}
 	else {
