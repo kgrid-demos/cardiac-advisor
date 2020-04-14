@@ -35,10 +35,18 @@ function app(smart){
   //get patient information from SMART API
   console.log(smart);
   console.log(smart.state.serverUrl);
+  var smartkey =sessionStorage.getItem('SMART_KEY').replace(/"/g, "") ;
+  var smartstate = sessionStorage.getItem(smartkey+"");
+  var obj1 = {};
+  if(smartstate!=null){
+    obj1 = JSON.parse(smartstate);
+    console.log(smartkey);
+    // console.log(obj1);
+  }
   var ver = 3;
-  if(smart.state.serverUrl.includes("DSTU2") | smart.state.serverUrl.includes("r2")){
+  if(smart.state.serverUrl.indexOf("DSTU2") !=-1 | smart.state.serverUrl.indexOf("r2")!=-1){
     ver =2;
-  } else if(smart.state.serverUrl.includes("r3")) {
+  } else if(smart.state.serverUrl.indexOf("r3")!=-1) {
     ver =3;
   }
 
@@ -61,6 +69,8 @@ function app(smart){
 		var patientName =get_patient_name(ver, pt);
     var serverVer = (ver==2) ? "DSTU2" : "STU3";
     appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
+    appendLog("Application Event - Auth Server URI: "+obj1.authorizeUri);
+    appendLog("Application Event - Patient ID: "+pt.id);
     appendLog("Application Event - Patient Name: "+patientName);
 		console.log(patientName);
     console.log(ver);
