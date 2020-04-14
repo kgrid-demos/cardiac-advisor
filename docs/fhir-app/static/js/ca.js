@@ -2,7 +2,7 @@
 
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200410A");
+  appendLog("App Build Info: 20200414A");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
@@ -22,7 +22,7 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
-  window.FHIR = FHIR;
+  // window.FHIR = FHIR;
     // console.log(window.FHIR)
     FHIR.oauth2.ready().then(function(client) {
       app(client);
@@ -152,6 +152,9 @@ function app(smart){
 		// {
 		// 	write_risk_data(null,riskScores["stentRisk"], smart)
 		// })
+    // smart.user.read().then(function(usr){
+    //   console.log(usr);
+    // });
 
 	});
 }
