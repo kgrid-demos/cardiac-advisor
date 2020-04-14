@@ -39,20 +39,39 @@ function pauseonerror(){
  */
 function get_patient_name(ver, patient)
 {
-	if(patient.name)	{
+  var displayname = 'anonymous';
+	try	{
 		var names = patient.name[0];
     switch(ver){
       case 2:
-        return names.text.join(" ") + " " + names.family.join(" ");
+        displayname= names.family.join(" ");
+        if(names.given){
+          displayname= names.given.join(" ") + " " + displayname;
+        } else {
+          if(names.text){
+            displayname = names.text.join(" ") + " " + displayname;
+          }
+        }
+        break;
       case 3:
-        return names.text.join(" ") + " " + names.family;
+        displayname= names.family;
+        if(names.given){
+          displayname= names.given+ " " + displayname;
+        } else {
+          if(names.text){
+            displayname = names.text + " " + displayname;
+          }
+        }
+        break;
       default:
-        return names.text.join(" ");
+        displayname= names.family;
+        break;
     }
 	}
-	else {
-    return "anonymous";
+	catch(e) {
+    console.log(patient.name);
   }
+  return displayname;
 }
 
 

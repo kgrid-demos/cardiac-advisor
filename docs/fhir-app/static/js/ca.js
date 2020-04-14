@@ -36,11 +36,11 @@ function app(smart){
   console.log(smart);
   console.log(smart.state.serverUrl);
   var ver = 3;
-  // if(smart.state.serverUrl.includes("DSTU2")){
-  //   ver =2;
-  // } else if(smart.state.serverUrl.includes("r3")) {
-  //   ver =3;
-  // }
+  if(smart.state.serverUrl.includes("DSTU2") | smart.state.serverUrl.includes("r2")){
+    ver =2;
+  } else if(smart.state.serverUrl.includes("r3")) {
+    ver =3;
+  }
 
 	var retrieved = new Set();
 	//codes for different conditions from EHR
@@ -58,10 +58,12 @@ function app(smart){
 	smart.patient.read().then(function(pt)
 	{
 		console.log("PATIENT RESOURCE: ", pt);
-    appendLog("Application Event - Retrieved Patient Data from SMART Sandbox.");
-		var patientInfo = pt;
-		console.log(patientInfo);
-    //display patient's info
+		var patientName =get_patient_name(ver, pt);
+    var serverVer = (ver==2) ? "DSTU2" : "STU3";
+    appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
+    appendLog("Application Event - Patient Name: "+patientName);
+		console.log(patientName);
+    console.log(ver);
 		$("#patient-name").text(get_patient_name(ver, pt));
     $("#patient-age").text(calculateAge(pt.birthDate));
     $("#patient-id").text(pt.id);
