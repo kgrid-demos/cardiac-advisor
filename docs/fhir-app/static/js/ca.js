@@ -2,7 +2,7 @@
 
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200414A");
+  appendLog("App Build Info: 20200415B");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
@@ -22,9 +22,8 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
-  // window.FHIR = FHIR;
-    // console.log(window.FHIR)
-    FHIR.oauth2.ready().then(function(client) {
+
+  FHIR.oauth2.ready().then(function(client) {
       app(client);
     }).catch(function(e){
       console.log(e);
@@ -44,11 +43,19 @@ function app(smart){
     // console.log(obj1);
   }
   var ver = 3;
-  if(smart.state.serverUrl.indexOf("DSTU2") !=-1 | smart.state.serverUrl.indexOf("r2")!=-1){
+  if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
     ver =2;
-  } else if(smart.state.serverUrl.indexOf("r3")!=-1) {
+  } else if(obj1.serverUrl.indexOf("r3")!=-1) {
     ver =3;
   }
+  if(obj1.authorizeUri){
+    appendLog("SMART Auth Event - Auth Server URI: "+obj1.authorizeUri);
+  }
+  if(obj1.tokenResponse){
+    var atoken = obj1.tokenResponse.access_token.substring(0,6)+"****";
+    appendLog("SMART Auth Event - Access Token: "+atoken);
+  }
+
 
 	var retrieved = new Set();
 	//codes for different conditions from EHR
@@ -69,9 +76,8 @@ function app(smart){
 		var patientName =get_patient_name(ver, pt);
     var serverVer = (ver==2) ? "DSTU2" : "STU3";
     appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
-    appendLog("Application Event - Auth Server URI: "+obj1.authorizeUri);
     appendLog("Application Event - Patient ID: "+pt.id);
-    appendLog("Application Event - Patient Name: "+patientName);
+    appendLog("Application Event - Patient Name: "+JSON.stringify(pt.name));
 		console.log(patientName);
     console.log(ver);
 		$("#patient-name").text(get_patient_name(ver, pt));
