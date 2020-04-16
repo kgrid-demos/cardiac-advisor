@@ -22,6 +22,27 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
+  var smartkey =sessionStorage.getItem('SMART_KEY').replace(/"/g, "") ;
+  var smartstate = sessionStorage.getItem(smartkey+"");
+  var obj1 = {};
+  if(smartstate!=null){
+    obj1 = JSON.parse(smartstate);
+    console.log(smartkey);
+    // console.log(obj1);
+  }
+  var ver = 3;
+  if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
+    ver =2;
+  } else if(obj1.serverUrl.indexOf("r3")!=-1) {
+    ver =3;
+  }
+  if(obj1.authorizeUri){
+    appendLog("SMART Auth Event - Auth Server URI: "+obj1.authorizeUri);
+  }
+  if(obj1.tokenResponse){
+    var atoken = obj1.tokenResponse.access_token.substring(0,6)+"****";
+    appendLog("SMART Auth Event - Access Token: "+atoken);
+  }
 
   FHIR.oauth2.ready().then(function(client) {
       app(client);
