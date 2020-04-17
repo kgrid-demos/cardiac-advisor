@@ -22,6 +22,22 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
+  var smartkey =sessionStorage.getItem('SMART_KEY').replace(/"/g, "") ;
+  var smartstate = sessionStorage.getItem(smartkey+"");
+  var obj1 = {};
+  if(smartstate!=null){
+    obj1 = JSON.parse(smartstate);
+    console.log(smartkey);
+    var ver = 3;
+    if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
+      ver =2;
+    } else if(obj1.serverUrl.indexOf("r3")!=-1) {
+      ver =3;
+    }
+    if(obj1.authorizeUri){
+      appendLog("Before Auth Ready - Auth Server URI: "+obj1.authorizeUri);
+    }
+  }
 
   FHIR.oauth2.ready().then(function(client) {
       app(client);
@@ -40,7 +56,6 @@ function app(smart){
   if(smartstate!=null){
     obj1 = JSON.parse(smartstate);
     console.log(smartkey);
-    // console.log(obj1);
   }
   var ver = 3;
   if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
