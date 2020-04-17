@@ -10,6 +10,7 @@ npm run docs:build
 # copy web demo to github pages dist
 cd docs
 cp -r fhir-app .vuepress/dist
+cp -r fhir-app-cs .vuepress/dist
 cd ..
 mkdir -p docs/.vuepress/dist/.circleci
 cp -a .circleci/. docs/.vuepress/dist/.circleci/.
