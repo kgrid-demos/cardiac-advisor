@@ -87,7 +87,8 @@ function app(smart){
 
 	smart.patient.read().then(function(pt)
 	{
-		console.log("PATIENT RESOURCE: ", pt);
+		// console.log("PATIENT RESOURCE: ", pt);
+    appendLog("Application Event - Patient ID: "+pt.id);
 		var patientName =get_patient_name(ver, pt);
     var serverVer = (ver==2) ? "DSTU2" : "STU3";
     appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
