@@ -64,7 +64,7 @@ function app(smart){
     ver =3;
   }
   if(obj1.authorizeUri){
-    appendLog("SMART Auth Event - Auth Server URI: "+obj1.authorizeUri);
+    appendLog("SMART Auth Event - Auth Server URI: "+smartstate);
   }
   if(obj1.tokenResponse){
     var atoken = obj1.tokenResponse.access_token.substring(0,6)+"****";
