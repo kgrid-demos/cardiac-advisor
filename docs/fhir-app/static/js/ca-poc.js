@@ -91,7 +91,7 @@ function app(smart){
   var identifierSearchString = "api/epic/2015/Common/Patient/GetPatientIdentifiers/Patient/Identifiers";
   var completeSearchString = baseUrl + identifierSearchString;
 
- console.log(completeSearchString);
+ appendLog("FHIR Patient ID URL: "+completeSearchString);
 
  var requestParams = { "PatientID":obj1.tokenResponse.patient,
     "PatientIDType":"FHIR",
@@ -101,9 +101,9 @@ function app(smart){
   console.log(requestParams);
 
   $.post(completeSearchString, requestParams).done(function(data) {
-    console.log(data);
+    appendLog("EPIC FHIR Patient Identifier: "+data);
     var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
-    var patientIdSTU3 = result[0].ID //We’ll only ever return one FHIR STU3 ID
+    var patientIdSTU3 = result[0].ID;  //We’ll only ever return one FHIR STU3 ID
   	smart.request('Patient/'+patientIdSTU3).then(function(pt)
   	{
   		// console.log("PATIENT RESOURCE: ", pt);
@@ -201,6 +201,6 @@ function app(smart){
       appendLog("SMART Request Error: - "+ error);
     });
   }).fail(function(error){
-    console.log(error);
+    appendLog("EPIC FHIR Error:" + error);
   });
 }
