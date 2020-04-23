@@ -63,6 +63,7 @@ function app(smart){
   } else if(obj1.serverUrl.indexOf("r3")!=-1) {
     ver =3;
   }
+  var serverVer = (ver==2) ? "DSTU2" : "STU3";
   if(obj1.authorizeUri){
     appendLog("SMART Auth Event - Auth Server URI: "+smartstate);
   }
@@ -85,7 +86,7 @@ function app(smart){
   };
 
   //MM POC handling STU3 Resource in DSTU2 Server
-  var baseUrl = obj1.serverUrl.replace('api/FHIR/DSTU2', "");
+  var baseUrl = obj1.serverUrl.replace('api/FHIR/'+serverVer, "");
   console.log(baseUrl);
 
   var identifierSearchString = "api/epic/2015/Common/Patient/GetPatientIdentifiers/Patient/Identifiers";
