@@ -202,6 +202,7 @@ function app(smart){
       appendLog("SMART Request Error: - "+ error);
     });
   }).fail(function(error){
+    console.log(error);
     appendLog("EPIC FHIR Error:" + error);
   });
 }
