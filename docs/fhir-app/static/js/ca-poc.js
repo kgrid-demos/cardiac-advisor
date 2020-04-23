@@ -96,10 +96,17 @@ function app(smart){
 
  var requestParams = { "PatientID":obj1.tokenResponse.patient,
     "PatientIDType":"FHIR",
-    "UserID":"999972508570",
+    // "UserID":"999972508570",
+    "UserID":"1",
     "UserIDType":"External" };
 
   console.log(requestParams);
+
+  $.ajaxSetup({
+     headers:{
+        'Authorization': 'Bearer '+obj1.tokenResponse.access_token
+           }
+  });
 
   $.post(completeSearchString, requestParams).done(function(data) {
     appendLog("EPIC FHIR Patient Identifier: "+data);
