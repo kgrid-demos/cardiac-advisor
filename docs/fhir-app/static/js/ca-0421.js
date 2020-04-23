@@ -85,7 +85,7 @@ function app(smart){
     "stentRisk": null
   };
 
-	smart.request('Patient/'+obj1.tokenResponse.patient).then(function(pt)
+	smart.request('/Patient/'+obj1.tokenResponse.patient).then(function(pt)
 	{
 		// console.log("PATIENT RESOURCE: ", pt);
     appendLog("Application Event - Patient ID: "+pt.id);
