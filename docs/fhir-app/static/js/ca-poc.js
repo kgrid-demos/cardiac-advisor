@@ -96,7 +96,7 @@ function app(smart){
 
  var requestParams = { "PatientID":obj1.tokenResponse.patient,
     "PatientIDType":"FHIR",
-    "UserID":"1",
+    "UserID":"999972508570",
     "UserIDType":"External" };
 
   console.log(requestParams);
