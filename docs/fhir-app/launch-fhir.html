@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <!-- <script src="./static/js/fhir-client.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+    <script>
+      FHIR.oauth2.authorize({
+        "client_id":
+        // "2d85bd91-2bb8-4a3e-b80c-5cc56a391ecf",
+        "c658350f-8c9c-4f46-8a27-a1ceb736d701",
+        // "clientSecret":"dFLObe+5dpzrEoThg3n1D8H1sVNCrigActOf4xvrJlcGqOzf//F7xaZtuL7tJ9Nplj0JurKD45P9Y9Gz2Iu5Lg==",
+        "scope":  "launch",
+        "redirect_uri": "index.html"
+      });
+    </script>
+  </head>
+  Launching POST PCI App (Build: 20200423A) ...
+</html>
