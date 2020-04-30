@@ -210,6 +210,7 @@ function app(smart){
     });
   }).fail(function(error){
     console.log(error);
-    appendLog("EPIC FHIR Error:" + error);
+    appendLog("EPIC FHIR Error Code: " + error.status);
+    appendLog("EPIC FHIR Error Status Text: " + error.statusText);
   });
 }
