@@ -74,10 +74,12 @@ function app(smart){
             "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
           }
         });
-        $.post(completeSearchString, requestParams).done(function(data) {
-          appendLog("EPIC FHIR Patient Identifier: "+data);
-          var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
-          var patientIdSTU3 = result[0].ID;  //We’ll only ever return one FHIR STU3 ID
+        // $.post(completeSearchString, requestParams).done(function(data) {
+        //   appendLog("EPIC FHIR Patient Identifier: "+data);
+        //   var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
+          var patientIdSTU3 =
+          //result[0].ID;  //We’ll only ever return one FHIR STU3 ID
+          "eix-nouOxJRM2qt-h2y0-qg3";
           // Patient Info
           var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
           $.getJSON(ptSearchString, function(pt, error){
@@ -91,11 +93,11 @@ function app(smart){
                 appUI(pt, condition);
               });
           });
-        }).fail(function(error){
-          console.log(error);
-          appendLog("EPIC FHIR Error Code: " + error.status);
-          appendLog("EPIC FHIR Error Status Text: " + error.statusText);
-        });
+        // }).fail(function(error){
+        //   console.log(error);
+        //   appendLog("EPIC FHIR Error Code: " + error.status);
+        //   appendLog("EPIC FHIR Error Status Text: " + error.statusText);
+        // });
   } else {
     console.log(obj1.serverUrl);
     smart.request('Patient/'+smart.patient.id).then(function(pt)
