@@ -2,7 +2,7 @@
 
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200421C");
+  appendLog("App Build Info: 20200430-FHIRAPI");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
