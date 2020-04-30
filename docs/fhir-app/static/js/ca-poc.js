@@ -104,7 +104,8 @@ function app(smart){
 
   $.ajaxSetup({
      headers:{
-        'Authorization': 'Bearer '+obj1.tokenResponse.access_token
+        'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
+        "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
            }
   });
 
