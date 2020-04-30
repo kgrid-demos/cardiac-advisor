@@ -22,7 +22,6 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
-
   FHIR.oauth2.ready().then(function(client) {
       app(client);
     }).catch(function(e){
@@ -56,88 +55,102 @@ function app(smart){
     appendLog("SMART Auth Event - Access Token: "+atoken);
   }
 
+  if(obj1.serverUrl.indexOf("umich.edu")!=-1){
+        //MM POC handling STU3 Resource in DSTU2 Server
+        var baseUrl = obj1.serverUrl.replace('api/FHIR/'+serverVer, "");
+        console.log(baseUrl);
+        var identifierSearchString = "api/epic/2015/Common/Patient/GetPatientIdentifiers/Patient/Identifiers";
+        var completeSearchString = baseUrl + identifierSearchString;
+       appendLog("FHIR Patient ID URL: "+completeSearchString);
+       var requestParams = { "PatientID":obj1.tokenResponse.patient,
+          "PatientIDType":"FHIR",
+          "UserID":"999972508570",
+          // "UserID":"1",
+          "UserIDType":"External" };
+        console.log(requestParams);
+        $.ajaxSetup({
+          headers:{
+            'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
+            "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
+          }
+        });
+        $.post(completeSearchString, requestParams).done(function(data) {
+          appendLog("EPIC FHIR Patient Identifier: "+data);
+          var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
+          var patientIdSTU3 = result[0].ID;  //We’ll only ever return one FHIR STU3 ID
+          // Patient Info
+          var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
+          $.getJSON(ptSearchString, function(pt, error){
+            ptUI(ver, pt);
+        		var retrieved = new Set();
+            // Condition
+            var ptSearchString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
+            $.getJSON(ptSearchString, function(data, error){
+                appendLog("EPIC FHIR Resource - Patient Info: ");
+                appendLog(data);
+                appUI(pt, condition);
+              });
+          });
+        }).fail(function(error){
+          console.log(error);
+          appendLog("EPIC FHIR Error Code: " + error.status);
+          appendLog("EPIC FHIR Error Status Text: " + error.statusText);
+        });
+  } else {
+    console.log(obj1.serverUrl);
+    smart.request('Patient/'+smart.patient.id).then(function(pt)
+    {
+      ptUI(ver, pt);
+
+      var retrieved = new Set();
+      // resourecount_refresh(smart);
+      smart.request("/Condition?patient=" + smart.patient.id)
+      .then(function(condition)
+      {
+        appendLog("SMART FHIR Resource - Patient Condition FHIR Resource: ");
+        appendLog(JSON.stringify(condition));
+        appUI(pt, condition);
+      }).catch(function(error){
+        appendLog("SMART Request Error: - "+ error);
+      });
+    }).catch(function(error){
+      appendLog("SMART Request Error: - "+ error);
+    });
+  }
+}
+
+function ptUI(ver, pt){
+  appendLog("FHIR Resource - Patient Info: ");
+  appendLog(JSON.stringify(pt));
+  appendLog("Application Event - Patient ID: "+pt.id);
+  var patientName =get_patient_name(ver, pt);
+  var serverVer = (ver==2) ? "DSTU2" : "STU3";
+  appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
+  appendLog("Application Event - Patient ID: "+pt.id);
+  appendLog("Application Event - Patient Name: "+JSON.stringify(pt.name));
+  console.log(patientName);
+  console.log(ver);
+  $("#patient-name").text(get_patient_name(ver, pt));
+  $("#patient-age").text(calculateAge(pt.birthDate));
+  $("#patient-id").text(pt.id);
+  $("#patient-gender").text(pt.gender);
+}
+
+function appUI(pt, condition){
+  //if there the patient has a condition observation resource containing an
+  // observation, outlilne the table box in green to show it was retrieved from the EHR
+  // keep track of retrieved information using Retrieved set
+  //This is used to keep track of results from knowledge objects
   var retrieved = new Set();
   //codes for different conditions from EHR
   var renalCode = "36225005";
   var hypertensionCode = "38341003";
   var diabetesCode = "44054006";
-
-  //This is used to keep track of results from knowledge objects
   var riskScores =
   {
     "bleedRisk": null,
     "stentRisk": null
   };
-
-  //MM POC handling STU3 Resource in DSTU2 Server
-  var baseUrl = obj1.serverUrl.replace('api/FHIR/'+serverVer, "");
-  console.log(baseUrl);
-
-  var identifierSearchString = "api/epic/2015/Common/Patient/GetPatientIdentifiers/Patient/Identifiers";
-  var completeSearchString = baseUrl + identifierSearchString;
-
- appendLog("FHIR Patient ID URL: "+completeSearchString);
-
- var requestParams = { "PatientID":obj1.tokenResponse.patient,
-    "PatientIDType":"FHIR",
-    // "UserID":"999972508570",
-    "UserID":"1",
-    "UserIDType":"External" };
-
-  console.log(requestParams);
-
-  $.ajaxSetup({
-    headers:{
-      'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
-      "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
-    }
-  });
-
-  $.post(completeSearchString, requestParams).done(function(data) {
-    appendLog("EPIC FHIR Patient Identifier: "+data);
-    var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
-    var patientIdSTU3 = result[0].ID;  //We’ll only ever return one FHIR STU3 ID
-
-    // Patient Info
-    var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
-    $.getJSON(ptSearchString, function(pt, error){
-      appendLog("EPIC FHIR Resource - Patient Info: ");
-      appendLog(pt);
-      appendLog("Application Event - Patient ID: "+pt.id);
-  		var patientName =get_patient_name(ver, pt);
-      var serverVer = (ver==2) ? "DSTU2" : "STU3";
-      appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
-      appendLog("Application Event - Patient ID: "+pt.id);
-      appendLog("Application Event - Patient Name: "+JSON.stringify(pt.name));
-  		console.log(patientName);
-      console.log(ver);
-  		$("#patient-name").text(get_patient_name(ver, pt));
-      $("#patient-age").text(calculateAge(pt.birthDate));
-      $("#patient-id").text(pt.id);
-      $("#patient-gender").text(pt.gender);
-
-  		var retrieved = new Set();
-      // Condition
-      var ptSearchString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
-      $.getJSON(ptSearchString, function(data, error){
-          appendLog("EPIC FHIR Resource - Patient Info: ");
-          appendLog(data);
-          appUI(pt, condition, riskScores);
-        });
-    });
-
-  }).fail(function(error){
-    console.log(error);
-    appendLog("EPIC FHIR Error Code: " + error.status);
-    appendLog("EPIC FHIR Error Status Text: " + error.statusText);
-  });
-}
-
-
-function appUI(pt, condition, riskScores){
-  //if there the patient has a condition observation resource containing an
-  // observation, outlilne the table box in green to show it was retrieved from the EHR
-  // keep track of retrieved information using Retrieved set
   if(value_in_resource(condition, resource_path_for(renalCode)))
   {
     retrieved.add(keyDict.renal);
