@@ -114,24 +114,10 @@ function app(smart){
     var patientIdSTU3 = result[0].ID;  //We’ll only ever return one FHIR STU3 ID
 
     // Patient Info
-    // var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3
-    // $.getJSON(ptSearchString, function(data, error){
-    //   appendLog("EPIC FHIR Resource - Patient Info: ");
-    //   appendLog(data);
-    //})
-
-    // Condition
-    // var ptSearchString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3
-    // $.getJSON(ptSearchString, function(data, error){
-    //   appendLog("EPIC FHIR Resource - Patient Info: ");
-    //   appendLog(data);
-    //})
-
-
-
-  	smart.request('Patient/'+patientIdSTU3).then(function(pt)
-  	{
-  		// console.log("PATIENT RESOURCE: ", pt);
+    var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
+    $.getJSON(ptSearchString, function(pt, error){
+      appendLog("EPIC FHIR Resource - Patient Info: ");
+      appendLog(pt);
       appendLog("Application Event - Patient ID: "+pt.id);
   		var patientName =get_patient_name(ver, pt);
       var serverVer = (ver==2) ? "DSTU2" : "STU3";
@@ -146,15 +132,43 @@ function app(smart){
       $("#patient-gender").text(pt.gender);
 
   		var retrieved = new Set();
-      // resourecount_refresh(smart);
-      smart.request("/Condition?patient=" + smart.patient.id)
-    	.then(function(condition){
-  			console.log("condition: ", condition);
-        appUI(pt, condition, riskScores);
-  		});
-	  }).catch(function(error){
-      appendLog("SMART Request Error: - "+ error);
+      // Condition
+      var ptSearchString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
+      $.getJSON(ptSearchString, function(data, error){
+          appendLog("EPIC FHIR Resource - Patient Info: ");
+          appendLog(data);
+          console.log("condition: ", condition);
+          appUI(pt, condition, riskScores);
+        });
     });
+
+    // SMART CALLS
+  	// smart.request('Patient/'+patientIdSTU3).then(function(pt)
+  	// {
+  	// 	// console.log("PATIENT RESOURCE: ", pt);
+    //   appendLog("Application Event - Patient ID: "+pt.id);
+  	// 	var patientName =get_patient_name(ver, pt);
+    //   var serverVer = (ver==2) ? "DSTU2" : "STU3";
+    //   appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
+    //   appendLog("Application Event - Patient ID: "+pt.id);
+    //   appendLog("Application Event - Patient Name: "+JSON.stringify(pt.name));
+  	// 	console.log(patientName);
+    //   console.log(ver);
+  	// 	$("#patient-name").text(get_patient_name(ver, pt));
+    //   $("#patient-age").text(calculateAge(pt.birthDate));
+    //   $("#patient-id").text(pt.id);
+    //   $("#patient-gender").text(pt.gender);
+    //
+  	// 	var retrieved = new Set();
+    //   // resourecount_refresh(smart);
+    //   smart.request("/Condition?patient=" + smart.patient.id)
+    // 	.then(function(condition){
+  	// 		console.log("condition: ", condition);
+    //     appUI(pt, condition, riskScores);
+  	// 	});
+	  // }).catch(function(error){
+    //   appendLog("SMART Request Error: - "+ error);
+    // });
   }).fail(function(error){
     console.log(error);
     appendLog("EPIC FHIR Error:" + error);
