@@ -77,10 +77,12 @@ function app(smart){
         // $.post(completeSearchString, requestParams).done(function(data) {
         //   appendLog("EPIC FHIR Patient Identifier: "+data);
         //   var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
-          var patientIdSTU3 =
+          var patientIdSTU3 =  "e63wRTbPfr1p8UW81d8Seiw3"; //Epic App Orchard
+          if(obj1.serverUrl.indexOf("umich.edu")!=-1){
+            patientIdSTU3 = "eix-nouOxJRM2qt-h2y0-qg3";  //MM POC sample id
+          }
           //result[0].ID;  //We’ll only ever return one FHIR STU3 ID
-          //"eix-nouOxJRM2qt-h2y0-qg3";  //MM Epic POC sample id
-          "e63wRTbPfr1p8UW81d8Seiw3";
+          //
           // Patient Info
           var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
           $.getJSON(ptSearchString).done(function(pt){
