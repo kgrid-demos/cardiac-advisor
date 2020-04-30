@@ -55,7 +55,7 @@ function app(smart){
     appendLog("SMART Auth Event - Access Token: "+atoken);
   }
 
-  if(obj1.serverUrl.indexOf("umich.edu")!=-1){
+  if(obj1.serverUrl.indexOf("umich.edu")!=-1|obj1.serverUrl.indexOf("epic")!=-1){
         //MM POC handling STU3 Resource in DSTU2 Server
         var baseUrl = obj1.serverUrl.replace('api/FHIR/'+serverVer, "");
         console.log(baseUrl);
@@ -79,14 +79,15 @@ function app(smart){
         //   var result = $.grep(data, function(x) { return x.IDType == "FHIR STU3"; });
           var patientIdSTU3 =
           //result[0].ID;  //We’ll only ever return one FHIR STU3 ID
-          "eix-nouOxJRM2qt-h2y0-qg3";
+          //"eix-nouOxJRM2qt-h2y0-qg3";  //MM Epic POC sample id
+          "e63wRTbPfr1p8UW81d8Seiw3";
           // Patient Info
           var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
           $.getJSON(ptSearchString).done(function(pt){
             ptUI(ver, pt);
         		var retrieved = new Set();
             // Condition
-            var ptConditionString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
+            var ptConditionString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
             $.getJSON(ptConditionString).done(function(data){
                 appendLog("EPIC FHIR Resource - Patient Info: ");
                 appendLog(data);
