@@ -122,14 +122,14 @@ function app(smart){
       $.getJSON(ptSearchString, function(data, error){
           appendLog("EPIC FHIR Resource - Patient Info: ");
           appendLog(data);
-          console.log("condition: ", condition);
           appUI(pt, condition, riskScores);
         });
     });
 
   }).fail(function(error){
     console.log(error);
-    appendLog("EPIC FHIR Error:" + error);
+    appendLog("EPIC FHIR Error Code: " + error.status);
+    appendLog("EPIC FHIR Error Status Text: " + error.statusText);
   });
 }
 
