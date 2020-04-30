@@ -82,16 +82,24 @@ function app(smart){
           "eix-nouOxJRM2qt-h2y0-qg3";
           // Patient Info
           var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
-          $.getJSON(ptSearchString, function(pt, error){
+          $.getJSON(ptSearchString).done(function(pt){
             ptUI(ver, pt);
         		var retrieved = new Set();
             // Condition
-            var ptSearchString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
-            $.getJSON(ptSearchString, function(data, error){
+            var ptConditionString = obj1.serverUrl.replace(sererVer, 'STU3')+"/Condition?patient=" + patientIdSTU3;
+            $.getJSON(ptConditionString).done(function(data){
                 appendLog("EPIC FHIR Resource - Patient Info: ");
                 appendLog(data);
                 appUI(pt, condition);
+              }).fail(function(error){
+                console.log(error);
+                appendLog("EPIC FHIR Error Code: (Condition) " + error.status);
+                appendLog("EPIC FHIR Error Status Text: (Condition) " + error.statusText);
               });
+          }).fail(function(error){
+            console.log(error);
+            appendLog("EPIC FHIR Error Code: (Patient) " + error.status);
+            appendLog("EPIC FHIR Error Status Text: (Patient) " + error.statusText);
           });
         // }).fail(function(error){
         //   console.log(error);
