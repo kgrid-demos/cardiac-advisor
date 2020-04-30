@@ -22,22 +22,6 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
-  var smartkey =sessionStorage.getItem('SMART_KEY').replace(/"/g, "") ;
-  var smartstate = sessionStorage.getItem(smartkey+"");
-  var obj1 = {};
-  if(smartstate!=null){
-    obj1 = JSON.parse(smartstate);
-    console.log(smartkey);
-    var ver = 3;
-    if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
-      ver =2;
-    } else if(obj1.serverUrl.indexOf("r3")!=-1) {
-      ver =3;
-    }
-    if(obj1.authorizeUri){
-      appendLog("Before Auth Ready - Auth Server URI: "+obj1.authorizeUri);
-    }
-  }
 
   FHIR.oauth2.ready().then(function(client) {
       app(client);
@@ -103,9 +87,10 @@ function app(smart){
   console.log(requestParams);
 
   $.ajaxSetup({
-     headers:{
-        'Authorization': 'Bearer '+obj1.tokenResponse.access_token
-           }
+    headers:{
+      'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
+      "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
+    }
   });
 
   $.post(completeSearchString, requestParams).done(function(data) {
@@ -142,33 +127,6 @@ function app(smart){
         });
     });
 
-    // SMART CALLS
-  	// smart.request('Patient/'+patientIdSTU3).then(function(pt)
-  	// {
-  	// 	// console.log("PATIENT RESOURCE: ", pt);
-    //   appendLog("Application Event - Patient ID: "+pt.id);
-  	// 	var patientName =get_patient_name(ver, pt);
-    //   var serverVer = (ver==2) ? "DSTU2" : "STU3";
-    //   appendLog("Application Event - Retrieved Patient Data from FHIR Server ("+serverVer+")");
-    //   appendLog("Application Event - Patient ID: "+pt.id);
-    //   appendLog("Application Event - Patient Name: "+JSON.stringify(pt.name));
-  	// 	console.log(patientName);
-    //   console.log(ver);
-  	// 	$("#patient-name").text(get_patient_name(ver, pt));
-    //   $("#patient-age").text(calculateAge(pt.birthDate));
-    //   $("#patient-id").text(pt.id);
-    //   $("#patient-gender").text(pt.gender);
-    //
-  	// 	var retrieved = new Set();
-    //   // resourecount_refresh(smart);
-    //   smart.request("/Condition?patient=" + smart.patient.id)
-    // 	.then(function(condition){
-  	// 		console.log("condition: ", condition);
-    //     appUI(pt, condition, riskScores);
-  	// 	});
-	  // }).catch(function(error){
-    //   appendLog("SMART Request Error: - "+ error);
-    // });
   }).fail(function(error){
     console.log(error);
     appendLog("EPIC FHIR Error:" + error);
@@ -207,7 +165,6 @@ function appUI(pt, condition, riskScores){
   if(retrieved.size > 0)
   {
     console.log("retrieved elts", retrieved);
-    //$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
   }
 
   //Autofill sample buttons
@@ -215,7 +172,6 @@ function appUI(pt, condition, riskScores){
   {
      var sampleno = parseInt($(this).val())+1;
     autofill(parseInt($(this).val()) ,retrieved);
-    // $("#get_data").slideDown("slow"	)
     // hide_visuals()
      appendLog("Application Event - Autofill sample "+sampleno+ " is selected.");
      get_ischemic_data(pt, riskScores);

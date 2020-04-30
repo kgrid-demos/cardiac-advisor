@@ -1,15 +1,14 @@
 //$$$
-
 $(document).ready(function()
 {
-  appendLog("App Build Info: 20200421C");
+  appendLog("App Build Info: 20200430B");
   appendLog("K-GRID Resource Request - Retrieving Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
   if(b){
     appendLog("K-GRID Resource Response - Retrieved Icon Array Code (ark:/99999/fk40s01p75) from Knowledge Grid Activator.");
     appendLog("Application Event - Post PCI Risk Assessment Ready.");
     ir_fill("bleeding-icon", 0);
     ir_fill("stent-gage", 0);
-  }else {
+  } else {
     appendLog('K-GRID Resource Response - Error');
     $("input").prop("disabled", "disabled");
   }
@@ -22,22 +21,6 @@ $(document).ready(function()
     $(".bleed").addClass("vis");
   });
   console.log(FHIR);
-  var smartkey =sessionStorage.getItem('SMART_KEY').replace(/"/g, "") ;
-  var smartstate = sessionStorage.getItem(smartkey+"");
-  var obj1 = {};
-  if(smartstate!=null){
-    obj1 = JSON.parse(smartstate);
-    console.log(smartkey);
-    var ver = 3;
-    if(obj1.serverUrl.indexOf("DSTU2") !=-1 | obj1.serverUrl.indexOf("r2")!=-1){
-      ver =2;
-    } else if(obj1.serverUrl.indexOf("r3")!=-1) {
-      ver =3;
-    }
-    if(obj1.authorizeUri){
-      appendLog("Before Auth Ready - Auth Server URI: "+obj1.authorizeUri);
-    }
-  }
 
   FHIR.oauth2.ready().then(function(client) {
       app(client);
@@ -103,10 +86,10 @@ function app(smart){
   console.log(requestParams);
 
   $.ajaxSetup({
-     headers:{
-        'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
-        "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
-           }
+    headers:{
+      'Authorization': 'Bearer '+obj1.tokenResponse.access_token,
+      "Epic-Client-ID":"c658350f-8c9c-4f46-8a27-a1ceb736d701"
+    }
   });
 
   $.post(completeSearchString, requestParams).done(function(data) {
@@ -166,7 +149,6 @@ function app(smart){
   			if(retrieved.size > 0)
   			{
   				console.log("retrieved elts", retrieved);
-  				//$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
   			}
 
   			//Autofill sample buttons
@@ -184,7 +166,6 @@ function app(smart){
   			});
 
   		});
-
 
       $("input:radio[name='yes/no']").change(function()
       {
