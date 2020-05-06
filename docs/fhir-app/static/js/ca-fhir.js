@@ -100,9 +100,9 @@ function app(smart){
                 appendLog("EPIC FHIR Error Code: (Condition) " + error.status);
                 appendLog("EPIC FHIR Error Status Text: (Condition) " + error.statusText);
               });
-          }).fail(function(error){
+          }).fail(function(jqXHR, textStatus, error){
             console.log(error);
-            appendLog("EPIC FHIR Error Code: (Patient) " + JSON.stringify(error));
+            appendLog("EPIC FHIR Error Code: (Patient) " + JSON.stringify(jqXHR.responseJSON));
 
             appendLog("EPIC FHIR Error Code: (Patient) " + error.status);
             appendLog("EPIC FHIR Error Status Text: (Patient) " + error.statusText);
