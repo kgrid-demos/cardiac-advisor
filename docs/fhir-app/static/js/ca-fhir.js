@@ -61,7 +61,7 @@ function app(smart){
         console.log(baseUrl);
         var identifierSearchString = "api/epic/2015/Common/Patient/GetPatientIdentifiers/Patient/Identifiers";
         var completeSearchString = baseUrl + identifierSearchString;
-       appendLog("FHIR Patient ID URL: "+completeSearchString);
+       // appendLog("FHIR Patient ID URL: "+completeSearchString);
        var requestParams = { "PatientID":obj1.tokenResponse.patient,
           "PatientIDType":"FHIR",
           "UserID":"999972508570",
@@ -85,6 +85,7 @@ function app(smart){
           //
           // Patient Info
           var ptSearchString = obj1.serverUrl.replace(serverVer, 'STU3')+"/Patient/" + patientIdSTU3;
+          appendLog("Patient Search URL: "+ ptSearchString);
           $.getJSON(ptSearchString).done(function(pt){
             ptUI(ver, pt);
         		var retrieved = new Set();
