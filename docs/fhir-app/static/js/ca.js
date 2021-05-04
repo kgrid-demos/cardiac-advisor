@@ -1,5 +1,3 @@
-//$$$
-
 $(document).ready(function()
 {
   appendLog("App Build Info: 20200415B");
@@ -137,7 +135,6 @@ function app(smart){
 			if(retrieved.size > 0)
 			{
 				console.log("retrieved elts", retrieved);
-				//$("#ehr-info").text("Areas outlined in green were pre-populated from the patient's electronic health record")
 			}
 
 			//Autofill sample buttons
@@ -145,8 +142,7 @@ function app(smart){
 			{
         var sampleno = parseInt($(this).val())+1;
 				autofill(parseInt($(this).val()) ,retrieved);
-				// $("#get_data").slideDown("slow"	)
-				// hide_visuals()
+
         appendLog("Application Event - Autofill sample "+sampleno+ " is selected.");
         get_ischemic_data(pt, riskScores);
         get_stent_data(pt,riskScores);
@@ -164,18 +160,6 @@ function app(smart){
       resetWriteButton("bleed");
       resetWriteButton("stent");
     });
-
-		// $("#write-data-bleed").click(function()
-		// {
-		// 	write_risk_data(riskScores["bleedRisk"],null, smart)
-		// })
-    // $("#write-data-stent").click(function()
-		// {
-		// 	write_risk_data(null,riskScores["stentRisk"], smart)
-		// })
-    // smart.user.read().then(function(usr){
-    //   console.log(usr);
-    // });
 
 	});
 }

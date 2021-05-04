@@ -1,12 +1,6 @@
-// var keyDict = {0: 'DAPT', 4: 'infar', 5: 'priorPCI', 6: 'CHF', 7: 'veinGraft', 8: 'stentDiameter',
-//  				9: 'pac', 10: 'cigSmoker', 11: 'diabetes', 1: 'periphDisease',  2: 'hypertension', 3: 'renal'};
-
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
-// var baseDevUrl = "http://dlhs-fedora-dev-a.umms.med.umich.edu:8080/ExecutionStack";
-// var baseUrl ="http://kgrid.med.umich.edu/stack";
-// var objLeadUrl = "/knowledgeObject/ark:/";
-var baseUrl ="https://activator.kgrid.org/";
+var baseUrl ="https://kgrid-activator-demo.herokuapp.com/";
 var b = false;
 
 /**
