@@ -1,1 +1,1 @@
-Please find [the instruction](http://kgrid.org/cardiac-advisor) here.
+Please find [the instruction](https://demo.kgrid.org/cardiac-advisor) here.

@@ -81,6 +81,9 @@ function app(smart){
           if(obj1.serverUrl.indexOf("umich.edu")!=-1){
             patientIdSTU3 = "eix-nouOxJRM2qt-h2y0-qg3";  //MM POC sample id
           }
+          if(obj1.serverUrl.indexOf("tst")!=-1){
+            patientIdSTU3 = "eix-nouOxJRM2qt-h2y0-qg3";  //MM TST sample id
+          }
           //result[0].ID;  //We’ll only ever return one FHIR STU3 ID
           //
           // Patient Info
@@ -100,10 +103,8 @@ function app(smart){
                 appendLog("EPIC FHIR Error Code: (Condition) " + error.status);
                 appendLog("EPIC FHIR Error Status Text: (Condition) " + error.statusText);
               });
-          }).fail(function(jqXHR, textStatus, error){
+          }).fail(function(error){
             console.log(error);
-            appendLog("EPIC FHIR Error Code: (Patient) " + JSON.stringify(jqXHR.responseJSON));
-
             appendLog("EPIC FHIR Error Code: (Patient) " + error.status);
             appendLog("EPIC FHIR Error Status Text: (Patient) " + error.statusText);
           });
