@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html style="height:98%;">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=11">
+  <!-- <script src="./static/js/fhir-client.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+</head>
+    <body style="height:98%;">
+        <iframe
+            width="99%"
+            height="99%"
+            name="frame"
+            src=""
+            style="border: 1px solid #eee"
+        ></iframe>
+        <script>
+            FHIR.oauth2.authorize({
+              "client_id":
+              // "2d85bd91-2bb8-4a3e-b80c-5cc56a391ecf",
+              "c658350f-8c9c-4f46-8a27-a1ceb736d701",
+               //"bfca7dd9-09aa-46ab-b38e-9f8282707535",
+              // "clientSecret":"dFLObe+5dpzrEoThg3n1D8H1sVNCrigActOf4xvrJlcGqOzf//F7xaZtuL7tJ9Nplj0JurKD45P9Y9Gz2Iu5Lg==",
+              "target": "frame",
+              // scope: "launch/patient user/*read patient/*read openid fhirUser"
+							"scope": "launch",
+              "redirect_uri": "index.html"
+            });
+        </script>
+    </body>
+</html>

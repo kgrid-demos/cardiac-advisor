@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=11">
+  <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- <script src="./static/js/vendor-fhir-client.js"> </script> -->
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="./static/css/ca_style.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 	<script src="./static/js/helpers.js"> </script>
+ 	<script src="./static/js/ca-0421.js"> </script>
+ 	<script src="https://d3js.org/d3.v4.min.js"></script>
+ 	<script src="./static/js/jsonpath.js"></script>
+  <!-- <script src="https://activator.kgrid.org/kos/icon/array/v0.0.3/iconarray.js" onload='startup()' onerror="pauseonerror()"></script> -->
+  <script src="./static/js/iconarray.js" onload='startup()' onerror="pauseonerror()"></script>
+ </head>
+
+<body>
+<header>
+<div class="container color-scheme">
+	<h1>Post PCI Risks <small>(In the 12-30 month period after the procedure)</small></h1>
+</div>
+</header>
+<!-- First Container -->
+<div class="container">
+  <div class="row patient-row">
+    <div class="col-md-3"><h2><span id="patient-name"> </span> </h2> </div>
+    <div class="col-md-3"><h3><small>age:</small> <span id="patient-age"> </span></h3>  </div>
+    <div class="col-md-3"> <h3><small>gender:</small><span id="patient-gender"> </span> </h3> </div>
+    <div class="col-md-3"><h3><small>id:<span id="patient-id"> </span> </small></h3> </div>
+  </div>
+  <div class="row resource-row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3"><h3>Condition <span class="badge" id="condition_count">0</span> </h3> </div>
+    <div class="col-md-3"><h3>Observation<span  class="badge" id="observation_count"> 0</span></h3>  </div>
+    <div class="col-md-3"> <h3>Risk Assessment<span class="badge" id="risk_count"> 0 </span> </h3> </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 pad-left0">
+
+<div class="" id="input_div">
+  <div class="border-box">
+	  <div class=" box-header color-scheme">
+			<h3> Input Information </h3>
+      <div class="row">
+        <div class="col-md-4">
+          <span> Autofill Sample</span>
+        </div>
+        <div class="col-md-2 pad-5">
+          <input  class="sample" id="sample1" type="radio" name="patient1" value="0"> 1
+        </div><div class="col-md-2 pad-5">
+			<input  class="sample" id="sample2" type="radio" name="patient1" value="1"> 2
+    </div><div class="col-md-2 pad-5">
+			<input  class="sample" id="sample3" type="radio" name="patient1" value="2"> 3
+    </div><div class="col-md-2 pad-5">
+			<input  class="sample" id="sample4" type="radio" name="patient1" value="3"> 4
+    </div>
+  </div>
+	  </div>
+	  <table class="table-striped">
+      <tbody>
+        <tr class="bleed stent vis">
+          <td class="pad-left10">Continuing DAPT</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10">Peripheral Artery Disease</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10 hypertension-data">Hypertension</td>
+          <td><form class="info hypertension-data" id="hypertension-form">
+            <input id="hypertension-yes" class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No
+          </form></td>
+        </tr>
+        <tr  class="bleed stent  vis">
+          <td class="pad-left10 renal-data">Renal Insufficiency</td>
+          <td><form class="info renal-data" id="renal-form"> <input id="renal-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+        </tr>
+        <tr  class="stent  vis">
+          <td class="pad-left10">Infarction at presentation</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form> </td>
+        </tr>
+        <tr  class="stent  vis">
+          <td class="pad-left10">Prior PCI</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">History of CHF or LVEF &lt; 30%</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Vein graft PCI</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Stent Diameter &lt; 30mm</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class="stent  vis">
+          <td class="pad-left10">Paclitaxel-eluting stent</td>
+          <td> <form class="info"> <input class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class=" stent vis">
+          <td class="pad-left10">Cigarette smoker</td>
+          <td><form class="info"> <input class="yes-btn" type="radio" name="yes/no" value=1> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr><tr  class=" stent vis">
+          <td class="pad-left10 diabetes-data">Diabetes</td>
+          <td><form class="info diabetes-data" id="diabetes-form"> <input id="diabetes-yes" class="yes-btn" type="radio" name="yes/no" value="1"> Yes
+  					<input class="no-btn" type="radio" name="yes/no" value=0> No </form></td>
+        </tr>
+      </tbody>
+	  </table>
+
+  </div>
+
+</div>
+</div>
+<div class="col-md-8">
+	<div class="row">
+		<div class="col-md-6 pad-left0 text-center" id="bleed-pane">
+      <div class="visual-field">
+			<div id="bleed-div">
+				<h3>GUSTO Bleeding Risk</h3>
+         <span class="risk-val odometer" id="bleed-risk"> --%</span>
+	        <div class="risk-error" id="bleed-error"></div>
+				<br>
+      </div>
+      <div id="exTab1">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1a" data-toggle="tab">Visualization</a>
+			</li>
+			<!-- <li><a href="#2a" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3a" data-toggle="tab">SMART Write</a>
+			</li> -->
+
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1a">
+          <div id="bleeding-icon"> </div>
+				</div>
+				<!-- <div class="tab-pane" id="2a">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
+            <a href="https://library.kgrid.org/#/object/67034%2Fk47c7m%2Fv0.0.3" class=knowledgeButton target="_blank">Bleeding Risk Calculator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="https://library.kgrid.org/#/object/icon%2Farray%2Fv0.0.2" class=knowledgeButton target="_blank">Icon Array</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3a">
+          <div classs="row">
+          		<div class="col-md-12 text-center write-preview" >
+                  <div id="preview-bleed">
+          					<pre id="json-preview-bleed" class="text-left"> </pre>
+          				</div>
+          				<button type="button" class="btn btn-primary" id="write-data-bleed">Update Patient Record</button>
+                  <div id="write-status-bleed" class="text-center hidden"> Success </div>
+          		</div>
+          </div>
+				</div> -->
+			</div>
+  </div>
+</div>
+		</div>
+		<div class="col-md-6 visual-field text-center" id="stent-pane">
+			<div id="stent-div">
+				<h3>Stent Thrombosis Risk </h3>
+        <span class="risk-val odometer" id="stent-risk"> --% </span>
+        <div class="risk-error" id="stent-error"></div>
+				<br>
+
+			</div>
+      <div id="exTab2">
+<ul  class="nav nav-pills">
+			<li class="active">
+        <a  href="#1b" data-toggle="tab">Visualization</a>
+			</li>
+			<!-- <li><a href="#2b" data-toggle="tab">Knowledge Link</a>
+			</li>
+			<li><a href="#3b" data-toggle="tab">SMART Write</a>
+			</li> -->
+
+		</ul>
+
+			<div class="tab-content clearfix">
+			  <div class="tab-pane active" id="1b">
+          <div id="stent-gage" > </div>
+				</div>
+				<!-- <div class="tab-pane" id="2b">
+          <div class="col-md-12 text-center pad-top30">
+            <h4>Knowledge Objects In Use</h4>
+          </div>
+          <div class="col-md-12 pad-top30">
+            <a href="https://library.kgrid.org/#/object/99999%2Ffk45m6gq9t%2Fv0.0.3" class=knowledgeButton target="_blank">Stent Thrombosis Risk Calclator</a>
+          </div>
+          <div class="col-md-12 pad-top30">
+           <a href="https://library.kgrid.org/#/object/icon%2Farray%2Fv0.0.2" class=knowledgeButton target="_blank">Icon Array</a>
+          </div>
+				</div>
+        <div class="tab-pane" id="3b">
+          <div classs="row">
+          		<div class="col-md-12 text-center write-preview">
+                <div id="preview-stent" >
+                  <pre id="json-preview-stent" class="text-left"> </pre>
+                </div>
+          				<button type="button" class="btn btn-primary" id="write-data-stent">Update Patient Record</button>
+                  <div id="write-status-stent" class="text-center hidden"> Success </div>
+          		</div>
+          </div>
+				</div> -->
+
+			</div>
+  </div>
+		</div>
+</div>
+	</div>
+
+
+
+</div>
+</div>
+
+<div class="container">
+<div class="row statussec">
+
+<button class="btn" type="button" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
+  APP LOG - Post PCI Risk Assessment
+</button>
+<div class="collapse in" id="collapseStatus">
+    <textarea id="statusArea" disabled></textarea>
+</div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid container-car color-scheme text-center">
+  <p>University of Michigan Medical School 2017-2020</p>
+</footer>
+
+</body>
+
+</html>
