@@ -1,6 +1,6 @@
 var keyDict = {'DAPT': 0, 'infar': 4, 'priorPCI': 5, 'CHF': 6, 'veinGraft': 7, 'stentDiameter': 8,
  				'pac': 9, 'cigSmoker': 10, 'diabetes': 11, 'periphDisease': 1,  'hypertension': 2, 'renal': 3};
-var baseUrl ="https://kgrid-activator-demo.herokuapp.com/";
+var baseUrl ="https://activator.kgrid.org/";
 var b = false;
 
 /**
@@ -527,17 +527,18 @@ function resetWriteButton(riskname){
 }
 function resourecount_refresh(smart) {
   resource_counting(smart, "/Condition?patient=" + smart.patient.id, function(rsp){
-        var totalcount= rsp.data.total;
+        console.log(rsp)
+        var totalcount= rsp.total;
         console.log("condition:"+totalcount);
         $("#condition_count").text(totalcount);
   });
-  resource_counting(smart, "/Observation", function(rsp){
-        var totalcount= rsp.data.total;
+  resource_counting(smart, "/Observation?patient=" + smart.patient.id, function(rsp){
+        var totalcount= rsp.total;
         console.log("Observation:"+totalcount);
         $("#observation_count").text(totalcount);
   });
-  resource_counting(smart, "/RiskAssessment", function(rsp){
-        var totalcount= rsp.data.total;
+  resource_counting(smart, "/RiskAssessment?patient=" + smart.patient.id, function(rsp){
+        var totalcount= rsp.total;
         console.log("Risk:"+totalcount);
         $("#risk_count").text(totalcount);
   });

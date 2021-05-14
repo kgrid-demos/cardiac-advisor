@@ -120,7 +120,7 @@ function app(smart){
       ptUI(ver, pt);
 
       var retrieved = new Set();
-      // resourecount_refresh(smart);
+      resourecount_refresh(smart);
       smart.request("/Condition?patient=" + smart.patient.id)
       .then(function(condition)
       {
